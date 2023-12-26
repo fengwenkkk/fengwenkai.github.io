@@ -30,7 +30,7 @@ HTTP是无状态的协议，而RTSP为每个会话保持状态；
 
 在RTSP协议中，载荷数据一般是通过带外方式来传送的(除了交织的情况)，及通过RTP协议在不同的通道中来传送载荷数据。而HTTP协议的载荷数据都是通过带内方式传送的，比如请求的网页数据是在回应的消息体中携带的。
 ## RTSP请求
-（1）RTSP请求报文的方法包括：OPTIONS、DESCRIBE、SETUP、TEARDOWN、PLAY、PAUSE、GET_PARAMETER和SET_PARAMETER。
+**（1）RTSP请求报文的方法包括**：OPTIONS、DESCRIBE、SETUP、TEARDOWN、PLAY、PAUSE、GET_PARAMETER和SET_PARAMETER。
 
 OPTIONS：用于查询服务器支持的方法和扩展信息。客户端可以向服务器发送OPTIONS请求，以确定服务器支持哪些方法和功能。
 
@@ -48,16 +48,62 @@ SET_PARAMETER：用于设置媒体服务器或媒体资源的参数值。客户�
 
 TEARDOWN：用于关闭媒体传输通道和释放相关资源。客户端可以发送TEARDOWN请求来终止媒体的播放或录制，并释放相关的资源。
 
-（2）REQ报文
+**（2）REQ报文**
 
+报文结构：
+
+请求报文由请求行、首部字段和可选的消息体组成。
+
+请求行：包括方法（如OPTIONS、DESCRIBE、SETUP等）、请求URI（标识请求的资源）和RTSP协议版本。
+首部字段：包含一系列的键值对，用于传递额外的请求信息，如CSeq（请求序列号，用于唯一标识请求）、User-Agent（客户端标识信息）等。
+消息体：可选的，用于传递请求的实体数据。（一般无）
+```
+Method URL（rtsp://[username]:[password]@ip:port/codec/channel/subtype/av_stream） RTSP-Version \r\n
+(首部字段键值对)
+CSeq: 2（序列号，递增）
+User-Agent: LibVLC(LIVE555 Streaming Media )（客户端使用的播放器版本）
+```
+
+报文示例：
 ```
 OPTIONS rtsp://xxx.x.x.xxx:xxx/h264/ch1/sub/av_stream RTSP/1.0
 CSeq: 2
 User-Agent: Player/3.0.16 (LIVE555 Streaming Media v2016.11.28)
 ```
-```
-Method URL（rtsp://[username]:[password]@ip:port/codec/channel/subtype/av_stream） RTSP-Version \r\n
-(首部字段键值对)
-CSeq: 2（序列号）
 
+**（3）ACK报文**
+响应报文由状态行、首部字段和可选的消息体组成。
+
+状态行：包括RTSP协议版本、状态码（用于表示请求的处理结果，如200表示成功）、状态码原因短语（对状态码的简要描述）。
+
+首部字段：与请求报文类似，用于传递额外的响应信息，如CSeq（请求序列号，对应请求的序列号）、Server（服务器标识信息）等。
+
+消息体：可选的，用于传递响应的实体数据。
+
+报文示例：
 ```
+RTSP/1.0 200 OK
+CSeq: 2
+Date: Tue, 23 Nov 2010 20:44:36 GMT
+Public: OPTIONS, DESCRIBE, SET_PARAMETER,GET_PARAMETER, SETUP, TEARDOWN, PLAY, PAUSE
+```
+## RTSP交互过程
+1、	RTSP客户端建立与服务器的TCP连接；
+
+2、	RTSP客户端发起OPTIONS Req请求，RTSP服务器收到后，判断请求消息中的URL是否合法，如果正确，则返回 200 OK，并携带服务器支持的OPTIONS选项，如SETUP, TEARDOWN, PLAY等；
+
+3、	RTSP客户端发起DESCRIBE Req请求，RTSP服务器返回SDP参数；
+
+4、	RTSP客户端发起SETUP Req请求，携带本段RTP、RTCP端口，服务器返回本段RTP、RTCP端口，SSRC和Session值；
+
+5、	RTSP客户端发起PLAY Req请求，服务器返回url；
+
+6、	RTSP服务器主动向RTSP客户端发送RTP报文；
+
+7、	RTSP客户端定期向RTSP客户端发送RTCP报文（Receiver Report）；
+
+8、	RTSP客户端发起TEARDOWN Req请求，服务器返回200 OK；
+
+9、	RTSP客户端关闭与服务器的TCP连接；
+
+# RTSP
