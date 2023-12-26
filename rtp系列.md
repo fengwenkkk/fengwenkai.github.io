@@ -48,4 +48,16 @@ SET_PARAMETER：用于设置媒体服务器或媒体资源的参数值。客户�
 
 TEARDOWN：用于关闭媒体传输通道和释放相关资源。客户端可以发送TEARDOWN请求来终止媒体的播放或录制，并释放相关的资源。
 
-（2）
+（2）REQ报文
+
+```
+OPTIONS rtsp://xxx.x.x.xxx:xxx/h264/ch1/sub/av_stream RTSP/1.0
+CSeq: 2
+User-Agent: Player/3.0.16 (LIVE555 Streaming Media v2016.11.28)
+```
+```
+Method URL（rtsp://[username]:[password]@ip:port/codec/channel/subtype/av_stream） RTSP-Version \r\n
+(首部字段键值对)
+CSeq: 2（序列号）
+
+```
