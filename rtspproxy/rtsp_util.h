@@ -36,8 +36,8 @@ typedef struct
     UINT16                  usRTSPServerPort;
 
     SOCKET                  stLocalSocket;                  // 接收后自动连接到RTSP服务器的TCP客户端（本地RTSP客户端）
-    UINT32                  ulLocalRecvSize;                // 本地RTSP客户端缓冲器当前长度
-    CHAR* szLocalRecvBuf;                // 本地RTSP客户端缓冲器
+    UINT32                  ulLocalRecvSize;                // 本地RTSP客户端缓冲器当前储存数据的长度
+    CHAR*                   szLocalRecvBuf;                 // 本地RTSP客户端缓冲器长度
     UINT32                  ulMaxLocalRecvBufSize;
 
     UINT16                  usServerRTPPort;

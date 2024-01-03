@@ -30,6 +30,9 @@
     <ClCompile Include="rtp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="rtsp_client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rtsp.h">
@@ -42,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="rtp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rtsp_client.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

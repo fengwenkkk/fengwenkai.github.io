@@ -179,8 +179,45 @@ again:
         goto again;
     }
      
-     //接收RTSP数据
+     //接收RTSP客户端数据
+    if (g_stRTSPClientConnInfo.stLocalSocket != INVALID_SOCKET &&
+        FD_ISSET(g_stRTSPClientConnInfo.stLocalSocket, &fds))
+    {
+        iRet = RecvRTSPClientMsg(&g_stRTSPClientConnInfo, &iErrCode);
+        if (iRet != 0 && iErrCode != 0)
+        {
+            GosLog(LOG_INFO, "recv rtsp server msg %d, err code %d", iRet, iErrCode);
+        }
+        else
+        {
+            if (iErrCode == 0)
+            {
+                GosLog(LOG_DETAIL, "recv rtsp server msg %d", iRet);
+            }
+            else
+            {
+                GosLog(LOG_DETAIL, "recv rtsp server msg %d, err code %d", iRet, iErrCode);
+            }
+        }
+        if (iRet < 0 || iErrCode < 0)
+        {
+            CloseApp();
+        }
+        if (iRet == 0 && iErrCode == 0)
+        {
+            gos_sleep_1ms(1000);
 
+            GosLog(LOG_INFO, "close local rtsp client socket %u", g_stRTSPClientConnInfo.stLocalSocket);
+            FD_CLR(g_stRTSPClientConnInfo.stLocalSocket, &g_fdsAll);
+            CLOSE_SOCKET(g_stRTSPClientConnInfo.stLocalSocket);
+            g_ulConnectRTSPServerSuccTime = 0;
+
+            FD_CLR(g_stRTSPClientConnInfo.stClientSocket, &g_fdsAll);
+            CLOSE_SOCKET(g_stRTSPClientConnInfo.stClientSocket);
+            ulRTSPClientCloseTime = gos_get_sys_uptime();
+        }
+        goto again;
+    }
     
 
 

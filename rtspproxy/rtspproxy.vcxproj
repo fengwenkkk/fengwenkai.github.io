@@ -155,12 +155,14 @@
   <ItemGroup>
     <ClCompile Include="rtp.cpp" />
     <ClCompile Include="rtspproxy.cpp" />
+    <ClCompile Include="rtsp_client.cpp" />
     <ClCompile Include="rtsp_server.cpp" />
     <ClCompile Include="rtsp_util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rtp.h" />
     <ClInclude Include="rtsp.h" />
+    <ClInclude Include="rtsp_client.h" />
     <ClInclude Include="rtsp_server.h" />
     <ClInclude Include="rtsp_util.h" />
   </ItemGroup>
