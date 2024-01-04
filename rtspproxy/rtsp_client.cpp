@@ -1,6 +1,13 @@
 #include "rtsp_client.h"
 
 
+
+BOOL ParseRTSPClientMsg(CONN_INFO_T* pstConnInfo)
+{
+
+
+}
+
 /*******************************************************************************
 * 函数名称: RecvRTSPClientMsg
 * 功    能: 接受客户端RTSP消息
@@ -13,17 +20,26 @@
 *******************************************************************************/
 INT32 RecvRTSPClientMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 {
-	UINT32 ulByteRecvCount;
+	UINT32 ulByteRecv;
 	UINT32 ulMaxBufSize;
 	INT32  iRecvSize;
+	CHAR* szRTSPMsg;
+
+	if (!pstConnInfo)
+	{
+		GosLog(LOG_INFO, "PstConnInfo is empty!");
+		*piError = 0;
+		return 0;
+	}
+
 	//获取字节数， FIONREAD：获取套接字接收缓冲区中的字节数
-	if (ioctlsocket(pstConnInfo->stLocalSocket, FIONREAD, (unsigned long*)&ulByteRecvCount) == SOCKET_ERROR)
+	if (ioctlsocket(pstConnInfo->stLocalSocket, FIONREAD, (unsigned long*)&ulByteRecv) == SOCKET_ERROR)
 	{
 		GosLog(LOG_ERROR, "RecvRTSPClientMsg: ioctl socket(%u) failed!", pstConnInfo->stLocalSocket);
 		*piError = gos_get_socket_err_code();
 		return -1; 
 	}
-	if (ulByteRecvCount == 0)
+	if (ulByteRecv == 0)
 	{
 		piError = 0;
 		return 0;
@@ -59,6 +75,10 @@ INT32 RecvRTSPClientMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 		{
 			break;
 		}
+
+		//区分RTSP是请求还是响应
+
+
 
 
 

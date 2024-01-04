@@ -8,19 +8,19 @@
 
 typedef struct
 {
-    BOOL                    bValid; //  RTSP Client 相关信息
-    SOCKET                  stClientSocket;                     // 接收到的客户端TCP连接
+    BOOL            bValid; //  RTSP Client 相关信息
+    SOCKET          stClientSocket;                     // 接收到的客户端TCP连接
 
-    SOCKADDR_IN             stClientAddr;                       // 接收到的RTSP客户端地址
+    SOCKADDR_IN     stClientAddr;                       // 接收到的RTSP客户端地址
     //    UINT32                  ulConnectSetupTime;                 /* 客户端连接建立时间 */
 
     //   DTP_CLIENT_STATUS_E     enClientStatus;                     /* 客户端连接状态 */
     //    UINT32                  ulLastRecvTime;                     /* 接收到的最后一次客户端消息时间 */
 
     //    UINT32                  ulRecvOffset;                       /* TCP 特有，当前缓冲区实际起始位置 */
-    UINT32                  ulRecvSize;                     // 接收到的客户端连接缓冲器当前长度
-    UINT32                  ulMaxRecvBufSize;
-    CHAR* szRecvBuf;                     // 接收到的客户端连接缓冲器
+    UINT32           ulRecvSize;                     // 接收到的客户端连接缓冲器当前长度
+    UINT32           ulMaxRecvBufSize;
+    CHAR*            szRecvBuf;                     // 接收到的客户端连接缓冲器
 
     // RTSP client的RTP信息
     UINT16                  usClientRTPPort;
