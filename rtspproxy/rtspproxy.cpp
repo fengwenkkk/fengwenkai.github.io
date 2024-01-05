@@ -104,7 +104,7 @@ INT32 RecvMsg()
     UINT32      ulRTSPClientCloseTime = gos_get_sys_uptime();
 
     FD_ZERO(&g_fdsAll);
-    FD_SET(g_stLocalRTSPServerSock, &g_fdsAll);
+    FD_SET(g_stLocalRTSPServerSocket, &g_fdsAll);//本地服务器socket加入集合
 
 again:
     stTimeout.tv_sec = ulTimeout / 1000;
@@ -141,11 +141,11 @@ again:
         return -1;
     }
 
-    //有事件发生
-    if (FD_ISSET(g_stLocalRTSPServerSock, &fds))
+    //本地服务器有事件发生，链接客户端stClientSocket
+    if (FD_ISSET(g_stLocalRTSPServerSocket, &fds))
     {
-        FD_CLR(g_stLocalRTSPServerSock, &fds);
-        stClientSocket = accept(g_stLocalRTSPServerSock, (SOCKADDR*)&stAddr, (socklen_t*)&iAddrLen);
+        FD_CLR(g_stLocalRTSPServerSocket, &fds);
+        stClientSocket = accept(g_stLocalRTSPServerSocket, (SOCKADDR*)&stAddr, (socklen_t*)&iAddrLen);
         if (stClientSocket == INVALID_SOCKET)
         {
             GosLog(LOG_ERROR, "Accept new connect failed,error: %s", gos_get_socket_err());
@@ -159,10 +159,9 @@ again:
         GosLog(LOG_INFO, "Accept client socket(%u) of " IP_FMT ":%u ok", stClientSocket, IP_ARG(&stAddr.sin_addr.s_addr), (UINT32)stAddr.sin_port);
         NewConnInfo(stClientSocket, stAddr);
         ulRTSPClientCloseTime = 0;
-
     }
 
-    //接收RTP数据,发给本地服务器
+    //stLocalRTPSocket接收RTP数据,发给本地服务器
     if (g_stRTSPClientConnInfo.stLocalRTPSocket != INVALID_SOCKET &&
         FD_ISSET(g_stRTSPClientConnInfo.stLocalRTPSocket, &fds))
     {
@@ -313,6 +312,14 @@ int main(int argc, char** argv)
         return -1;
     }
     GosLog(LOG_INFO, "Start rtsp proxy: %s : %s", szRTSPServerAddr, szLocalRTSPServerAddr);
+
+    //创建本地服务器套接字与客户端链接
+    g_stLocalRTSPServerSocket = InitLocalRTSPServerSocket(g_aucLocalRTSPServerAddr, g_usLocalRTSPServerPort);
+    if (g_stLocalRTSPServerSocket == INVALID_SOCKET)
+    {
+        return -1;
+    }
+    GosLog(LOG_INFO, "Local rtsp server socket [%u]", g_stLocalRTSPServerSocket);
 
     //循环接收
     while (1)
