@@ -178,11 +178,11 @@ again:
         goto again;
     }
      
-     //接收RTSP客户端数据
+     //接收RTSP服务端数据发给本地
     if (g_stRTSPClientConnInfo.stLocalSocket != INVALID_SOCKET &&
         FD_ISSET(g_stRTSPClientConnInfo.stLocalSocket, &fds))
     {
-        iRet = RecvRTSPClientMsg(&g_stRTSPClientConnInfo, &iErrCode);
+        iRet = RecvRTSPServerMsg(&g_stRTSPClientConnInfo, &iErrCode);
         if (iRet != 0 && iErrCode != 0)
         {
             GosLog(LOG_INFO, "recv rtsp server msg %d, err code %d", iRet, iErrCode);

@@ -5,7 +5,7 @@
 #include "g_include.h"
 #include "rtsp_util.h"
 
-INT32 RecvRTSPClientMsg(CONN_INFO_T* pstConnInfo);
+INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo);
 
 
 #endif // ! RTSP_CLIENT_H
