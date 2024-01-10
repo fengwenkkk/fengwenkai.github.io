@@ -22,6 +22,11 @@ static UINT32  g_ulLowerUDPPort = 36500;
 static UINT32  g_ulUpperUDPPort = 0xffff;
 
 
+
+
+
+
+
 /*******************************************************************************
 * 函数名称: NewConnInfo
 * 功    能: 记录新的接收端信息，用于日志记录
@@ -72,4 +77,51 @@ VOID CloseApp()
     gos_sleep_1ms(500);
     CLOSE_SOCKET(g_stLocalRTSPServerSock);
     exit(0);
+}
+
+
+
+/*******************************************************************************
+* 函数名称: GetSIPValue
+* 功    能: 获取报文键值
+* 参    数:
+* 参数名称              输入/输出   描述
+* szSIPText              IN         文本信息
+* szKey                  IN         键值名字
+* szValue                IN         键值值缓冲区
+* ulMaxLen               IN         最大报文长度
+* 函数返回:BOOL
+* 说    明:
+*******************************************************************************/
+BOOL GetSIPValue(CHAR* szSIPText, const CHAR* szKey, UINT32* pulValue)
+{
+    CHAR    acValue[16];
+    CHAR*   szValue= acValue;
+    CHAR*   szStart = strstr(szSIPText, szKey); // 在SIP文本中查找键的起始位置
+    CHAR*   szEnd;
+    UINT32  ulLen;
+    UINT32  ulMaxLen = sizeof(acValue);
+
+    if (!szStart)
+    {
+        return FALSE; // 如果找不到键的起始位置，则返回FALSE表示提取失败
+    }
+
+    szStart += strlen(szKey) + 1; // 将起始位置向后移动到等号之后的位置
+    szEnd = strstr(szStart, "\r\n"); // 在起始位置之后查找换行符的位置，表示值的结束位置
+    if (!szEnd)
+    {
+        return FALSE; // 如果找不到值的结束位置，则返回FALSE表示提取失败
+    }
+
+    ulLen = (UINT32)(szEnd - szStart); // 计算值的长度
+    if (ulLen >= ulMaxLen)
+    {
+        return FALSE; // 如果值的长度大于等于最大长度，则返回FALSE表示提取失败
+    }
+
+    memcpy(szValue, szStart, ulLen); // 将值复制到指定的缓冲区中
+    szValue[ulLen] = '\0'; // 在缓冲区的末尾添加字符串结束符
+
+    return gos_atou(acValue, pulValue); // 返回TRUE表示成功提取值
 }
