@@ -17,17 +17,19 @@ GString ReplaceRTSPUrl(CHAR* szRTSPMsg, const CHAR* szKeyWord, CHAR* szNewText)
 {
 	GString strMsg;
 	CHAR*   szMsg = szRTSPMsg;
-	CHAR*   szStart;
+	CHAR*   szStart;//替换标志位
 
-
-	szStart = strstr(szMsg, szKeyWord);
-	
-	//没有就直接返回原信息
-	if (!szStart)
+	while (szMsg)
 	{
-		strMsg.Append(szMsg);
-		goto end;
-	}
+		szStart = strstr(szMsg, szKeyWord);
+	
+		//没有就直接返回原信息
+		if (!szStart)
+		{
+			strMsg.Append(szMsg);
+			goto end;
+		}
+		szMsg += strlen(szKeyWord);
 
 
 
