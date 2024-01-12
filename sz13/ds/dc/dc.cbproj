@@ -1,0 +1,1931 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{ABF76B94-40EF-4B5F-997A-0791A478F162}</ProjectGuid>
+        <ProjectVersion>18.5</ProjectVersion>
+        <MainSource>dc.cpp</MainSource>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <FrameworkType>VCL</FrameworkType>
+        <Base>True</Base>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Application</AppType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <FinalOutputDir>..\bin</FinalOutputDir>
+        <IntermediateOutputDir>..\obj</IntermediateOutputDir>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclx.lib;dbrtl.lib;vclimg.lib;vcldb.lib;xmlrtl.lib;adortl.lib;bdertl.lib;vclactnband.lib;VclSmp.lib;RaizeComponentsVcl.lib;tmsexd2010.lib</LinkPackageStatics>
+        <ProjectType>CppVCLApplication</ProjectType>
+        <AllPackageLibs>rtl.lib;vcl.lib;vclx.lib;dbrtl.lib;vclimg.lib;vcldb.lib;xmlrtl.lib;adortl.lib;vclactnband.lib;VclSmp.lib;cxLibraryRS26.lib;dxGDIPlusRS26.lib;dxCoreRS26.lib;dxThemeRS26.lib;cxDataRS26.lib;cxEditorsRS26.lib;dxOfficeCoreRS26.lib;cxPageControlRS26.lib;cxTreeListRS26.lib;dxLayoutControlRS26.lib;dxComnRS26.lib;cxExportRS26.lib;dxSpreadSheetCoreDialogsRS26.lib;dxSpreadSheetCoreRS26.lib;dxSpreadSheetRS26.lib;dxBarRS26.lib;cxVerticalGridRS26.lib;dxSkinsCoreRS26.lib;cxTreeListdxBarPopupMenuRS26.lib;dxSkinBlackRS26.lib;dxSkinBlueRS26.lib;dxSkinCaramelRS26.lib;dxSkinCoffeeRS26.lib;dxSkinDarkRoomRS26.lib;dxSkinDarkSideRS26.lib;dxSkinFoggyRS26.lib;dxSkinGlassOceansRS26.lib;dxSkiniMaginaryRS26.lib;dxSkinLilianRS26.lib;dxSkinLiquidSkyRS26.lib;dxSkinLondonLiquidSkyRS26.lib;dxSkinMcSkinRS26.lib;dxSkinMoneyTwinsRS26.lib;dxSkinOffice2007BlackRS26.lib;dxSkinOffice2007BlueRS26.lib;dxSkinOffice2007GreenRS26.lib;dxSkinOffice2007PinkRS26.lib;dxSkinOffice2007SilverRS26.lib;dxSkinOffice2010BlackRS26.lib;dxSkinOffice2010BlueRS26.lib;dxSkinOffice2010SilverRS26.lib;dxSkinPumpkinRS26.lib;dxSkinSevenRS26.lib;dxSkinSharpRS26.lib;dxSkinSilverRS26.lib;dxSkinSpringTimeRS26.lib;dxSkinStardustRS26.lib;dxSkinSummer2008RS26.lib;dxSkinValentineRS26.lib;dxSkinXmas2008BlueRS26.lib;dxSpreadSheetCoreConditionalFormattingDialogsRS26.lib;dxSkinBlueprintRS26.lib;dxSkinDevExpressDarkStyleRS26.lib;dxSkinDevExpressStyleRS26.lib;dxSkinHighContrastRS26.lib;dxSkinMetropolisDarkRS26.lib;dxSkinMetropolisRS26.lib;dxSkinOffice2013DarkGrayRS26.lib;dxSkinOffice2013LightGrayRS26.lib;dxSkinOffice2013WhiteRS26.lib;dxSkinSevenClassicRS26.lib;dxSkinSharpPlusRS26.lib;dxSkinTheAsphaltWorldRS26.lib;dxSkinVS2010RS26.lib;dxSkinWhiteprintRS26.lib;dxSkinOffice2016ColorfulRS26.lib;dxSkinOffice2016DarkRS26.lib;dxSkinVisualStudio2013BlueRS26.lib;dxSkinVisualStudio2013DarkRS26.lib;dxSkinVisualStudio2013LightRS26.lib;dxSkinTheBezierRS26.lib;tmsdXe12.lib;tmsexdXe12.lib;DbxCommonDriver.lib;dsnap.lib;soaprtl.lib;inet.lib;cxGridRS26.lib;dxServerModeRS26.lib;dxPScxPCProdRS26.lib;dxPSCoreRS26.lib;dxPScxCommonRS26.lib;dxPSLnksRS26.lib;dxPScxExtCommonRS26.lib;dxPsPrVwAdvRS26.lib;dxBarExtItemsRS26.lib;dxPSPrVwRibbonRS26.lib;dxRibbonRS26.lib;dxPScxTLLnkRS26.lib;dxPSdxSpreadSheetLnkRS26.lib;bcbsmp.lib;WindowsMediaPlayer.lib</AllPackageLibs>
+        <PackageImports>vclx.bpi;vcl.bpi;vclimg.bpi;dbrtl.bpi;Rave77VCL.bpi;bdertl.bpi;rtl.bpi;bcbie.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;vcldb.bpi;vcldbx.bpi;vcltouch.bpi;dsnap.bpi;dsnapcon.bpi;adortl.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;VclSmp.bpi;vclribbon.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DbxClientDriver.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;dbxcds.bpi;DBXFirebirdDriver.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi;TeeMaker114.bpi;TeeTree2D14Tee9.bpi;RaizeComponentsVcl.bpi;tmsd2010.bpi;tmsexd2010.bpi;tmswizd2010.bpi;tmsxlsd2010.bpi;TeeImport914.bpi;TeeWorld914.bpi;Tee914.bpi;TeeUI914.bpi;TeePro914.bpi;TeeDB914.bpi;TeeImage914.bpi;TeeLanguage914.bpi;TeeGL914.bpi;$(PackageImports)</PackageImports>
+        <Multithreaded>true</Multithreaded>
+        <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+        <IncludePath>..\ds_public\;..\snmp\;..\client_if\WindowsMediaPlayer\;..\client_if\ffmpeg\;..\client_if\audio\;rec\;train\;sds\;cfg\;iph\;..\client_if;groupcall\;data\;call\;sys\;common\;..\client_plat;..\gos\public;$(BDS)\include;..\eLTE_SDK\include;..\ds_public;..\libcurl\include;$(TEEINCPATH);..\AEC;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>..\snmp\;..\client_if\WindowsMediaPlayer\;..\client_if\ffmpeg\;..\client_if\audio\;rec\;train\;sds\;cfg\;iph\;..\client_if;groupcall\;data\;call\;sys\;common\;..\client_plat;..\lib\;..\ffmpeg4.0.1;$(TEELIBPATH);$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <BCC_wpar>false</BCC_wpar>
+        <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+        <BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
+        <SanitizedProjectName>dc</SanitizedProjectName>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Locale>2052</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Custom_Styles>&quot;Amethyst Kamri|VCLSTYLE|$(BDSCOMMONDIR)\Styles\AmethystKamri.vsf&quot;;Glossy|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Glossy.vsf;&quot;Iceberg Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\IcebergClassico.vsf&quot;;&quot;Lavender Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\LavenderClassico.vsf&quot;;&quot;Onyx Blue|VCLSTYLE|$(BDSCOMMONDIR)\Styles\OnyxBlue.vsf&quot;;&quot;Windows10 SlateGray|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10SlateGray.vsf&quot;</Custom_Styles>
+        <Defines>WIN32;$(Defines)</Defines>
+        <SubProcessesNumber>4</SubProcessesNumber>
+        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
+        <BCC_StopBatchAfterErrors>30</BCC_StopBatchAfterErrors>
+        <BCC_wrch>false</BCC_wrch>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(DXVCL)\Library\RAD Studio 10.3;$(IncludePath)</IncludePath>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <Icon_MainIcon>dc.ico</Icon_MainIcon>
+        <OutputExt>exe</OutputExt>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
+        <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
+        <ILINK_LibraryPath>..\libcurl\lib\;$(DXVCL)\Library\Sources;$(DXVCL)\Library\RAD Studio 10.3;$(TMS);$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <BCC_IncludePath>../dc_public;../dtp;$(BCC_IncludePath)</BCC_IncludePath>
+        <Defines>DEV_EXP_18;$(Defines)</Defines>
+        <PackageImports>cxDataRS26;cxEditorsRS26;cxExportRS26;cxLibraryRS26;cxPageControlRS26;cxTreeListRS26;dxComnRS26;dxCoreRS26;dxGDIPlusRS26;dxLayoutControlRS26;dxOfficeCoreRS26;dxPSCoreRS26;dxPScxCommonRS26;dxPScxTLLnkRS26;dxPSdxSpreadSheetLnkRS26;dxPSLnksRS26;dxThemeRS26;$(PackageImports)</PackageImports>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <Icon_MainIcon>dc.ico</Icon_MainIcon>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
+        <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
+        <PackageImports>cxDataRS26;cxEditorsRS26;cxExportRS26;cxLibraryRS26;cxPageControlRS26;cxTreeListRS26;dxComnRS26;dxCoreRS26;dxGDIPlusRS26;dxLayoutControlRS26;dxOfficeCoreRS26;dxPSCoreRS26;dxPScxCommonRS26;dxPScxTLLnkRS26;dxPSdxSpreadSheetLnkRS26;dxPSLnksRS26;dxThemeRS26;$(PackageImports)</PackageImports>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+        <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+        <IntermediateOutputDir>Debug</IntermediateOutputDir>
+        <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+        <DCC_Define>DEBUG</DCC_Define>
+        <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+        <TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+        <BCC_StackFrames>true</BCC_StackFrames>
+        <ILINK_LibraryPath>$(BDS)\lib\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+        <TASM_Debugging>Full</TASM_Debugging>
+        <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <Defines>_DEBUG;$(Defines)</Defines>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclx.lib;dbrtl.lib;vclimg.lib;vcldb.lib;xmlrtl.lib;adortl.lib;vclactnband.lib;VclSmp.lib;cxLibraryRS26.lib;dxGDIPlusRS26.lib;dxCoreRS26.lib;dxThemeRS26.lib;cxDataRS26.lib;cxEditorsRS26.lib;dxOfficeCoreRS26.lib;cxPageControlRS26.lib;cxTreeListRS26.lib;dxLayoutControlRS26.lib;dxComnRS26.lib;cxExportRS26.lib;dxSpreadSheetCoreDialogsRS26.lib;dxSpreadSheetCoreRS26.lib;dxSpreadSheetRS26.lib;dxBarRS26.lib;cxVerticalGridRS26.lib;dxSkinsCoreRS26.lib;cxTreeListdxBarPopupMenuRS26.lib;dxSkinBlackRS26.lib;dxSkinBlueRS26.lib;dxSkinCaramelRS26.lib;dxSkinCoffeeRS26.lib;dxSkinDarkRoomRS26.lib;dxSkinDarkSideRS26.lib;dxSkinFoggyRS26.lib;dxSkinGlassOceansRS26.lib;dxSkiniMaginaryRS26.lib;dxSkinLilianRS26.lib;dxSkinLiquidSkyRS26.lib;dxSkinLondonLiquidSkyRS26.lib;dxSkinMcSkinRS26.lib;dxSkinMoneyTwinsRS26.lib;dxSkinOffice2007BlackRS26.lib;dxSkinOffice2007BlueRS26.lib;dxSkinOffice2007GreenRS26.lib;dxSkinOffice2007PinkRS26.lib;dxSkinOffice2007SilverRS26.lib;dxSkinOffice2010BlackRS26.lib;dxSkinOffice2010BlueRS26.lib;dxSkinOffice2010SilverRS26.lib;dxSkinPumpkinRS26.lib;dxSkinSevenRS26.lib;dxSkinSharpRS26.lib;dxSkinSilverRS26.lib;dxSkinSpringTimeRS26.lib;dxSkinStardustRS26.lib;dxSkinSummer2008RS26.lib;dxSkinValentineRS26.lib;dxSkinXmas2008BlueRS26.lib;dxSpreadSheetCoreConditionalFormattingDialogsRS26.lib;dxSkinBlueprintRS26.lib;dxSkinDevExpressDarkStyleRS26.lib;dxSkinDevExpressStyleRS26.lib;dxSkinHighContrastRS26.lib;dxSkinMetropolisDarkRS26.lib;dxSkinMetropolisRS26.lib;dxSkinOffice2013DarkGrayRS26.lib;dxSkinOffice2013LightGrayRS26.lib;dxSkinOffice2013WhiteRS26.lib;dxSkinSevenClassicRS26.lib;dxSkinSharpPlusRS26.lib;dxSkinTheAsphaltWorldRS26.lib;dxSkinVS2010RS26.lib;dxSkinWhiteprintRS26.lib;dxSkinOffice2016ColorfulRS26.lib;dxSkinOffice2016DarkRS26.lib;dxSkinVisualStudio2013BlueRS26.lib;dxSkinVisualStudio2013DarkRS26.lib;dxSkinVisualStudio2013LightRS26.lib;dxSkinTheBezierRS26.lib;tmsdXe12.lib;tmsexdXe12.lib;DbxCommonDriver.lib;dsnap.lib;soaprtl.lib;inet.lib;cxGridRS26.lib;dxServerModeRS26.lib;dxPScxPCProdRS26.lib;dxPSCoreRS26.lib;dxPScxCommonRS26.lib;dxPSLnksRS26.lib;dxPScxExtCommonRS26.lib;dxPsPrVwAdvRS26.lib;dxBarExtItemsRS26.lib;dxPSPrVwRibbonRS26.lib;dxRibbonRS26.lib;dxPScxTLLnkRS26.lib;dxPSdxSpreadSheetLnkRS26.lib;bcbsmp.lib;WindowsMediaPlayer.lib</LinkPackageStatics>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <IncludePath>..\gplat\;..\dtp;$(IncludePath)</IncludePath>
+        <BCC_StopBatchAfterErrors>10</BCC_StopBatchAfterErrors>
+        <Debugger_RunParams>-t -auto_login1</Debugger_RunParams>
+        <BCC_PCHCache>true</BCC_PCHCache>
+        <BCC_ExternalTypeFilesClang>true</BCC_ExternalTypeFilesClang>
+        <BCC_WarningIsError>true</BCC_WarningIsError>
+        <BCC_wpch>false</BCC_wpch>
+        <BCC_waus>false</BCC_waus>
+        <BCC_wcsu>false</BCC_wcsu>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <Defines>_DEBUG;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <IntermediateOutputDir>Release</IntermediateOutputDir>
+        <TASM_Debugging>None</TASM_Debugging>
+        <ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <Defines>NDEBUG;$(Defines)</Defines>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclx.lib;dbrtl.lib;vclimg.lib;vcldb.lib;xmlrtl.lib;adortl.lib;vclactnband.lib;VclSmp.lib;cxLibraryRS26.lib;dxGDIPlusRS26.lib;dxCoreRS26.lib;dxThemeRS26.lib;cxDataRS26.lib;cxEditorsRS26.lib;dxOfficeCoreRS26.lib;cxPageControlRS26.lib;cxTreeListRS26.lib;dxLayoutControlRS26.lib;dxComnRS26.lib;cxExportRS26.lib;dxSpreadSheetCoreDialogsRS26.lib;dxSpreadSheetCoreRS26.lib;dxSpreadSheetRS26.lib;dxBarRS26.lib;cxVerticalGridRS26.lib;dxSkinsCoreRS26.lib;cxTreeListdxBarPopupMenuRS26.lib;dxSkinBlackRS26.lib;dxSkinBlueRS26.lib;dxSkinCaramelRS26.lib;dxSkinCoffeeRS26.lib;dxSkinDarkRoomRS26.lib;dxSkinDarkSideRS26.lib;dxSkinFoggyRS26.lib;dxSkinGlassOceansRS26.lib;dxSkiniMaginaryRS26.lib;dxSkinLilianRS26.lib;dxSkinLiquidSkyRS26.lib;dxSkinLondonLiquidSkyRS26.lib;dxSkinMcSkinRS26.lib;dxSkinMoneyTwinsRS26.lib;dxSkinOffice2007BlackRS26.lib;dxSkinOffice2007BlueRS26.lib;dxSkinOffice2007GreenRS26.lib;dxSkinOffice2007PinkRS26.lib;dxSkinOffice2007SilverRS26.lib;dxSkinOffice2010BlackRS26.lib;dxSkinOffice2010BlueRS26.lib;dxSkinOffice2010SilverRS26.lib;dxSkinPumpkinRS26.lib;dxSkinSevenRS26.lib;dxSkinSharpRS26.lib;dxSkinSilverRS26.lib;dxSkinSpringTimeRS26.lib;dxSkinStardustRS26.lib;dxSkinSummer2008RS26.lib;dxSkinValentineRS26.lib;dxSkinXmas2008BlueRS26.lib;dxSpreadSheetCoreConditionalFormattingDialogsRS26.lib;dxSkinBlueprintRS26.lib;dxSkinDevExpressDarkStyleRS26.lib;dxSkinDevExpressStyleRS26.lib;dxSkinHighContrastRS26.lib;dxSkinMetropolisDarkRS26.lib;dxSkinMetropolisRS26.lib;dxSkinOffice2013DarkGrayRS26.lib;dxSkinOffice2013LightGrayRS26.lib;dxSkinOffice2013WhiteRS26.lib;dxSkinSevenClassicRS26.lib;dxSkinSharpPlusRS26.lib;dxSkinTheAsphaltWorldRS26.lib;dxSkinVS2010RS26.lib;dxSkinWhiteprintRS26.lib;dxSkinOffice2016ColorfulRS26.lib;dxSkinOffice2016DarkRS26.lib;dxSkinVisualStudio2013BlueRS26.lib;dxSkinVisualStudio2013DarkRS26.lib;dxSkinVisualStudio2013LightRS26.lib;dxSkinTheBezierRS26.lib;tmsdXe12.lib;tmsexdXe12.lib;DbxCommonDriver.lib;dsnap.lib;soaprtl.lib;inet.lib;cxGridRS26.lib;dxServerModeRS26.lib;dxPScxPCProdRS26.lib;dxPSCoreRS26.lib;dxPScxCommonRS26.lib;dxPSLnksRS26.lib;dxPScxExtCommonRS26.lib;dxPsPrVwAdvRS26.lib;dxBarExtItemsRS26.lib;dxPSPrVwRibbonRS26.lib;dxRibbonRS26.lib;dxPScxTLLnkRS26.lib;dxPSdxSpreadSheetLnkRS26.lib;bcbsmp.lib;WindowsMediaPlayer.lib</LinkPackageStatics>
+        <IncludePath>..\gplat\;..\dtp;$(IncludePath)</IncludePath>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <Defines>NDEBUG;$(Defines)</Defines>
+    </PropertyGroup>
+    <ItemGroup>
+        <CppCompile Include="call\DlgSelectVideoChan.cpp">
+            <Form>DialogSelectVideoChan</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\DlgSelectVideoChan.h</DependentOn>
+            <BuildOrder>126</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\DlgSubUser.cpp">
+            <Form>DialogSubUser</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\DlgSubUser.h</DependentOn>
+            <BuildOrder>72</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\DlgVideoCallCfg.cpp">
+            <Form>DialogVideoCallCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\DlgVideoCallCfg.h</DependentOn>
+            <BuildOrder>23</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\FrmCallIn.cpp">
+            <Form>FormCallIn</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\FrmCallIn.h</DependentOn>
+            <BuildOrder>67</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\FrmHalfDuplexP2PCallWin.cpp">
+            <Form>FormHalfDuplexP2PCallWin</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\FrmHalfDuplexP2PCallWin.h</DependentOn>
+            <BuildOrder>122</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\FrmP2PCallWin.cpp">
+            <Form>FormP2PCallWin</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\FrmP2PCallWin.h</DependentOn>
+            <BuildOrder>64</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\FrmUser.cpp">
+            <Form>FormUser</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\FrmUser.h</DependentOn>
+            <BuildOrder>26</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\FrmVideoCall.cpp">
+            <Form>FormVideoCall</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\FrmVideoCall.h</DependentOn>
+            <BuildOrder>27</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="call\FrmVideoWin.cpp">
+            <Form>FormVideoWin</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>call\FrmVideoWin.h</DependentOn>
+            <BuildOrder>28</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetBrdZone.cpp">
+            <Form>DialogSetBrdZone</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetBrdZone.h</DependentOn>
+            <BuildOrder>104</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetDCOperator.cpp">
+            <Form>DialogSetDCOperator</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetDCOperator.h</DependentOn>
+            <BuildOrder>105</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetDCUser.cpp">
+            <Form>DialogSetDCUser</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetDCUser.h</DependentOn>
+            <BuildOrder>106</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetDepot.cpp">
+            <Form>DialogSetDepot</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetDepot.h</DependentOn>
+            <BuildOrder>130</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetPortalUE.cpp">
+            <Form>DialogSetPortalUE</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetPortalUE.h</DependentOn>
+            <BuildOrder>107</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetPredefinedSMS.cpp">
+            <Form>DialogSetPredefinedSMS</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetPredefinedSMS.h</DependentOn>
+            <BuildOrder>125</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetRecBrd.cpp">
+            <Form>DialogSetRecBrd</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetRecBrd.h</DependentOn>
+            <BuildOrder>108</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetStation.cpp">
+            <Form>DialogSetStation</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetStation.h</DependentOn>
+            <BuildOrder>99</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetStationUE.cpp">
+            <Form>DialogSetStationUE</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetStationUE.h</DependentOn>
+            <BuildOrder>129</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetTrain.cpp">
+            <Form>DialogSetTrain</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetTrain.h</DependentOn>
+            <BuildOrder>101</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\DlgSetTrainUE.cpp">
+            <Form>DialogSetTrainUE</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\DlgSetTrainUE.h</DependentOn>
+            <BuildOrder>102</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmBrdZoneCfg.cpp">
+            <Form>FormBrdZoneCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmBrdZoneCfg.h</DependentOn>
+            <BuildOrder>103</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmCfg.cpp">
+            <Form>FormCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmCfg.h</DependentOn>
+            <BuildOrder>114</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmDCOperatorCfg.cpp">
+            <Form>FormDCOperatorCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmDCOperatorCfg.h</DependentOn>
+            <BuildOrder>115</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmDCUserCfg.cpp">
+            <Form>FormDCUser</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmDCUserCfg.h</DependentOn>
+            <BuildOrder>116</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmDepotCfg.cpp">
+            <Form>FormDepotCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmDepotCfg.h</DependentOn>
+            <BuildOrder>110</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmGroupCfg.cpp">
+            <Form>FormGroupCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmGroupCfg.h</DependentOn>
+            <BuildOrder>128</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmPortalUECfg.cpp">
+            <Form>FormPortalUECfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmPortalUECfg.h</DependentOn>
+            <BuildOrder>118</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmPredefinedSMSCfg.cpp">
+            <Form>FormPredefinedSMSCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmPredefinedSMSCfg.h</DependentOn>
+            <BuildOrder>126</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmRecBrdCfg.cpp">
+            <Form>FormRecBrdCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmRecBrdCfg.h</DependentOn>
+            <BuildOrder>125</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmStationCfg.cpp">
+            <Form>FormStationCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmStationCfg.h</DependentOn>
+            <BuildOrder>127</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmStationUECfg.cpp">
+            <Form>FormStationUECfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmStationUECfg.h</DependentOn>
+            <BuildOrder>128</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmTrainCfg.cpp">
+            <Form>FormTrainCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmTrainCfg.h</DependentOn>
+            <BuildOrder>112</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="cfg\FrmTrainUECfg.cpp">
+            <Form>FormTrainUECfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>cfg\FrmTrainUECfg.h</DependentOn>
+            <BuildOrder>113</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="ClientMain.cpp">
+            <BuildOrder>88</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="common\AudioDev.cpp">
+            <DependentOn>common\AudioDev.h</DependentOn>
+            <BuildOrder>27</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="common\ClientCommon.cpp">
+            <DependentOn>common\ClientCommon.h</DependentOn>
+            <BuildOrder>82</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="common\ClientInit.cpp">
+            <DependentOn>common\ClientInit.h</DependentOn>
+            <BuildOrder>81</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\APP.cpp">
+            <BuildOrder>121</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\ClientData.cpp">
+            <DependentOn>data\ClientData.h</DependentOn>
+            <BuildOrder>97</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\DynamicGroup.cpp">
+            <DependentOn>data\DynamicGroup.h</DependentOn>
+            <BuildOrder>34</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\eSDKData.cpp">
+            <DependentOn>data\eSDKData.h</DependentOn>
+            <BuildOrder>98</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\Group.cpp">
+            <DependentOn>data\Group.h</DependentOn>
+            <BuildOrder>96</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\LocalCfg.cpp">
+            <BuildOrder>119</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\LocalRec.cpp">
+            <DependentOn>data\LocalRec.h</DependentOn>
+            <BuildOrder>37</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\MultiGroup.cpp">
+            <DependentOn>data\MultiGroup.h</DependentOn>
+            <BuildOrder>96</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\P2P.cpp">
+            <BuildOrder>120</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\PatchGroup.cpp">
+            <DependentOn>data\PatchGroup.h</DependentOn>
+            <BuildOrder>123</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\PTT.cpp">
+            <BuildOrder>121</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\Station.cpp">
+            <DependentOn>data\Station.h</DependentOn>
+            <BuildOrder>35</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\Train.cpp">
+            <DependentOn>data\Train.h</DependentOn>
+            <BuildOrder>36</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\UICfg.cpp">
+            <DependentOn>data\UICfg.h</DependentOn>
+            <BuildOrder>97</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="data\User.cpp">
+            <DependentOn>data\User.h</DependentOn>
+            <BuildOrder>95</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="dc.cpp">
+            <BuildOrder>0</BuildOrder>
+        </CppCompile>
+        <ResFiles Include="dc.res">
+            <BuildOrder>1</BuildOrder>
+        </ResFiles>
+        <CppCompile Include="eSDK.cpp">
+            <DependentOn>eSDK.h</DependentOn>
+            <BuildOrder>29</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="FrmTest.cpp">
+            <Form>FormTest</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>FrmTest.h</DependentOn>
+            <BuildOrder>36</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgDynamicGroupMember.cpp">
+            <Form>DialogDynamicGroupMember</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgDynamicGroupMember.h</DependentOn>
+            <BuildOrder>36</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgMultiGroupMember.cpp">
+            <Form>DialogMultiGroupMember</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgMultiGroupMember.h</DependentOn>
+            <BuildOrder>62</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgNewDynamicGroup.cpp">
+            <Form>DialogNewDynamicGroup</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgNewDynamicGroup.h</DependentOn>
+            <BuildOrder>124</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgNewMultiGroup.cpp">
+            <Form>DialogNewMultiGroup</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgNewMultiGroup.h</DependentOn>
+            <BuildOrder>61</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgNewPatchGroup.cpp">
+            <Form>DialogNewPatchGroup</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgNewPatchGroup.h</DependentOn>
+            <BuildOrder>66</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgPatchGroupMember.cpp">
+            <Form>DialogPatchGroupMember</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgPatchGroupMember.h</DependentOn>
+            <BuildOrder>122</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgRealBrd.cpp">
+            <Form>DialogRealBrd</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgRealBrd.h</DependentOn>
+            <BuildOrder>65</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgRecBrd.cpp">
+            <Form>DialogRecBrd</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgRecBrd.h</DependentOn>
+            <BuildOrder>71</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgSetGroupInfo.cpp">
+            <Form>DialogSetGroupInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgSetGroupInfo.h</DependentOn>
+            <BuildOrder>80</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgStaticGroupMember.cpp">
+            <Form>DialogStaticGroupMember</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgStaticGroupMember.h</DependentOn>
+            <BuildOrder>37</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\DlgSubGroup.cpp">
+            <Form>DialogSubGroup</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\DlgSubGroup.h</DependentOn>
+            <BuildOrder>53</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\FrmGroup.cpp">
+            <Form>FormGroup</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\FrmGroup.h</DependentOn>
+            <BuildOrder>39</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\FrmGroupCall.cpp">
+            <Form>FormGroupCall</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\FrmGroupCall.h</DependentOn>
+            <BuildOrder>40</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="groupcall\FrmGroupCallWin.cpp">
+            <Form>FormGroupCallWin</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>groupcall\FrmGroupCallWin.h</DependentOn>
+            <BuildOrder>70</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="iph\FrmIPH.cpp">
+            <Form>FormIPH</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>iph\FrmIPH.h</DependentOn>
+            <BuildOrder>43</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="iph\ThreadIPH.cpp">
+            <DependentOn>iph\ThreadIPH.h</DependentOn>
+            <BuildOrder>47</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="main.cpp">
+            <Form>FormMain</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>main.h</DependentOn>
+            <BuildOrder>28</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\DlgExportRecFile.cpp">
+            <Form>DialogExportRecFile</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\DlgExportRecFile.h</DependentOn>
+            <BuildOrder>90</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmCDR.cpp">
+            <Form>FormCDR</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmCDR.h</DependentOn>
+            <BuildOrder>79</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmEmergencyCallInfo.cpp">
+            <Form>FormEmergencyCallInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmEmergencyCallInfo.h</DependentOn>
+            <BuildOrder>75</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmGroupCallInfo.cpp">
+            <Form>FormGroupCallInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmGroupCallInfo.h</DependentOn>
+            <BuildOrder>77</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmIPHCallInfo.cpp">
+            <Form>FormIPHCallInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmIPHCallInfo.h</DependentOn>
+            <BuildOrder>73</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmLocalRecManage.cpp">
+            <Form>FormLocalRecManage</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmLocalRecManage.h</DependentOn>
+            <BuildOrder>89</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmP2PCallInfo.cpp">
+            <Form>FormP2PCallInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmP2PCallInfo.h</DependentOn>
+            <BuildOrder>78</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmRealBrdInfo.cpp">
+            <Form>FormRealBrdInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmRealBrdInfo.h</DependentOn>
+            <BuildOrder>79</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmRecBrdInfo.cpp">
+            <Form>FormRecBrdInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmRecBrdInfo.h</DependentOn>
+            <BuildOrder>74</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\FrmReqCallInfo.cpp">
+            <Form>FormReqCallInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>rec\FrmReqCallInfo.h</DependentOn>
+            <BuildOrder>75</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="rec\ThreadDownload.cpp">
+            <DependentOn>rec\ThreadDownload.h</DependentOn>
+            <BuildOrder>89</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\DlgNewSDS.cpp">
+            <Form>DialogNewSDS</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\DlgNewSDS.h</DependentOn>
+            <BuildOrder>85</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\DlgNewSMS.cpp">
+            <Form>DialogNewSMS</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\DlgNewSMS.h</DependentOn>
+            <BuildOrder>116</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\DlgSetSDSTemplate.cpp">
+            <Form>DialogSetSDSTemplate</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\DlgSetSDSTemplate.h</DependentOn>
+            <BuildOrder>86</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\FrmLatestSDS.cpp">
+            <Form>FormLatestSDS</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\FrmLatestSDS.h</DependentOn>
+            <BuildOrder>90</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\FrmSDS.cpp">
+            <Form>FormSDS</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\FrmSDS.h</DependentOn>
+            <BuildOrder>88</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\FrmSDSManage.cpp">
+            <Form>FormSDSManage</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\FrmSDSManage.h</DependentOn>
+            <BuildOrder>95</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\FrmSDSTemplate.cpp">
+            <Form>FormSDSTemplate</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sds\FrmSDSTemplate.h</DependentOn>
+            <BuildOrder>90</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sds\SDSTemplate.cpp">
+            <DependentOn>sds\SDSTemplate.h</DependentOn>
+            <BuildOrder>91</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\DlgExit.cpp">
+            <Form>DialogExit</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\DlgExit.h</DependentOn>
+            <BuildOrder>90</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\DlgLock.cpp">
+            <Form>DialogLock</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\DlgLock.h</DependentOn>
+            <BuildOrder>93</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\DlgSelectUser.cpp">
+            <Form>DialogSelectUser</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\DlgSelectUser.h</DependentOn>
+            <BuildOrder>131</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\DlgSetOperator.cpp">
+            <Form>DialogSetOperator</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\DlgSetOperator.h</DependentOn>
+            <BuildOrder>81</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\DlgSetPwd.cpp">
+            <Form>DialogSetPwd</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\DlgSetPwd.h</DependentOn>
+            <BuildOrder>92</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\DlgSetSkin.cpp">
+            <Form>DialogSetSkin</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\DlgSetSkin.h</DependentOn>
+            <BuildOrder>92</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\FrmInit.cpp">
+            <Form>FormInit</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\FrmInit.h</DependentOn>
+            <BuildOrder>50</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\FrmLocalCfg.cpp">
+            <Form>FormLocalCfg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\FrmLocalCfg.h</DependentOn>
+            <BuildOrder>127</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\FrmLog.cpp">
+            <Form>FormLog</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\FrmLog.h</DependentOn>
+            <BuildOrder>63</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\FrmLogin.cpp">
+            <Form>FormLogin</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\FrmLogin.h</DependentOn>
+            <BuildOrder>51</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\FrmMediaPlayer.cpp">
+            <Form>FormMediaPlayer</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\FrmMediaPlayer.h</DependentOn>
+            <BuildOrder>121</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\FrmQuery.cpp">
+            <Form>FormQuery</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>sys\FrmQuery.h</DependentOn>
+            <BuildOrder>70</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\ThreadOMA.cpp">
+            <BuildOrder>85</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="sys\ThreadRecFileUpload.cpp">
+            <DependentOn>sys\ThreadRecFileUpload.h</DependentOn>
+            <BuildOrder>132</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\DlgSetTrainDepotID.cpp">
+            <Form>DialogSetTrainDepotID</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\DlgSetTrainDepotID.h</DependentOn>
+            <BuildOrder>67</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\DlgSetTrainGroup.cpp">
+            <Form>DialogSetTrainGroup</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\DlgSetTrainGroup.h</DependentOn>
+            <BuildOrder>83</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\DlgSetTrainID.cpp">
+            <Form>DialogSetTrainID</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\DlgSetTrainID.h</DependentOn>
+            <BuildOrder>66</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\DlgTrainInfo.cpp">
+            <Form>DialogTrainInfo</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\DlgTrainInfo.h</DependentOn>
+            <BuildOrder>71</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\FrmStation.cpp">
+            <Form>FormStation</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\FrmStation.h</DependentOn>
+            <BuildOrder>86</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\FrmTrain.cpp">
+            <Form>FormTrain</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\FrmTrain.h</DependentOn>
+            <BuildOrder>132</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\FrmTrainList.cpp">
+            <Form>FormTrainList</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>train\FrmTrainList.h</DependentOn>
+            <BuildOrder>70</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="train\TrainMap.cpp">
+            <DependentOn>train\TrainMap.h</DependentOn>
+            <BuildOrder>132</BuildOrder>
+        </CppCompile>
+        <LibFiles Include="..\ffmpeg\avcodec_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>57</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\avdevice_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>58</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\avfilter_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>59</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\avformat_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>60</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\avutil_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>61</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\postproc_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>62</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\SDL2_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>63</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\swresample_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>64</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\ffmpeg\swscale_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>65</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\libcurl\lib\curl_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>66</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\AEC_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>132</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\client_if.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>94</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\client_plat.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>89</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\dsound.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>67</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\eLTE_SDK_bcb.lib">
+            <BuildOrder>7</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\gos_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>8</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\lib\gplat_bcb.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>17</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <FormResources Include="sds\DlgSetSDSTemplate.dfm"/>
+        <FormResources Include="sds\FrmLatestSDS.dfm"/>
+        <FormResources Include="sds\FrmSDS.dfm"/>
+        <FormResources Include="sds\FrmSDSManage.dfm"/>
+        <FormResources Include="rec\FrmReqCallInfo.dfm"/>
+        <FormResources Include="sds\DlgNewSDS.dfm"/>
+        <FormResources Include="sds\DlgNewSMS.dfm"/>
+        <FormResources Include="sys\DlgSelectUser.dfm"/>
+        <FormResources Include="sys\DlgSetOperator.dfm"/>
+        <FormResources Include="sys\DlgSetPwd.dfm"/>
+        <FormResources Include="sys\DlgSetSkin.dfm"/>
+        <FormResources Include="sds\FrmSDSTemplate.dfm"/>
+        <FormResources Include="sys\DlgExit.dfm"/>
+        <FormResources Include="sys\DlgLock.dfm"/>
+        <FormResources Include="iph\FrmIPH.dfm"/>
+        <FormResources Include="main.dfm"/>
+        <FormResources Include="rec\DlgExportRecFile.dfm"/>
+        <FormResources Include="groupcall\DlgSubGroup.dfm"/>
+        <FormResources Include="groupcall\FrmGroup.dfm"/>
+        <FormResources Include="groupcall\FrmGroupCall.dfm"/>
+        <FormResources Include="groupcall\FrmGroupCallWin.dfm"/>
+        <FormResources Include="rec\FrmLocalRecManage.dfm"/>
+        <FormResources Include="rec\FrmP2PCallInfo.dfm"/>
+        <FormResources Include="rec\FrmRealBrdInfo.dfm"/>
+        <FormResources Include="rec\FrmRecBrdInfo.dfm"/>
+        <FormResources Include="rec\FrmCDR.dfm"/>
+        <FormResources Include="rec\FrmEmergencyCallInfo.dfm"/>
+        <FormResources Include="rec\FrmGroupCallInfo.dfm"/>
+        <FormResources Include="rec\FrmIPHCallInfo.dfm"/>
+        <FormResources Include="sys\FrmInit.dfm"/>
+        <FormResources Include="sys\FrmQuery.dfm"/>
+        <FormResources Include="train\DlgSetTrainDepotID.dfm"/>
+        <FormResources Include="sys\FrmLocalCfg.dfm"/>
+        <FormResources Include="sys\FrmLog.dfm"/>
+        <FormResources Include="sys\FrmLogin.dfm"/>
+        <FormResources Include="sys\FrmMediaPlayer.dfm"/>
+        <FormResources Include="train\FrmTrain.dfm"/>
+        <FormResources Include="train\FrmTrainList.dfm"/>
+        <FormResources Include="train\DlgSetTrainGroup.dfm"/>
+        <FormResources Include="train\DlgSetTrainID.dfm"/>
+        <FormResources Include="train\DlgTrainInfo.dfm"/>
+        <FormResources Include="train\FrmStation.dfm"/>
+        <FormResources Include="groupcall\DlgStaticGroupMember.dfm"/>
+        <FormResources Include="cfg\FrmBrdZoneCfg.dfm"/>
+        <FormResources Include="cfg\FrmCfg.dfm"/>
+        <FormResources Include="cfg\FrmDCOperatorCfg.dfm"/>
+        <FormResources Include="cfg\FrmDCUserCfg.dfm"/>
+        <FormResources Include="cfg\DlgSetStation.dfm"/>
+        <FormResources Include="cfg\DlgSetStationUE.dfm"/>
+        <FormResources Include="cfg\DlgSetTrain.dfm"/>
+        <FormResources Include="cfg\DlgSetTrainUE.dfm"/>
+        <FormResources Include="cfg\FrmRecBrdCfg.dfm"/>
+        <FormResources Include="cfg\FrmStationCfg.dfm"/>
+        <FormResources Include="cfg\FrmStationUECfg.dfm"/>
+        <FormResources Include="cfg\FrmTrainCfg.dfm"/>
+        <FormResources Include="cfg\FrmDepotCfg.dfm"/>
+        <FormResources Include="cfg\FrmGroupCfg.dfm"/>
+        <FormResources Include="cfg\FrmPortalUECfg.dfm"/>
+        <FormResources Include="cfg\FrmPredefinedSMSCfg.dfm"/>
+        <FormResources Include="call\FrmHalfDuplexP2PCallWin.dfm"/>
+        <FormResources Include="call\FrmP2PCallWin.dfm"/>
+        <FormResources Include="call\FrmUser.dfm"/>
+        <FormResources Include="call\FrmVideoCall.dfm"/>
+        <FormResources Include="call\DlgSelectVideoChan.dfm"/>
+        <FormResources Include="call\DlgSubUser.dfm"/>
+        <FormResources Include="call\DlgVideoCallCfg.dfm"/>
+        <FormResources Include="call\FrmCallIn.dfm"/>
+        <FormResources Include="cfg\DlgSetDepot.dfm"/>
+        <FormResources Include="cfg\DlgSetPortalUE.dfm"/>
+        <FormResources Include="cfg\DlgSetPredefinedSMS.dfm"/>
+        <FormResources Include="cfg\DlgSetRecBrd.dfm"/>
+        <FormResources Include="call\FrmVideoWin.dfm"/>
+        <FormResources Include="cfg\DlgSetBrdZone.dfm"/>
+        <FormResources Include="cfg\DlgSetDCOperator.dfm"/>
+        <FormResources Include="cfg\DlgSetDCUser.dfm"/>
+        <FormResources Include="cfg\FrmTrainUECfg.dfm"/>
+        <FormResources Include="FrmTest.dfm"/>
+        <FormResources Include="groupcall\DlgDynamicGroupMember.dfm"/>
+        <FormResources Include="groupcall\DlgPatchGroupMember.dfm"/>
+        <FormResources Include="groupcall\DlgRealBrd.dfm"/>
+        <FormResources Include="groupcall\DlgRecBrd.dfm"/>
+        <FormResources Include="groupcall\DlgSetGroupInfo.dfm"/>
+        <FormResources Include="groupcall\DlgMultiGroupMember.dfm"/>
+        <FormResources Include="groupcall\DlgNewDynamicGroup.dfm"/>
+        <FormResources Include="groupcall\DlgNewMultiGroup.dfm"/>
+        <FormResources Include="groupcall\DlgNewPatchGroup.dfm"/>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Project="$(BDS)\Bin\CodeGear.Cpp.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')"/>
+    <ProjectExtensions>
+        <Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+        <Borland.ProjectType>CppVCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <CPlusPlusBuilder.Personality>
+                <Source>
+                    <Source Name="MainSource">dc.cpp</Source>
+                </Source>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">0</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">2052</VersionInfo>
+                    <VersionInfo Name="CodePage">936</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName"/>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                </VersionInfoKeys>
+                <Debugging>
+                    <Debugging Name="DebugSourceDirs"/>
+                </Debugging>
+                <Parameters>
+                    <Parameters Name="RunParams"/>
+                    <Parameters Name="Launcher"/>
+                    <Parameters Name="UseLauncher">False</Parameters>
+                    <Parameters Name="DebugCWD"/>
+                    <Parameters Name="HostApplication"/>
+                    <Parameters Name="RemoteHost"/>
+                    <Parameters Name="RemotePath"/>
+                    <Parameters Name="RemoteParams"/>
+                    <Parameters Name="RemoteLauncher"/>
+                    <Parameters Name="UseRemoteLauncher">False</Parameters>
+                    <Parameters Name="RemoteCWD"/>
+                    <Parameters Name="RemoteDebug">False</Parameters>
+                    <Parameters Name="Debug Symbols Search Path"/>
+                    <Parameters Name="LoadAllSymbols">True</Parameters>
+                    <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+                </Parameters>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\DataExplorerDBXPluginEnt260.bpl">DBExpress Enterprise Data Explorer Integration</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k260.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp260.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+                <ProjectProperties>
+                    <ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+                    <ProjectProperties Name="ManagePaths">True</ProjectProperties>
+                    <ProjectProperties Name="VerifyPackages">False</ProjectProperties>
+                    <ProjectProperties Name="IndexFiles">False</ProjectProperties>
+                </ProjectProperties>
+            </CPlusPlusBuilder.Personality>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+            <Deployment Version="3">
+                <DeployFile LocalName="..\ffmpeg\avutil_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32c260.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avfilter_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\dc.tds" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>dc.tds</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avdevice_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dsound.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32260.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\gplat_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avutil_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\SDL2_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avformat_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dsound.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\client_plat.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\libcurl\lib\curl_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dc_if.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avformat_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\ResourceRules.plist" Configuration="Debug" Class="ProjectiOSDeviceResourceRules">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>ResourceRules.plist</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\swscale_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\postproc_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avformat_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="dc.res" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\dc.entitlements" Configuration="Debug" Class="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\client_plat.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\libcurl\lib\curl_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avfilter_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgstl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\SDL2_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\dc.dSYM" Configuration="Debug" Class="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>dc</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\AEC_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dc_cfg.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\swresample_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="dc.res" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dc_cfg.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avcodec_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avdevice_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\dc.info.plist" Configuration="Debug" Class="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Info.plist</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\eLTE_SDK_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dc_if.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avdevice_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\client_if.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64260mt.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\gos_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\postproc_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\swscale_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="dc.res" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\dc.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>dc.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\gos_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\eLTE_SDK_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\swscale_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\swresample_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\postproc_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avutil_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\gplat_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgstl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32260mt.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin64\borlndmm.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\eLTE_SDK_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\gos_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\swresample_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\dc.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>dc.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\dsound.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\gplat_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\lib\client_plat.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64260.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c260mt.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avfilter_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avcodec_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\SDL2_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>StartUp\Documents\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\libcurl\lib\curl_bcb.lib" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\ffmpeg\avcodec_bcb.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployClass Name="AdditionalDebugSymbols">
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidClassesDexFile">
+                    <Platform Name="Android">
+                        <RemoteDir>classes</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidFileProvider">
+                    <Platform Name="Android">
+                        <RemoteDir>res\xml</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidGDBServer">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeMipsFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidServiceOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashImageDef">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStyles">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV21">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v21</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_DefaultAppIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon144">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage426">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage470">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage640">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DebugSymbols">
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyFramework">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="DependencyPackage">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.bpl</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="File">
+                    <Platform Name="Android">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1024">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1536">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2048">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch768">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch320">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640x1136">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectAndroidManifest">
+                    <Platform Name="Android">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXDebug">
+                    <Platform Name="OSX64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXEntitlements">
+                    <Platform Name="OSX32">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXInfoPList">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXResource">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="ProjectOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Linux64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectUWPManifest">
+                    <Platform Name="Win32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_CppLogo150">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_CppLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+            </Deployment>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

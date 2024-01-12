@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dtp_client_test", "dtp_tcp_client_test.vcxproj", "{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gos", "..\..\gos\gos.vcxproj", "{08093ECF-5694-50FF-D765-C484A9E6EA92}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plat", "..\..\plat\plat.vcxproj", "{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		Template|Win32 = Template|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}.Debug|Win32.Build.0 = Debug|Win32
+		{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}.Release|Win32.ActiveCfg = Release|Win32
+		{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}.Release|Win32.Build.0 = Release|Win32
+		{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}.Template|Win32.ActiveCfg = Template|Win32
+		{DDB3E071-B19C-FEBD-A2EA-A6AE4C5AEEE2}.Template|Win32.Build.0 = Template|Win32
+		{08093ECF-5694-50FF-D765-C484A9E6EA92}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08093ECF-5694-50FF-D765-C484A9E6EA92}.Debug|Win32.Build.0 = Debug|Win32
+		{08093ECF-5694-50FF-D765-C484A9E6EA92}.Release|Win32.ActiveCfg = Release|Win32
+		{08093ECF-5694-50FF-D765-C484A9E6EA92}.Release|Win32.Build.0 = Release|Win32
+		{08093ECF-5694-50FF-D765-C484A9E6EA92}.Template|Win32.ActiveCfg = Release|Win32
+		{08093ECF-5694-50FF-D765-C484A9E6EA92}.Template|Win32.Build.0 = Release|Win32
+		{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}.Debug|Win32.Build.0 = Debug|Win32
+		{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}.Release|Win32.ActiveCfg = Release|Win32
+		{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}.Release|Win32.Build.0 = Release|Win32
+		{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}.Template|Win32.ActiveCfg = Release|Win32
+		{7EC6DC2E-34DE-81BB-5AB3-F71C4B746368}.Template|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

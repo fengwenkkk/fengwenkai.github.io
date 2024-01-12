@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<CALL_HISTORY>
+
+  <!--Dates are formatted mm/dd/yy. Don't forget XML is case-sensitive.-->
+
+  <OWNER DC="13001" ENC_2="true">
+    <Record Direction="Out" Downloadurl="" Duration="00:00:00" From="13001" Playurl="" Result="Dialed" Service="P2P Audio" Time="2021-03-19 10:40:52" To="13002" Type="Normal">1616121652600</Record>
+    <Record Direction="In" Downloadurl="" Duration="00:00:00" From="13002" Playurl="" Result="Missed" Service="P2P Audio" Time="2021-03-19 10:43:45" To="13001" Type="Normal">1616121825042</Record>
+    <Record Direction="In" Downloadurl="" Duration="00:00:00" From="13002" Playurl="" Result="Missed" Service="P2P Audio" Time="2021-03-19 10:46:36" To="13001" Type="Normal">1616121996822</Record>
+    <Record Direction="Out" Downloadurl="" Duration="00:00:00" From="13001" Playurl="" Result="Dialed" Service="P2P Audio" Time="2021-03-19 10:51:11" To="13002" Type="Normal">1616122271910</Record>
+    <Record Direction="Out" Downloadurl="" Duration="00:00:00" From="13001" Playurl="" Result="Dialed" Service="P2P Audio" Time="2021-03-19 11:01:50" To="13002" Type="Normal">1616122910725</Record>
+  </OWNER>
+
+</CALL_HISTORY>

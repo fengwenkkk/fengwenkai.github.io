@@ -1,0 +1,69 @@
+# Makefile
+
+TOP_DIR=$(PWD)
+
+export TOP_DIR
+
+include $(TOP_DIR)/Rules.mak
+
+EXE=$(TOP_DIR)/bin/dis/dis
+
+all: subdirs $(EXE)
+
+INC_FLAG = $(CC_PUB_INC) \
+		-I./pdb/mysql/include \
+		-I./snmp \
+		-I./ds_public \
+		-I./dis/common \
+		-I./dis/db \
+		-I./dis/cfg \
+		-I./dis/sys \
+		-I./dis/ATS \
+		-I./dis/SA \
+		-I./dis/occ \
+		-I./dis/APP \
+		-I./gplat/gos_utility \
+		-I./dis/TrainPosCall
+
+EXTRA_CFLAGS := $(INC_FLAG)
+EXTRA_LDFLAGS :=
+
+DIRS = gos gplat dtp pdb dis
+
+DS_LIBS = $(TOP_DIR)/lib/gplat.a \
+		$(TOP_DIR)/lib/dtp.a \
+		$(TOP_DIR)/lib/gos.a \
+		$(TOP_DIR)/lib/pdb.a \
+		$(TOP_DIR)/lib/dis.a \
+		dis/main.o
+
+LIBS += $(DS_LIBS)
+
+ifeq ($(HAVE_MYSQL), TRUE)
+EXTRA_CFLAGS += -DHAVE_MYSQL
+LDFLAGS += -DHAVE_MYSQL
+LIBS += $(TOP_DIR)/lib/libmysqlclient.a
+LIBS += $(TOP_DIR)/lib/libz64.a
+endif
+
+ifeq ($(HAVE_ORACLE), TRUE)
+EXTRA_CFLAGS += -DHAVE_ORACLE
+LDFLAGS += -DHAVE_ORACLE -L/usr/lib -lclntsh -lons -lclntshcore -lnnz12
+endif
+
+SRCS := dis/main.cpp
+
+CPPOBJS=$(patsubst %.cpp,%.o,$(SRCS))
+
+$(EXE) : $(COBJS) $(CPPOBJS) $(LIBS)
+	$(GCC) $(INC_FLAG) $(LDFLAGS) $(CPPOBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+
+ifeq ($(DODEBUG),)
+	$(STRIPTOOL) $(STRIP_FLAGS) $@
+endif
+
+clean-extra :
+	- $(RM) $(LIBNAME) $(EXE) $(EXE).map
+	- $(RM) *.o $(DS_LIBS)
+
+include $(TOP_DIR)/Makerules

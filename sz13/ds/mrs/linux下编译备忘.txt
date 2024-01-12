@@ -1,0 +1,51 @@
+#参考：https://my.oschina.net/u/998693/blog/406997
+
+#安装bzip
+yum -y install bzip2
+
+#安装yasm
+命令安装：
+#wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+tar zxvf yasm-1.3.0.tar.gz
+cd yasm-1.3.0
+./configure
+make
+make install
+
+#安装TD_SDK  
+./sdk_setup.sh
+#然后在/opt/SDK目录下执行 
+./sdk_svc_profile.sh
+
+
+#libva编译
+yum install libdrm-devel.x86_64 xorg-x11-server-devel.x86_64 -y
+tar -jxvf libva-2.3.0.tar.bz2
+cd libva-2.3.0/
+./configure --prefix=/usr --libdir=/usr/lib64 CFLAGS=-DNDEBUG
+make -j4 
+make install
+
+
+#libva驱动编译
+tar -jxvf intel-vaapi-driver-2.3.0.tar.bz2
+cd intel-vaapi-driver-2.3.0/
+./configure CFLAGS=-DNDEBUG --prefix=/usr
+make -j4 
+make install
+
+#重新生成链接
+#使用如下命令刷新生成动态库链接：
+ldconfig
+
+#amr_nb http://download.csdn.net/detail/tonylllz/8141183
+
+yum -y install patch
+ 
+./configure --prefix=/usr --enable-shared
+
+#makefile中以下行添加--no-check-certificate
+#cd $(top_srcdir) && $(DOWNLOADER_PROG) http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-b00.zip --no-check-certificate
+
+make
+make install

@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C9237269-0295-41DD-A5B5-E603640CE358}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="MPlayer.cbproj">
+            <Dependencies>..\..\gos\gos_bcb.cbproj;..\..\gplat\gplat_bcb.cbproj;..\..\client_plat\client_plat.cbproj;..\..\client_if\client_if.cbproj</Dependencies>
+        </Projects>
+        <Projects Include="..\..\gos\gos_bcb.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\gplat\gplat_bcb.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\client_plat\client_plat.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\client_if\client_if.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="MPlayer" DependsOnTargets="gos_bcb;gplat_bcb;client_plat;client_if">
+        <MSBuild Projects="MPlayer.cbproj"/>
+    </Target>
+    <Target Name="MPlayer:Clean" DependsOnTargets="gos_bcb:Clean;gplat_bcb:Clean;client_plat:Clean;client_if:Clean">
+        <MSBuild Projects="MPlayer.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MPlayer:Make" DependsOnTargets="gos_bcb:Make;gplat_bcb:Make;client_plat:Make;client_if:Make">
+        <MSBuild Projects="MPlayer.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gos_bcb">
+        <MSBuild Projects="..\..\gos\gos_bcb.cbproj"/>
+    </Target>
+    <Target Name="gos_bcb:Clean">
+        <MSBuild Projects="..\..\gos\gos_bcb.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gos_bcb:Make">
+        <MSBuild Projects="..\..\gos\gos_bcb.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gplat_bcb">
+        <MSBuild Projects="..\..\gplat\gplat_bcb.cbproj"/>
+    </Target>
+    <Target Name="gplat_bcb:Clean">
+        <MSBuild Projects="..\..\gplat\gplat_bcb.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gplat_bcb:Make">
+        <MSBuild Projects="..\..\gplat\gplat_bcb.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="client_plat">
+        <MSBuild Projects="..\..\client_plat\client_plat.cbproj"/>
+    </Target>
+    <Target Name="client_plat:Clean">
+        <MSBuild Projects="..\..\client_plat\client_plat.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="client_plat:Make">
+        <MSBuild Projects="..\..\client_plat\client_plat.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="client_if">
+        <MSBuild Projects="..\..\client_if\client_if.cbproj"/>
+    </Target>
+    <Target Name="client_if:Clean">
+        <MSBuild Projects="..\..\client_if\client_if.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="client_if:Make">
+        <MSBuild Projects="..\..\client_if\client_if.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="MPlayer;gos_bcb;gplat_bcb;client_plat;client_if"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="MPlayer:Clean;gos_bcb:Clean;gplat_bcb:Clean;client_plat:Clean;client_if:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="MPlayer:Make;gos_bcb:Make;gplat_bcb:Make;client_plat:Make;client_if:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

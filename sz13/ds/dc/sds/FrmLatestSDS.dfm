@@ -1,0 +1,578 @@
+inherited FormLatestSDS: TFormLatestSDS
+  ClientHeight = 588
+  ClientWidth = 978
+  ExplicitWidth = 994
+  ExplicitHeight = 627
+  PixelsPerInch = 96
+  TextHeight = 14
+  inherited MainPanel: TPanel
+    Width = 978
+    Height = 588
+    ExplicitWidth = 978
+    ExplicitHeight = 588
+    object gbMain: TcxGroupBox
+      Left = 0
+      Top = 0
+      Align = alClient
+      Alignment = alTopCenter
+      Caption = #26368#36817#30701#20449
+      PanelStyle.Active = True
+      Style.LookAndFeel.NativeStyle = False
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleDisabled.LookAndFeel.NativeStyle = False
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      TabOrder = 0
+      Height = 588
+      Width = 832
+      object gbDetail: TcxGroupBox
+        Left = 3
+        Top = 264
+        Align = alBottom
+        Alignment = alTopCenter
+        Caption = #20449#24687#20869#23481
+        TabOrder = 0
+        Height = 321
+        Width = 826
+        object PanelSDSInfo: TPanel
+          Left = 2
+          Top = 19
+          Width = 822
+          Height = 300
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 0
+          object mmSDSInfo: TcxMemo
+            Left = 0
+            Top = 0
+            Align = alClient
+            Properties.ReadOnly = True
+            Properties.ScrollBars = ssVertical
+            Style.LookAndFeel.NativeStyle = False
+            StyleDisabled.LookAndFeel.NativeStyle = False
+            StyleFocused.LookAndFeel.NativeStyle = False
+            StyleHot.LookAndFeel.NativeStyle = False
+            TabOrder = 0
+            Height = 300
+            Width = 496
+          end
+          object tlSDSReply: TcxTreeList
+            Left = 502
+            Top = 0
+            Width = 320
+            Height = 300
+            Align = alRight
+            Bands = <
+              item
+              end>
+            LookAndFeel.NativeStyle = False
+            Navigator.Buttons.CustomButtons = <>
+            OptionsData.Editing = False
+            OptionsView.GridLines = tlglBoth
+            OptionsView.Indicator = True
+            OptionsView.ShowRoot = False
+            TabOrder = 1
+            OnGetCellHint = tlSDSReplyGetCellHint
+            object cxTreeListColumn1: TcxTreeListColumn
+              Caption.Text = #25509#25910#20154
+              DataBinding.ValueType = 'Integer'
+              Width = 80
+              Position.ColIndex = 0
+              Position.RowIndex = 0
+              Position.BandIndex = 0
+              Summary.FooterSummaryItems = <>
+              Summary.GroupFooterSummaryItems = <>
+            end
+            object ColumnRecvTime: TcxTreeListColumn
+              Caption.Text = #25509#25910#26102#38388
+              DataBinding.ValueType = 'Integer'
+              Width = 90
+              Position.ColIndex = 1
+              Position.RowIndex = 0
+              Position.BandIndex = 0
+              Summary.FooterSummaryItems = <>
+              Summary.GroupFooterSummaryItems = <>
+              OnGetDisplayText = ColumnRecvTimeGetDisplayText
+            end
+            object ColumnConfirmTime: TcxTreeListColumn
+              Caption.Text = #30830#35748#26102#38388
+              DataBinding.ValueType = 'Integer'
+              Width = 90
+              Position.ColIndex = 2
+              Position.RowIndex = 0
+              Position.BandIndex = 0
+              Summary.FooterSummaryItems = <>
+              Summary.GroupFooterSummaryItems = <>
+              OnGetDisplayText = ColumnConfirmTimeGetDisplayText
+            end
+          end
+          object PanelMediaPlayer: TPanel
+            Left = 0
+            Top = 0
+            Width = 496
+            Height = 300
+            Align = alClient
+            BevelOuter = bvLowered
+            TabOrder = 2
+            object PanelImage: TPanel
+              Left = 1
+              Top = 1
+              Width = 494
+              Height = 298
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 0
+              object ImageAttach: TcxImage
+                Left = 0
+                Top = 0
+                Align = alClient
+                TabOrder = 0
+                Transparent = True
+                Height = 298
+                Width = 494
+              end
+            end
+          end
+          object SplitterReply: TcxSplitter
+            Left = 496
+            Top = 0
+            Width = 6
+            Height = 300
+            AlignSplitter = salRight
+          end
+        end
+      end
+      object tlMain: TcxTreeList
+        Left = 3
+        Top = 3
+        Width = 826
+        Height = 255
+        Align = alClient
+        Bands = <
+          item
+          end>
+        LookAndFeel.NativeStyle = False
+        Navigator.Buttons.CustomButtons = <>
+        OptionsData.Editing = False
+        OptionsView.GridLines = tlglBoth
+        OptionsView.Indicator = True
+        OptionsView.ShowRoot = False
+        TabOrder = 1
+        OnClick = tlMainClick
+        OnDblClick = tlMainDblClick
+        OnFocusedNodeChanged = tlMainFocusedNodeChanged
+        object ColumnSDSID: TcxTreeListColumn
+          Visible = False
+          Caption.Text = #32534#21495
+          DataBinding.ValueType = 'Integer'
+          Width = 68
+          Position.ColIndex = 0
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnSendTime: TcxTreeListColumn
+          Caption.Text = #21457#36865#26102#38388
+          DataBinding.ValueType = 'String'
+          Width = 135
+          Position.ColIndex = 1
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          SortOrder = soDescending
+          SortIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnSDSType: TcxTreeListColumn
+          Caption.Text = #31867#21035
+          DataBinding.ValueType = 'Integer'
+          Width = 127
+          Position.ColIndex = 2
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+          OnGetDisplayText = ColumnSDSTypeGetDisplayText
+        end
+        object ColumnFormat: TcxTreeListColumn
+          Visible = False
+          Caption.Text = #26684#24335
+          DataBinding.ValueType = 'String'
+          Width = 100
+          Position.ColIndex = 3
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnIndex: TcxTreeListColumn
+          Caption.Text = #32534#21495
+          DataBinding.ValueType = 'Integer'
+          Width = 100
+          Position.ColIndex = 4
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnSender: TcxTreeListColumn
+          Caption.Text = #21457#36865#20154
+          DataBinding.ValueType = 'String'
+          Width = 100
+          Position.ColIndex = 5
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnSendSuccRate: TcxTreeListColumn
+          PropertiesClassName = 'TcxLabelProperties'
+          Properties.Alignment.Horz = taCenter
+          Properties.Alignment.Vert = taVCenter
+          Caption.Text = #21457#36865#25104#21151#29575
+          DataBinding.ValueType = 'String'
+          Width = 90
+          Position.ColIndex = 6
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnConfirmRate: TcxTreeListColumn
+          PropertiesClassName = 'TcxLabelProperties'
+          Properties.Alignment.Horz = taCenter
+          Properties.Alignment.Vert = taVCenter
+          Caption.Text = #30830#35748#29575
+          DataBinding.ValueType = 'String'
+          Width = 90
+          Position.ColIndex = 7
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnContent: TcxTreeListColumn
+          Caption.Text = #20869#23481
+          DataBinding.ValueType = 'String'
+          Width = 227
+          Position.ColIndex = 8
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+        end
+        object ColumnNeedReply: TcxTreeListColumn
+          Caption.Text = #38656#35201#22238#25191
+          DataBinding.ValueType = 'Integer'
+          Width = 83
+          Position.ColIndex = 9
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+          OnGetDisplayText = ColumnNeedReplyGetDisplayText
+        end
+        object ColumnAttachFile: TcxTreeListColumn
+          Caption.Text = #38468#20214
+          DataBinding.ValueType = 'String'
+          Width = 200
+          Position.ColIndex = 10
+          Position.RowIndex = 0
+          Position.BandIndex = 0
+          Summary.FooterSummaryItems = <>
+          Summary.GroupFooterSummaryItems = <>
+          OnGetDisplayText = ColumnAttachFileGetDisplayText
+        end
+      end
+      object cxSplitter1: TcxSplitter
+        Left = 3
+        Top = 258
+        Width = 826
+        Height = 6
+        AlignSplitter = salBottom
+      end
+    end
+    object gbWorkPanel: TcxGroupBox
+      Left = 832
+      Top = 0
+      Align = alRight
+      Caption = ' '
+      Ctl3D = False
+      PanelStyle.Active = True
+      ParentCtl3D = False
+      Style.BorderColor = clRed
+      Style.BorderStyle = ebs3D
+      Style.LookAndFeel.NativeStyle = False
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleDisabled.LookAndFeel.NativeStyle = False
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      TabOrder = 1
+      Height = 588
+      Width = 146
+      object btnAdd: TcxButton
+        Left = 31
+        Top = 106
+        Width = 82
+        Height = 58
+        Caption = #30701#20449
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          89504E470D0A1A0A0000000D4948445200000016000000160806000001B3B35C
+          AD000000017352474200AECE1CE900000044655849664D4D002A000000080001
+          87690004000000010000001A000000000003A00100030000000100010000A002
+          00040000000100000016A00300040000000100000016000000001C21335A0000
+          00FF494441543811C553C10DC2300C745AFE3040178225907830140F24968081
+          E80030002AB9286E0DB59B86B6A28FDA71CE978B1D13FDF83DCED420B530F319
+          0180C34F0642B0A41D6CFB3D2FB46D17838EA45215388FB87B8A4AA5B1D26B15
+          CD4164455A0E05AB0A8888DEF96A253EE8BA852E27CA08D5EFB0439D90A8597C
+          5401323432AD1ABD2A70A206E6BD9ECD020F3F00C1BD39902B5C494711B3DCBC
+          8680254BF334B0BF03C649D5185E9D752B8E63FC9A179DB04641D67BBAF19E65
+          57D6868C7BD22BAFA39F1494550B261F6317230E571235341FFD18951E53730F
+          82E2D898A9A438BB6A9B3C46C9F79C635E52798BD5F8EFC472BAA49FAAC8FCFB
+          6FB75B4C758663A8280000000049454E44AE426082}
+        OptionsImage.Layout = blGlyphTop
+        TabOrder = 0
+        OnClick = btnAddClick
+      end
+      object btnReply: TcxButton
+        Left = 31
+        Top = 234
+        Width = 82
+        Height = 71
+        Caption = #22238#22797
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+          F8000000097048597300000EC400000EC401952B0E1B000003E0494441544889
+          E5CF4B4C5C551CC7F1DFBD77E6CEE30ECCC80C301DA0A1403ABC3414D4B6B175
+          A33191A889891B63E2CAD485AF54D34537B230EE5C19D31837261AC5C48A4EAD
+          5204521A2AD316A90C9D0EC39B090CF37E3133F77DEF71416B28B1820DBAF1BB
+          393939E7FC3F39C0FFA29EE7FAACEF7D31C43DC85BC36E17DEFC78E4E4A19683
+          1F1672B961001FEC1BF0CCBBFD0D47BB9BDEEA3972F094BBDE6D1FF876E2F23F
+          1D7E1FA09D7DFBDC272F7B0F1F3873A4ABA9A3C1C922512248A60B16B4F7D910
+          9AD2818BFC5E016AFBA6F79D4F8F3E79E2D133DE56CF8BAD6D07685D262020E0
+          0511E3FEA502051251543D96CD94AE85C3F1F1E9F9F5A988EF747E57A0BDB7CF
+          FDF4B3C7DFE8EA6A3EF5F0234D35269606CF4BD035029A062C160358D6005503
+          144543B1A4606D2D89586C736426B0F2F997EFBFF0F57D81D73FFAF995E616F7
+          E9B6B6C61E33C74151141819C0C050A0280A140580000C4381A129180C144CAC
+          01AC898646807038A6DC9C5EFDEEFCF92B67E77C67577702CCB1DE57BF7FFC58
+          5707C39A114D96902D4810241DAA4AA011024D272077564D2390551D3CAFA22C
+          A850141DB56E07D3DC5CD759EDB29FA0AA3AA696260763F700A2E1E0D5C852DC
+          260972474DAD8B6658237849052F2A280B2A044987206990640251D521483ACA
+          8286B2A022BBA9209916C130143A3BEA3DBACA9C4CCA8D2389F068E64F20393F
+          1E9BBBEE1B48F1350BA562B9D1C6593D552E073400B2AC43D308AC2C05A211E8
+          8481AE51777E04A83A202B2A364B3208010E7B3DD5B2AC7AFDE3999F202D8800
+          C0DC95D2CB5783C1F1F0600916512C8B5E57753567E6CCA0690ABA24C33730B6
+          110ACCCEAF2D47A57C3A6B339A2C8CD56C046B66A1A80485A2041BC7C25E616D
+          D68DD664D8FF83FF1E60ABD466F4F6C8E84A8299CCA5369D20F0D637B8C1D938
+          8C0DFB3F1B3AF7DA4BE9BC756C3D91F3CFDE5A8AA69359074331AE2A6725289A
+          46A124A3A1C18542AE78282FBB06538B13B91DC05662722612090CF6C70B95D1
+          7259F052069B2BBE11BFB13CE91B2AC6A713A9852BB73642C3839138339ACE96
+          B2F94CB1DD5EE5E0588B190404159CD5B93097598F042E4EFC2570B7C2DA8D9B
+          B3BF2EFE221A2B3893D9145CFECD37B9FD5CCEDE4EC742A397E345DBF56241EA
+          E46C9575950FD951516145229E1203C1991FFF16D82A9189062F5DD8397C7B7C
+          FCF748B6641E1104A695ABB0B7D4D6552197CEB1C1C0CA853D007B4BCA84F2C9
+          78DEAFB3CEE335F59E3A4D91B9F0CCFC37FB060080C6AFE5CABC79C964AB7E9E
+          73386DAB0B8BFDFB0A00809009AD58DDDD4E62B03F412B99AFF61D00005E7324
+          2A9DEE6E86D62E51BB5F7FB03C8F3DE524BA45F8B7E6FF77FD01B5ECEB0D4718
+          B5F60000000049454E44AE426082}
+        OptionsImage.Layout = blGlyphTop
+        TabOrder = 1
+        OnClick = btnReplyClick
+      end
+      object btnRefresh: TcxButton
+        Left = 31
+        Top = 35
+        Width = 82
+        Height = 65
+        Caption = #21047#26032
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+          F8000000097048597300000EC400000EC401952B0E1B00000427494441544889
+          B5955D88D45518C69FE79C99D99D8FDDD95D315A33733595D460FB202DC9D530
+          482102C38B0ABC8AC0C88B28332118E62230444CC4BA08BA10BC282F8A4021A8
+          5023B5B072432CC5D4DC5D3751677767666776FE1FEFD34550BBBACAEE85EFDD
+          E1C0EFF73EE770DE03DCE5E29D362FEF44BAF5EFF4124FCD33B153542BA18417
+          6B00AEC4C49FADE9B1DF5844755A021590A904B93949DAF230D46A10DD146689
+          CA48483AA00171D0A05E525F27334D879B4AE53EB7078D29092ADBB24B2DB4CD
+          498F6723D30C101E60194449A698601BA119F66F3BD71DF88D77D8976E5E768C
+          C523D1785662328185710BC185666803F1338CBFD0E322A812C148B03CE0E612
+          7A1CE02A001B6343FB707032A942CF91F19249058A53D7BC0F0EC6E251E7F57D
+          B69EF9C9ED29952734B1FBC1A6EA95FE654E386FD27A812FF8C8829A4E0D6B03
+          4EF100E20947A442C1A9B43FC98EF3B14AF0359FE94006C8266B432C62EC3677
+          95AA04B979DEC2974DDC242141682F43BF37F7616DF03F41A590BD27ACF12122
+          6E77887FCFEF08CE4E06BC5D55DFCE74CBD97B125E34E884376CCBE51A475984
+          39006023EA4E317E35E5F59A57E2497D0E3F1DC155DF74D1E40E013807E001E7
+          D53D52461B00B8E14D73DA293CE5BD9E4F113D725AD1F835B7481BA62E99FFC1
+          D048CA278E92ECA59833734B7C32DB0900CEE5AE6F32E3DAE624F289243282AD
+          0BE378637D71F37DD34991DE5E3EEF883F001044A78B2D070009C9BA40D9689D
+          63746882E049E5A22091992A7CF02D64332E35DB84FB1DE104CC0E89272AEF24
+          AB8948F1EE944B3C03291B1B1640EE608C784F4B50ED9FAA20E35A6613E166C1
+          D679C7B4848580BD04F987DD8C9DE169834E1A39002026D197DF119C753B313A
+          55413215D648560046992630DB8C344127B84B0E009CF92A85010846D8E2912D
+          2D8BA60A078074626C40F0FB683C1447181D6B605870875A82991F3900C819AF
+          803A23A86A623719AF2C6D6DCF4F55C022ACE562F51CC11F1A318E98F89591C7
+          B9FBAF610700E8AB0E45B14E39F2B2735840D9738C1B5DD349C1038813F4C703
+          E327B1FCA73E8D5E60DCA8B8B6253DAB19D82CE80D02019C3E96B43F570F2E4C
+          368601C0DE44BA847487125035532FCD454FA4D28067C72B218B459B20D006F8
+          DA82D6C72C0CB6D261BD83AEC6C62F017D3614CD3C3167577F7D3C7CF8DD7C3B
+          C3FA7238FFB48746629FFC22BFBD72EE9664E3172A2C4E8D8697565B64AF7B62
+          6D1443240E933C29D82513CB1E48806CA7D005E8513A3E62865E9FD2B6CCFB63
+          C76E164C18D72C9E0954E8F9B6A21F6B51846BA0D6805C216925C11B04460026
+          4CE82094231010B861C0D994F9F2CDF05B12FC9F04A94A25370F3E5C45708DC0
+          6E50F74A48118800D61DD16F865EE7F99D39776234A8F6754EF276EEF8E90F15
+          F26D7EACB154C27C1A3A456504465E2C831A74C60B69AB9F76BB50BF13E7AED6
+          3FD54E067AFBC8F3040000000049454E44AE426082}
+        OptionsImage.Layout = blGlyphTop
+        TabOrder = 2
+        OnClick = btnRefreshClick
+      end
+      object btnResend: TcxButton
+        Left = 31
+        Top = 170
+        Width = 82
+        Height = 58
+        Caption = #37325#21457
+        Enabled = False
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+          F80000000467414D410000B18F0BFC6105000000206348524D00007A26000080
+          840000FA00000080E8000075300000EA6000003A98000017709CBA513C000000
+          06624B474400FF00FF00FFA0BDA7930000000774494D4507E40704092E36B72F
+          1F49000005BE4944415448C775954D6C5C5715C7FFF7DEF7351FF6D89E49C6A9
+          5D1B0FE4C3717090DA381F2658A18842172CA2A2A2A65B402A2C10222C5884A8
+          9BAA2A12085AA12CDA05222081C4868A540254AA925495AA26216952A769EAB8
+          75EDD4763CF1CCBC79F7BE7BCF6131E3CC384D8F74F53EEE3BFFDF3BE79D739E
+          C0E758F6D87180185012999121845B8B90610000206D60966F23BEF931E00890
+          02F1E9E75B3EF798BAAFF0C81EF87D7D983CF52CE65E7CA9CFEBEDF90A137DCB
+          C5CDC76CBD3163EBF59DB67A276C5CBFDEF8DADF4F258B67DE0095770060140F
+          1EC6FAA50B0390029424566C127FEAE770CD264A3347B0F2DA3F077BF6EC793C
+          57A97C37289527FC9EFE820C3C0F00C85867EBD5AA5E5EBA12CFCDFD75FDF2E5
+          BF95661E59A85F9B457A7B75BA677CE239B3BAF2B2CAE55F56DDE2A435F43B6F
+          29592C7D63E0E0E117FBF6EEFF7EA6FCC531CF2F64617D092D01A32038945ED4
+          970D4B43A3D1B6E16F06C58143F5D92B0B7A6971A87FFFE1170ABB1FDE17CF7F
+          78C1EFE9FF8FB79116D209922B17BCC263477FD8FFD0F42F73A3DBB7704A70B5
+          2600EE8A53B4AE4DEB5C7A59D5BBE3A1432A53F8A35959AEF54D1E18B377AAE0
+          346532061E00A4B52A8A535F475C2C1F294C1E3899D95629B97A0C307589760E
+          1D1E83AD01B44466EB174A99ADA325D61A6492F636C1CB1E3B0E1946A85E7C73
+          B8FFE1999399C1074B14D701A2B6A00098413605DBB4C5F17C48CF07443B1A06
+          D8E8F64B08B0B5606630113C3063E4891F61F1CC9F8F66CAC30758276067DBCE
+          00DB147AE5D69A5E5D3A6BEB776601C0CB177686A5C10361B15C149EBFA95044
+          DB074C00113C2885F77FF78B81817D471E17BE2F49C7606EE993B5682ECE9F6F
+          CCCD9E68CC5D7BFDD157FF50ABD78137BEF3442E5FD9F593C29EA913D1D60702
+          26EA008400A506D888C0CF17203D7F97CA6427D81830BBBB694E9697D61A1FBE
+          77A267E7DE576CA386D7BEF753F8FD254483C3939907BF743428960332BAEB5B
+          010C014E4D3B450E9E0A23B073E35279BD6C92D6C342806C0AB37AEB6CBC30F7
+          BA8DEB00335436075B5B9BCA57769FCA8D6EFF32EB2640EE9E5615AD14118956
+          8A5AF78A20E79149C0CC1042C0E904B6B13EBBEFD72FD52E9E3C8EF84FBF42EF
+          0F9E018071B6697FE3C6D50590E34E697508EC52A2D4DCB4711D1E9303884046
+          4348D50600941A3011D25AE70DD3F53540C8BFD4DEBFFC2F2627360AE1330421
+          58FAE16D26078FAD0513AD926E5A21A50706B85D7D2A8C76FEEF99A77BBC9EBE
+          5AD7206BAA4C7601008454104A816C0A307F16040F9ED3093835576DDC5897CA
+          1BB8BB2B15BC5CEF74B865DB4C66A8F24AFD83775BBDD1DECB8E6E47B2381F45
+          E521F4567625F1FC7550DA2ACF4F9F7BBA334DBD89FDB049B3EE85D123D2F347
+          410EE41CE02C84EF6764108D279F7EB290AE2D2F8E3FFB5B133DB01BB7CF9E89
+          849023D196C18A17657CB37A4B33B385352047C81D7C14F19BAFB6A2C83EF933
+          E486C790AC2CFD3828F4FF46F9A1EA4A26841F8088D6AC4ECE914EAE42889A0A
+          A38C0A225F4AF1111B7D0DCC3700FE04107553AB72F5FC59E0AD33AD08FCC969
+          D8C63A28D50B42888352CA111081C9B63A3A35003823FD60878AB28754187D55
+          0A51416AB2A413C5642593134CC4EC6CEAB436D9A1314EDEFE770B905E3A07B5
+          7B0A7E365F733A9907F3B785400ED46A752607B629D868B06E827553B1D119B6
+          69087201887C102938276DD234B6D95823973A73F1BF9D3F5AB0F7305C9AC226
+          F14D21440DCC5300721BF3E43E4B8128D35E013B1738A39B56EBCBBAB1BE2295
+          427AE95C07905E3A8760721A52796C75725E08F10E338D816818CCF2F3204C94
+          276B3D67CDBB2E4D4FBB54CF7A41C41062336003E24F4E432AC5CAF76F5863FE
+          C14437419C63A23C33F920564C042267D9D11A917BDB39FB7B67ED0BCA0F3ED8
+          E8D2F8F4F39BA6EB26CB1E3B7E775CF86108D36CF60929770821260094DB3EB7
+          98F90A13BD17E5F255DD8CEFFA748BDF17D00DEA1EC1E29EB1C0CCE0AEEEBD57
+          78C3FE0FD13A569E8B4A23850000002574455874646174653A63726561746500
+          323032302D30332D31395431303A35313A30342B30303A303002C227DF000000
+          2574455874646174653A6D6F6469667900323031392D30312D30385431373A32
+          323A35332B30303A3030C453208F0000002074455874736F6674776172650068
+          747470733A2F2F696D6167656D616769636B2E6F7267BCCF1D9D000000187445
+          58745468756D623A3A446F63756D656E743A3A50616765730031A7FFBB2F0000
+          0017744558745468756D623A3A496D6167653A3A486569676874003438876087
+          2D00000016744558745468756D623A3A496D6167653A3A57696474680034387F
+          CF47A000000019744558745468756D623A3A4D696D657479706500696D616765
+          2F706E673FB2564E00000017744558745468756D623A3A4D54696D6500313534
+          36393638313733666959AB00000011744558745468756D623A3A53697A650032
+          30343542A31AEA8900000058744558745468756D623A3A5552490066696C653A
+          2F2F2F646174612F777777726F6F742F7777772E6561737969636F6E2E6E6574
+          2F63646E2D696D672E6561737969636F6E2E636E2F66696C65732F35352F3535
+          353435382E706E67A3556FBD0000000049454E44AE426082}
+        OptionsImage.Layout = blGlyphTop
+        TabOrder = 3
+        OnClick = btnResendClick
+      end
+      object btnAddSms: TcxButton
+        Left = 31
+        Top = 170
+        Width = 82
+        Height = 58
+        Caption = #24425#20449
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          89504E470D0A1A0A0000000D4948445200000016000000160806000001B3B35C
+          AD000000017352474200AECE1CE900000044655849664D4D002A000000080001
+          87690004000000010000001A000000000003A00100030000000100010000A002
+          00040000000100000016A00300040000000100000016000000001C21335A0000
+          00FF494441543811C553C10DC2300C745AFE3040178225907830140F24968081
+          E80030002AB9286E0DB59B86B6A28FDA71CE978B1D13FDF83DCED420B530F319
+          0180C34F0642B0A41D6CFB3D2FB46D17838EA45215388FB87B8A4AA5B1D26B15
+          CD4164455A0E05AB0A8888DEF96A253EE8BA852E27CA08D5EFB0439D90A8597C
+          5401323432AD1ABD2A70A206E6BD9ECD020F3F00C1BD39902B5C494711B3DCBC
+          8680254BF334B0BF03C649D5185E9D752B8E63FC9A179DB04641D67BBAF19E65
+          57D6868C7BD22BAFA39F1494550B261F6317230E571235341FFD18951E53730F
+          82E2D898A9A438BB6A9B3C46C9F79C635E52798BD5F8EFC472BAA49FAAC8FCFB
+          6FB75B4C758663A8280000000049454E44AE426082}
+        OptionsImage.Layout = blGlyphTop
+        TabOrder = 4
+        OnClick = btnAddSmsClick
+      end
+      object btnOpenAttachFile: TcxButton
+        Left = 31
+        Top = 326
+        Width = 82
+        Height = 58
+        Caption = #38468#20214
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+          F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+          00097048597300000EC300000EC301C76FA864000001DD494441545847ED944B
+          4B025114C7FD0AD16315446D5B54D4276853417D8656518B5AF780A836A105B5
+          088AD60565BAA8558BA282363DC8A08D5A238DA506D943C5346DEC74CF3077BA
+          CE4BC54985FCC1419C73C7F3E7FCFF5E4B952A35E36E2867558E805253790246
+          EC21887D66A4F6DF114F6560D411520BC0EAB07170E14F4847CDE7EA31099D8B
+          3E791E962CC0EE8A42D38C17EA273DB0701806C1C46564BE01968E5EA061CA03
+          8DD35ED8B88CA80520FC6B1A7A5679F17BDF1A0F0F6F69F1793104225FD0BFEE
+          177FB37BE51EB8704A7C4EE7AA422810B9D68330D4914DE0469CD751A95338BB
+          3731689EBD85DA0937CCED3F435A20AB90D0154039E313D066E5C45EA1016583
+          D63ACFC1A9EF43EAFC42E7EA0A40A2C90C0C6D05C57EBE01658336B81980F784
+          2075B2A1730D055076F208A856D08C2848C01EF1B2857849CF2A03CA060D0BC5
+          3A7264879E3514805E8E399FC43E7A7972175705541934F49B6667783B083162
+          A31674AEAE0017F1B24BC74B36A058CAA0B1D96927D93927E795D0775502D0CB
+          E5E3DC5ED221464163B363239BC3BF38455340907839A0716914037BB9F5924F
+          BF941D3A57164083A67569148BF272C380AA0460E95D1A66A1CC0E962CC0C84B
+          3361039A25A0D4549E807255F90554F9E7582C3F349B0EE8AC2542F000000000
+          49454E44AE426082}
+        OptionsImage.Layout = blGlyphTop
+        TabOrder = 5
+        OnClick = btnOpenAttachFileClick
+      end
+    end
+  end
+  object TimerCheck: TTimer
+    OnTimer = TimerCheckTimer
+    Left = 608
+    Top = 120
+  end
+end

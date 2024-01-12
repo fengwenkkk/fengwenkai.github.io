@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{41E2C3D9-DE8E-4121-B7B8-2A75BB491A2F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ATSData.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\gos\gos_bcb.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\gplat\gplat_bcb.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\client_plat\client_plat.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ATSData">
+        <MSBuild Projects="ATSData.cbproj"/>
+    </Target>
+    <Target Name="ATSData:Clean">
+        <MSBuild Projects="ATSData.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ATSData:Make">
+        <MSBuild Projects="ATSData.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gos_bcb">
+        <MSBuild Projects="..\..\gos\gos_bcb.cbproj"/>
+    </Target>
+    <Target Name="gos_bcb:Clean">
+        <MSBuild Projects="..\..\gos\gos_bcb.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gos_bcb:Make">
+        <MSBuild Projects="..\..\gos\gos_bcb.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gplat_bcb">
+        <MSBuild Projects="..\..\gplat\gplat_bcb.cbproj"/>
+    </Target>
+    <Target Name="gplat_bcb:Clean">
+        <MSBuild Projects="..\..\gplat\gplat_bcb.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gplat_bcb:Make">
+        <MSBuild Projects="..\..\gplat\gplat_bcb.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="client_plat">
+        <MSBuild Projects="..\..\client_plat\client_plat.cbproj"/>
+    </Target>
+    <Target Name="client_plat:Clean">
+        <MSBuild Projects="..\..\client_plat\client_plat.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="client_plat:Make">
+        <MSBuild Projects="..\..\client_plat\client_plat.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ATSData;gos_bcb;gplat_bcb;client_plat"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ATSData:Clean;gos_bcb:Clean;gplat_bcb:Clean;client_plat:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ATSData:Make;gos_bcb:Make;gplat_bcb:Make;client_plat:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

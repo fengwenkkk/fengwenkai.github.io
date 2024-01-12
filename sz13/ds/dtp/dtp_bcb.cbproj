@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{1e3a88a8-e4ba-4424-b01c-b80ee083efc9}</ProjectGuid>
+    <ProjectType>CppStaticLibrary</ProjectType>
+    <Config Condition="'$(Config)'==''">Debug Build</Config>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug Build' or '$(Cfg_1)'!=''">
+    <Base>true</Base>
+    <Cfg_1>true</Cfg_1>
+    <CfgParent>Base</CfgParent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release Build' or '$(Cfg_2)'!=''">
+    <Base>true</Base>
+    <Cfg_2>true</Cfg_2>
+    <CfgParent>Base</CfgParent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base)'!=''">
+    <OutputExt>lib</OutputExt>
+    <DCC_Optimize>false</DCC_Optimize>
+    <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+    <BCC_OutputDir>obj\bcb\</BCC_OutputDir>
+    <DynamicRTL>true</DynamicRTL>
+    <BRCC_OutputDir>obj\bcb\</BRCC_OutputDir>
+    <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+    <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+    <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+    <BCC_GenerateWindowsApp>true</BCC_GenerateWindowsApp>
+    <DCC_MakeModifiedUnits>true</DCC_MakeModifiedUnits>
+    <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
+    <FinalOutputDir>..\lib\</FinalOutputDir>
+    <TASM_AdditionalSwitches> /w2 obj\bcb\</TASM_AdditionalSwitches>
+    <DCC_UnitSearchPath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_UnitSearchPath>
+    <BRCC_UserSuppliedOptions> -Ifunc;ftp;xml;dt;ft;file;mem;queue;..\public;.\public;$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BRCC_UserSuppliedOptions>
+    <BCC_StackFrames>true</BCC_StackFrames>
+    <BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
+    <DCC_DcuOutput>obj\bcb\</DCC_DcuOutput>
+    <IncludePath>../plat/public;..\plat\queue;..\plat\comm;..\plat\func;..\plat\mem;..\plat\xml;common;tcp_client;tcp_server;udp_client;udp_server</IncludePath>
+    <BCC_IntegerSizedEnums>false</BCC_IntegerSizedEnums>
+    <DCC_IncludePath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_IncludePath>
+    <BRCC_IncludePath>func;ftp;xml;dt;ft;file;mem;queue;..\public;.\public;$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BRCC_IncludePath>
+    <TASM_IncludePath>func;ftp;xml;dt;ft;file;mem;queue;..\public;.\public;$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</TASM_IncludePath>
+    <BCC_IncludePath>func;ftp;xml;dt;ft;file;mem;queue;..\public;.\public;$(BDS)\include;$(BDS)\include\vcl;$(BDS)\include\dinkumware</BCC_IncludePath>
+    <ILINK_LibraryPath>$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk</ILINK_LibraryPath>
+    <BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+    <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+    <Multithreaded>true</Multithreaded>
+    <TASM_Defines>_BCB_</TASM_Defines>
+    <BRCC_Defines>_BCB_</BRCC_Defines>
+    <DCC_ObjOutput>obj\bcb\</DCC_ObjOutput>
+    <BCC_Defines>NO_STRICT;_BCB_</BCC_Defines>
+    <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+    <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1)'!=''">
+    <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+    <Defines>_BCB_;$(Defines)</Defines>
+    <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+    <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
+    <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+    <IntermediateOutputDir>Debug_Build</IntermediateOutputDir>
+    <TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+    <ILINK_LibraryPath>$(BDS)\lib\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+    <TLIB_PageSize>32</TLIB_PageSize>
+    <BCC_Defines>_DEBUG;$(BCC_Defines)</BCC_Defines>
+    <TASM_Debugging>Full</TASM_Debugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2)'!=''">
+    <DCC_Optimize>true</DCC_Optimize>
+    <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+    <BCC_InlineFunctionExpansion>true</BCC_InlineFunctionExpansion>
+    <BCC_UseRegisterVariables>Always</BCC_UseRegisterVariables>
+    <DCC_DebugInformation>false</DCC_DebugInformation>
+    <IntermediateOutputDir>Release_Build</IntermediateOutputDir>
+    <BCC_StackFrames>false</BCC_StackFrames>
+    <ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+    <BCC_Defines>NDEBUG;$(BCC_Defines)</BCC_Defines>
+    <TASM_Debugging>None</TASM_Debugging>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>CPlusPlusBuilder.Personality</Borland.Personality>
+    <Borland.ProjectType>CppStaticLibrary</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><CPlusPlusBuilder.Personality><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2052</VersionInfo><VersionInfo Name="CodePage">936</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Count">3</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item0">../plat/public;..\plat\queue;..\plat\comm;..\plat\func;..\plat\mem;..\plat\xml;common</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item1">func;queue;mem;xml</HistoryLists_hlIncludePath>  <HistoryLists_hlIncludePath Name="Item2">func;ftp;xml;dt\;ft\;file;mem;queue;..\public;.\public;$(BCB)\include;$(BCB)\include\vcl</HistoryLists_hlIncludePath>
+    </HistoryLists_hlIncludePath><HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Count">2</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item0">func;ftp;xml;dt\;ft\;file;mem;queue;$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item1">$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath></HistoryLists_hlLibraryPath><HistoryLists_hlDebugSourcePath><HistoryLists_hlDebugSourcePath Name="Count">1</HistoryLists_hlDebugSourcePath><HistoryLists_hlDebugSourcePath Name="Item0">$(BCB)\source\vcl</HistoryLists_hlDebugSourcePath></HistoryLists_hlDebugSourcePath><HistoryLists_hlConditionals><HistoryLists_hlConditionals Name="Count">1</HistoryLists_hlConditionals><HistoryLists_hlConditionals Name="Item0">_BCB_;</HistoryLists_hlConditionals></HistoryLists_hlConditionals><HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Count">2</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item0">./obj/bcb</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item1">./obj</HistoryLists_hlIntOutputDir></HistoryLists_hlIntOutputDir><HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Count">1</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item0">..\lib\</HistoryLists_hlFinalOutputDir></HistoryLists_hlFinalOutputDir><HistoryLists_hlTlibPageSize><HistoryLists_hlTlibPageSize Name="Count">1</HistoryLists_hlTlibPageSize><HistoryLists_hlTlibPageSize Name="Item0">0x0010</HistoryLists_hlTlibPageSize></HistoryLists_hlTlibPageSize><Debugging><Debugging Name="DebugSourceDirs">$(BCB)\source\vcl</Debugging></Debugging><Parameters><Parameters Name="RunParams"></Parameters><Parameters Name="Launcher"></Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="DebugCWD"></Parameters><Parameters Name="HostApplication"></Parameters><Parameters Name="RemoteHost"></Parameters><Parameters Name="RemotePath"></Parameters><Parameters Name="RemoteLauncher"></Parameters><Parameters Name="RemoteCWD"></Parameters><Parameters Name="RemoteDebug">False</Parameters><Parameters Name="RemoteParams"></Parameters><Parameters Name="UseRemoteLauncher">False</Parameters><Parameters Name="Debug Symbols Search Path"></Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Compiler><Compiler Name="ShowInfoMsgs">0</Compiler><Compiler Name="LinkDebugVcl">0</Compiler><Compiler Name="LinkCGLIB">0</Compiler></Compiler><CORBA><CORBA Name="AddServerUnit">1</CORBA><CORBA Name="AddClientUnit">1</CORBA><CORBA Name="PrecompiledHeaders">1</CORBA></CORBA><Linker><Linker Name="LibPrefix"></Linker><Linker Name="LibSuffix"></Linker><Linker Name="LibVersion"></Linker></Linker><ProjectProperties><ProjectProperties Name="AutoShowDeps">False</ProjectProperties><ProjectProperties Name="ManagePaths">True</ProjectProperties><ProjectProperties Name="VerifyPackages">True</ProjectProperties></ProjectProperties><HistoryLists_hlILINK_LibraryPath><HistoryLists_hlILINK_LibraryPath Name="Count">2</HistoryLists_hlILINK_LibraryPath><HistoryLists_hlILINK_LibraryPath Name="Item0">$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk</HistoryLists_hlILINK_LibraryPath>  <HistoryLists_hlILINK_LibraryPath Name="Item1">$(BDS)\lib\debug;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk</HistoryLists_hlILINK_LibraryPath>
+    </HistoryLists_hlILINK_LibraryPath><HistoryLists_hlDefines><HistoryLists_hlDefines Name="Count">1</HistoryLists_hlDefines><HistoryLists_hlDefines Name="Item0">_BCB_</HistoryLists_hlDefines></HistoryLists_hlDefines><HistoryLists_hlIntermediateOutputDir><HistoryLists_hlIntermediateOutputDir Name="Count">1</HistoryLists_hlIntermediateOutputDir><HistoryLists_hlIntermediateOutputDir Name="Item0">Debug_Build</HistoryLists_hlIntermediateOutputDir></HistoryLists_hlIntermediateOutputDir><HistoryLists_hlTLIB_PageSize><HistoryLists_hlTLIB_PageSize Name="Count">1</HistoryLists_hlTLIB_PageSize><HistoryLists_hlTLIB_PageSize Name="Item0">32</HistoryLists_hlTLIB_PageSize></HistoryLists_hlTLIB_PageSize></CPlusPlusBuilder.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Cpp.Targets" />
+  <ItemGroup>
+    <CppCompile Include="common\DTPClient.cpp">
+      <BuildOrder>1</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="common\DTPServer.cpp">
+      <BuildOrder>2</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="common\dtp_func.cpp">
+      <BuildOrder>0</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="tcp_client\dtp_tcp_client.cpp">
+      <BuildOrder>3</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="tcp_client\dtp_tcp_client_msg_handle.cpp">
+      <BuildOrder>4</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="tcp_client\dtp_tcp_client_send_thread.cpp">
+      <BuildOrder>5</BuildOrder>
+    </CppCompile>
+    <BuildConfiguration Include="Debug Build">
+      <Key>Cfg_1</Key>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Release Build">
+      <Key>Cfg_2</Key>
+    </BuildConfiguration>
+  </ItemGroup>
+</Project>

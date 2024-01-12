@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ds_public\msg.h" />
+    <ClInclude Include="CfgDao.h" />
+    <ClInclude Include="connectionControl.h" />
+    <ClInclude Include="MRSUDPPortManager.h" />
+    <ClInclude Include="RECDisplayMnager.h" />
+    <ClInclude Include="RecPublic.h" />
+    <ClInclude Include="rec_util.h" />
+    <ClInclude Include="TaskCfg.h" />
+    <ClInclude Include="TaskCheck.h" />
+    <ClInclude Include="TaskSys.h" />
+    <ClInclude Include="RecFileManager.h" />
+    <ClInclude Include="ThreadOMA.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\snmp\snmp_nms.c" />
+    <ClCompile Include="CfgDao.cpp" />
+    <ClCompile Include="connectionControl.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MRSUDPPortManager.cpp" />
+    <ClCompile Include="RECDisplayMnager.cpp" />
+    <ClCompile Include="RecPublic.cpp" />
+    <ClCompile Include="rec_main.cpp" />
+    <ClCompile Include="rec_util.cpp" />
+    <ClCompile Include="TaskCfg.cpp" />
+    <ClCompile Include="TaskCheck.cpp" />
+    <ClCompile Include="TaskSys.cpp" />
+    <ClCompile Include="RecFileManager.cpp" />
+    <ClCompile Include="ThreadOMA.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\lib\gos.lib" />
+    <Library Include="..\lib\gplat.lib" />
+    <Library Include="..\lib\pdb.lib" />
+    <Library Include="..\pdb\mysql\lib\libmysql.lib" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F566358E-CDAD-407C-AAE0-52885DA924C3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>mrs</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(EASY_INSTALL)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(EASY_INSTALL)</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>USE_FFMPEG_CMD;HAVE_MYSQL;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EASY_INSTALL)\include\ACE_wrappers\include;$(EASY_INSTALL)\include\sdk\include;$(EASY_INSTALL)\include;$(EASY_INSTALL)\include\log4cxx\include;../gos/public;..\gplat;..\pdb\include;..\ds_public;..\snmp;../ffmpeg_api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(EASY_INSTALL)\include\ACE_wrappers\lib\ace.lib;$(EASY_INSTALL)\include\log4cxx\lib\log4cxx.lib;$(EASY_INSTALL)\sdk.lib;wsock32.lib;Ws2_32.lib;Wininet.lib;SHELL32.LIB;odbc32.lib;odbccp32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>USE_FFMPEG_CMD;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EASY_INSTALL)\include\ACE_wrappers\include;$(EASY_INSTALL)\include\sdk\include;$(EASY_INSTALL)\include;$(EASY_INSTALL)\include\log4cxx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>$(EASY_INSTALL)\include\ACE_wrappers\lib\ace.lib;$(EASY_INSTALL)\sdk.lib;$(EASY_INSTALL)\include\log4cxx\lib\log4cxx.lib;$(EASY_INSTALL)\ubp_trace.lib;$(EASY_INSTALL)\ubp_sdk_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,174 @@
+#include "g_include.h"
+#include "GCommon.h"
+#include "ThreadFormat.h"
+
+static VECTOR<AnsiString>       g_vFile;
+static GMutex                   g_MutexFile;
+static UINT32                   g_ulFormattedNum = 0;
+
+static bool g_bThreadRunning = false;
+
+void InitFormatFile(VECTOR<AnsiString> &vFile)
+{
+    AUTO_LOCK(g_MutexFile);
+
+    g_vFile.clear();
+    g_vFile.assign(vFile.begin(), vFile.end());
+    g_ulFormattedNum = 0;
+}
+
+void ClearFormatFile()
+{
+    AUTO_LOCK(g_MutexFile);
+
+    g_vFile.clear();
+    g_ulFormattedNum = 0;
+}
+
+void GetFormatInfo(UINT32 &ulTotalNum, UINT32 &ulCurrNum)
+{
+    AUTO_LOCK(g_MutexFile);
+
+    ulTotalNum = g_ulFormattedNum + g_vFile.size();
+    ulCurrNum = g_ulFormattedNum;
+}
+
+static void FormatedOneFile()
+{
+    AUTO_LOCK(g_MutexFile);
+
+    g_ulFormattedNum++;
+}
+
+static AnsiString GetFile()
+{
+    AnsiString  strFile = "";
+
+    AUTO_LOCK(g_MutexFile);
+
+    if (g_vFile.size() > 0)
+    {
+        strFile = g_vFile[g_vFile.size()-1];
+        g_vFile.erase(g_vFile.begin()+g_vFile.size()-1);
+    }
+
+    return strFile;
+}
+
+VOID ThreadFormat::SetCfg(FILE_FORMAT_CFG_T &stCfg)
+{
+    AUTO_LOCK(g_MutexFile);
+
+    memcpy(&m_stFormatCfg, &stCfg, sizeof(stCfg));
+}
+
+ThreadFormat::ThreadFormat():GThread(NULL)
+{
+}
+
+VOID ThreadFormat::Stop()
+{
+    m_bRunning = FALSE;
+
+    for (UINT32 i=0; i<20; i++)
+    {
+        if (!g_bThreadRunning)
+        {
+            break;
+        }
+
+        gos_sleep_1ms(100);
+    }
+}
+
+
+
+GOS_THREAD_RET ThreadFormat::ThreadEntry(void* pPara)
+{
+    AnsiString  strFile;
+
+    g_bThreadRunning = true;
+
+    while(m_bRunning)
+    {
+        strFile = GetFile();
+
+        if (strFile.IsEmpty())
+        {
+            gos_sleep_1ms(1);
+            continue;
+        }
+
+        FormatFile(strFile.c_str());
+
+        FormatedOneFile();
+    }
+
+    g_bThreadRunning = false;
+
+    return 0;
+}
+
+BOOL GetFileList(CHAR *szRootDir, VECTOR<AnsiString> &vFilePostfix, VECTOR<AnsiString> &vFile, BOOL bClear)
+{
+    HANDLE      hDir = gos_open_dir(szRootDir);
+    BOOL        bRet = FALSE;
+    CHAR        acFile[512];
+    BOOL        bIsDir;
+    CHAR        *szFilePostfix;
+    UINT32      i;
+
+    if (bClear)
+    {
+        vFile.clear();
+    }
+
+    while(gos_get_next_file(hDir, acFile, &bIsDir))
+    {
+        if (bIsDir)
+        {
+            if (!GetFileList(acFile, vFilePostfix, vFile, FALSE))
+            {
+                goto end;
+            }
+        }
+        else
+        {
+            szFilePostfix = gos_get_file_postfix(acFile);
+            for (i=0; i<vFilePostfix.size(); i++)
+            {
+                if (strcasecmp(vFilePostfix[i].c_str(), szFilePostfix) == 0)
+                {
+                    vFile.push_back(acFile);
+                }
+            }
+        }
+    }
+
+    bRet = TRUE;
+
+end:
+    gos_close_dir(hDir);
+
+    return bRet;
+}
+
+BOOL GetFileList(CHAR *szRootDir, VECTOR<AnsiString> &vSubDir, VECTOR<AnsiString> &vFilePostfix, VECTOR<AnsiString> &vFile)
+{
+    CHAR    acRootDir[512];
+
+    vFile.clear();
+
+    for (UINT32 i=0; i<vSubDir.size(); i++)
+    {
+        sprintf(acRootDir, "%s/%s", szRootDir, vSubDir[i].c_str());
+        if (!GetFileList(acRootDir, vFilePostfix, vFile, FALSE))
+        {
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
+

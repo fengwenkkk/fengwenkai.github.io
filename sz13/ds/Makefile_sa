@@ -1,0 +1,48 @@
+# Makefile
+
+TOP_DIR=$(PWD)
+
+export TOP_DIR
+
+include $(TOP_DIR)/Rules.mak
+
+EXE=$(TOP_DIR)/bin/sa
+
+all: subdirs $(EXE)
+
+INC_FLAG = $(CC_PUB_INC) \
+		-I$(TOP_DIR)/sa
+
+EXTRA_CFLAGS := $(INC_FLAG)
+EXTRA_LDFLAGS :=
+
+DIRS = gos
+
+DS_LIBS = $(TOP_DIR)/lib/gos.a \
+		sa/sa_main.o\
+		sa/sa_pis_msg.o\
+		sa/sa_dis_msg.o\
+		sa/sa_public.o
+		
+LIBS += $(DS_LIBS)
+
+SRCS := sa/sa_main.cpp \
+		sa/sa_pis_msg.cpp \
+		sa/sa_dis_msg.cpp \
+		sa/sa_public.cpp
+
+#COBJS=$(patsubst %.c,%.o)
+CPPOBJS=$(patsubst %.cpp,%.o,$(SRCS))
+
+$(EXE) : $(COBJS) $(CPPOBJS) $(LIBS)
+	$(GCC) $(INC_FLAG) $(LDFLAGS) $(CPPOBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+
+ifeq ($(DODEBUG),)
+	$(STRIPTOOL) $(STRIP_FLAGS) $@
+endif
+
+clean-extra :
+	- $(RM) $(LIBNAME) $(EXE) $(EXE).map
+	- $(RM) *.o $(DS_LIBS)
+
+include $(TOP_DIR)/Makerules

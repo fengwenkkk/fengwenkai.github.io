@@ -1,0 +1,1 @@
+del .depent *.o *.manifest *.bak *.log *.ilc *.ild *.ilf *.ils *.exe *.#* *.scc *.ipch *.map *.bsc *.tlog *.sdf  *.obj *.ib_pdb_index *.idb *.pdb *.pch *.ilk *.~* *.bcc32pch *.tds *.ddp *.sbr *.ncb *.opt *.plg /s /f /q

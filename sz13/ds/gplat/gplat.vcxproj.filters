@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="tcp_client">
+      <UniqueIdentifier>{d5fc6138-944b-4f63-b04d-c4d42ba562ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tcp_server">
+      <UniqueIdentifier>{510c9ab6-3942-49ae-abd5-ad5795400b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="udp_client">
+      <UniqueIdentifier>{46bd1d1c-bdad-4dfd-9ee5-b3ee81136f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="udp_server">
+      <UniqueIdentifier>{34f62f2f-ffb8-4031-9740-3cb733d57a9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dtp_common">
+      <UniqueIdentifier>{9323ed92-550e-4c09-8dd6-f8cbeee1960d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\dtp\tcp_client\dtp_tcp_client.cpp">
+      <Filter>tcp_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\tcp_client\dtp_tcp_client_msg_handle.cpp">
+      <Filter>tcp_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\tcp_client\dtp_tcp_client_send_thread.cpp">
+      <Filter>tcp_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\tcp_server\dtp_tcp_server.cpp">
+      <Filter>tcp_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\tcp_server\dtp_tcp_server_msg_handle.cpp">
+      <Filter>tcp_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\tcp_server\dtp_tcp_server_send_thread.cpp">
+      <Filter>tcp_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\udp_client\dtp_udp_client.cpp">
+      <Filter>udp_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\udp_client\dtp_udp_client_msg_handle.cpp">
+      <Filter>udp_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\udp_client\dtp_udp_client_send_thread.cpp">
+      <Filter>udp_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\udp_server\dtp_udp_server.cpp">
+      <Filter>udp_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\udp_server\dtp_udp_server_msg_handle.cpp">
+      <Filter>udp_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\udp_server\dtp_udp_server_send_thread.cpp">
+      <Filter>udp_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\common\dtp_func.cpp">
+      <Filter>dtp_common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\common\DTPClient.cpp">
+      <Filter>dtp_common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dtp\common\DTPServer.cpp">
+      <Filter>dtp_common</Filter>
+    </ClCompile>
+    <ClCompile Include="GBaseTask.cpp" />
+    <ClCompile Include="GCommon.cpp" />
+    <ClCompile Include="GMsgDispatch.cpp" />
+    <ClCompile Include="GMsgPool.cpp" />
+    <ClCompile Include="GMsgQueue.cpp" />
+    <ClCompile Include="GProc.cpp" />
+    <ClCompile Include="GSysLogTask.cpp" />
+    <ClCompile Include="GSysTask.cpp" />
+    <ClCompile Include="GTimer.cpp" />
+    <ClCompile Include="GTransFile.cpp" />
+  </ItemGroup>
+</Project>

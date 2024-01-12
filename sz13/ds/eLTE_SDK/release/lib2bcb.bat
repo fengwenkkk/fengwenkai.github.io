@@ -1,0 +1,1 @@
+implib -a eLTE_SDK_bcb.lib ..\bin\eLTE_SDK.dll

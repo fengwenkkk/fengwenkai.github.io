@@ -1,0 +1,62 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{601b50de-e099-41da-b1ea-6fb3dff6923a}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="..\..\gos\gos_bcb_2010.cbproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\..\plat\plat_bcb_2010.cbproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="WatchDog.cbproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<BorlandProject>
+					<Default.Personality/>
+				</BorlandProject>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="gos_bcb_2010">
+			<MSBuild Projects="..\..\gos\gos_bcb_2010.cbproj"/>
+		</Target>
+		<Target Name="gos_bcb_2010:Clean">
+			<MSBuild Targets="Clean" Projects="..\..\gos\gos_bcb_2010.cbproj"/>
+		</Target>
+		<Target Name="gos_bcb_2010:Make">
+			<MSBuild Targets="Make" Projects="..\..\gos\gos_bcb_2010.cbproj"/>
+		</Target>
+		<Target Name="plat_bcb_2010">
+			<MSBuild Projects="..\..\plat\plat_bcb_2010.cbproj"/>
+		</Target>
+		<Target Name="plat_bcb_2010:Clean">
+			<MSBuild Targets="Clean" Projects="..\..\plat\plat_bcb_2010.cbproj"/>
+		</Target>
+		<Target Name="plat_bcb_2010:Make">
+			<MSBuild Targets="Make" Projects="..\..\plat\plat_bcb_2010.cbproj"/>
+		</Target>
+		<Target Name="WatchDog">
+			<MSBuild Projects="WatchDog.cbproj"/>
+		</Target>
+		<Target Name="WatchDog:Clean">
+			<MSBuild Targets="Clean" Projects="WatchDog.cbproj"/>
+		</Target>
+		<Target Name="WatchDog:Make">
+			<MSBuild Targets="Make" Projects="WatchDog.cbproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="gos_bcb_2010;plat_bcb_2010;WatchDog"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="gos_bcb_2010:Clean;plat_bcb_2010:Clean;WatchDog:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="gos_bcb_2010:Make;plat_bcb_2010:Make;WatchDog:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

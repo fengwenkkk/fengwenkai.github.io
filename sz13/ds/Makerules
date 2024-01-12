@@ -1,0 +1,54 @@
+# Makerules
+
+CFLAGS += $(EXTRA_CFLAGS)
+CPPFLAGS += $(EXTRA_CFLAGS)
+LDFLAGS += $(EXTRA_LDFLAGS)
+
+.SUFFIXES: .c .cpp .S .o .so .a .s
+
+.PHONY: dummy subdirs all clean subdirs-clean clean-extra
+
+subdirs: $(patsubst %, _dir_%, $(DIRS))
+$(patsubst %, _dir_%, $(DIRS)) : dummy
+	LIBALL=../$(LIBALL) $(MAKE) -C $(patsubst _dir_%, %, $@)
+
+subdirs-clean: $(patsubst %, _dir_clean_%, $(DIRS))
+$(patsubst %, _dir_clean_%, $(DIRS)) : dummy
+	$(MAKE) -C $(patsubst _dir_clean_%, %, $@) clean
+
+DEPENDS  := .depend
+
+dummy :
+
+clean : subdirs-clean clean-extra
+	- $(RM) *.o $(DEPENDS)
+
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(SRCS)),)
+$(DEPENDS):$(SRCS)
+	$(DEPEND) $(CFLAGS) $(SRCS) > $@
+
+-include $(DEPENDS)
+endif
+endif
+
+COBJS=$(patsubst %.c,%.o,$(CSRCS))
+CPPOBJS=$(patsubst %.cpp,%.o,$(CPPSRCS))
+
+$(LIBNAME) : $(COBJS) $(CPPOBJS)
+	$(RM) $(LIBNAME)
+	$(AR) $(ARFLAGS) $@ $^
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+%.o : %.cpp
+	$(GCC) $(CPPFLAGS) -c $< -o $@
+
+%.o : %.S
+	$(CC) $(ASFLAGS) -c $< -o $@
+
+%.a : %.o
+	$(AR) $(ARFLAGS) $@ $^
+
+dummy :

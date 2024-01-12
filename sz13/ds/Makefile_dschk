@@ -1,0 +1,48 @@
+# Makefile
+
+TOP_DIR=$(PWD)
+
+export TOP_DIR
+
+include $(TOP_DIR)/Rules.mak
+
+EXE=$(TOP_DIR)/bin/ds_chk
+
+all: subdirs $(EXE)
+
+INC_FLAG = $(CC_PUB_INC) \
+		-I./ds_public \
+		-I./gplat/gos_utility
+
+EXTRA_CFLAGS := $(INC_FLAG)
+EXTRA_LDFLAGS :=
+
+DIRS = gos gplat dtp
+
+DS_LIBS = $(TOP_DIR)/lib/gplat.a \
+		$(TOP_DIR)/lib/dtp.a \
+		$(TOP_DIR)/lib/gos.a \
+		ds_chk/ThreadCheck.o \
+		ds_chk/ds_chk.o
+
+LIBS += $(DS_LIBS)
+
+SRCS := ds_chk/ThreadCheck.cpp \
+		ds_chk/ds_chk.cpp
+
+#COBJS=$(patsubst %.c,%.o)
+CPPOBJS=$(patsubst %.cpp,%.o,$(SRCS))
+
+$(EXE) : $(COBJS) $(CPPOBJS) $(LIBS)
+	$(GCC) $(INC_FLAG) $(LDFLAGS) $(CPPOBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+#	$(CC) $(INC_FLAG) $(LDFLAGS) $(COBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+
+ifeq ($(DODEBUG),)
+	$(STRIPTOOL) $(STRIP_FLAGS) $@
+endif
+
+clean-extra :
+	- $(RM) $(LIBNAME) $(EXE) $(EXE).map
+	- $(RM) *.o $(DS_LIBS)
+
+include $(TOP_DIR)/Makerules

@@ -1,0 +1,40 @@
+obj-so = gos.so
+#obj-a = gos.a
+
+
+obj-dep = $(APP_GOS)/func/g_conf_file.o
+obj-dep += $(APP_GOS)/func/g_lock.o
+obj-dep += $(APP_GOS)/func/g_logger.o
+obj-dep += $(APP_GOS)/func/g_string.o
+obj-dep += $(APP_GOS)/func/g_thread.o
+obj-dep += $(APP_GOS)/func/g_file.o
+obj-dep += $(APP_GOS)/func/g_proc.o
+obj-dep += $(APP_GOS)/mem/g_mem.o
+obj-dep += $(APP_GOS)/queue/g_hash.o
+obj-dep += $(APP_GOS)/queue/g_hashlist.o
+obj-dep += $(APP_GOS)/queue/g_list.o
+obj-dep += $(APP_GOS)/xml/g_xml.o
+
+CFLAGS 	= -I $(APP_INCLUDE)
+CFLAGS  += -fPIC -g $(AP_FLAG)
+CFLAGS  += $(EXT_NET_CFLAGS)
+
+build: $(obj-so)
+
+
+
+$(obj-so):$(obj-dep)
+	 @echo "BUILD         $(obj-so)"
+	@${CC} ${CFLAGS} -shared -o ${obj-so} $^
+	@[ -d $(OPENSRC_LIB_DIR) ] || mkdir -p $(OPENSRC_LIB_DIR)
+	@cp -f ${obj-so} $(OPENSRC_LIB_DIR)
+	@[ -d $(OPENSRC_INCLUDE_DIR) ] || mkdir -p $(OPENSRC_INCLUDE_DIR)
+install:
+	@echo "INSTALL       $(obj-so)"
+	@cp -f $(obj-so)   $(BIN_PATH)/app/lib/
+        
+
+clean:
+	@echo "CLEAN        NVRAM"
+	@rm -f *.o *.so *.a
+

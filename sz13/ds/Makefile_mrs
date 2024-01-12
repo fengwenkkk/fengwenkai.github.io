@@ -1,0 +1,123 @@
+# Makefile
+
+TOP_DIR=$(PWD)
+
+export TOP_DIR
+
+include $(TOP_DIR)/Rules.mak
+
+EXE=$(TOP_DIR)/bin/mrs/mrs
+
+all: subdirs $(EXE)
+
+TD_SDK_HOME:=/opt/SDK
+
+TD_SDK_INC:=${TD_SDK_HOME}/include
+
+INC_FLAG += -I$(TOP_DIR) \
+		-I${TOP_DIR}/pdb/mysql/include \
+		-I${TOP_DIR}/snmp \
+		-I${TOP_DIR}/ffmpeg_api \
+		-I${TOP_DIR}/ds_public \
+		-I${TD_SDK_INC} \
+		-I${TD_SDK_INC}/ace \
+		-I${TD_SDK_INC}/sdk/gwapi \
+		-I${TD_SDK_INC}/sdk/include \
+		-I${TD_SDK_INC}/sdk/include/mq \
+		-I${TD_SDK_INC}/log4cxx \
+		-I${TOP_DIR}/mrs
+
+
+#TD_SDK_LIB_PATH:=/opt/SDK
+TD_SDK_LIB_PATH:=$(TD_SDK_HOME)
+
+export TD_SDK_INC
+
+EXTRA_CFLAGS := $(INC_FLAG)
+EXTRA_LDFLAGS :=
+
+DIRS = gos gplat dtp pdb mrs
+
+DS_LIBS = $(TOP_DIR)/lib/gplat.a \
+		$(TOP_DIR)/lib/dtp.a \
+		$(TOP_DIR)/lib/gos.a \
+		$(TOP_DIR)/lib/pdb.a \
+		$(TOP_DIR)/lib/mrs.a \
+		mrs/main.o \
+		mrs/rec_main.o
+
+LIBS += $(DS_LIBS)
+
+FFMPEG_LIBS += /usr/local/ffmpeg/lib/libavcodec.a \
+		/usr/local/ffmpeg/lib/libavdevice.a \
+		/usr/local/ffmpeg/lib/libavfilter.a \
+		/usr/local/ffmpeg/lib/libavformat.a \
+		/usr/local/ffmpeg/lib/libavutil.a \
+		/usr/local/ffmpeg/lib/libswresample.a \
+		/usr/local/ffmpeg/lib/libswscale.a \
+		/usr/local/ffmpeg/lib/libx264.a
+
+TD_SDK_LIBS += $(TD_SDK_LIB_PATH)/libACE.so	\
+		$(TD_SDK_LIB_PATH)/liblog4cxx.so \
+		$(TD_SDK_LIB_PATH)/libsdk.so \
+        $(TD_SDK_LIB_PATH)/libsecurec.so \
+		$(TD_SDK_LIB_PATH)/libubp_sdk_prov.so \
+		$(TD_SDK_LIB_PATH)/libubp_sdk_core.so \
+		$(TD_SDK_LIB_PATH)/libubp_trace.so \
+		$(TD_SDK_LIB_PATH)/sdk_plugins/libsdk_json.so \
+		$(TD_SDK_LIB_PATH)/libjson.so \
+		$(TD_SDK_LIB_PATH)/libgloox.so.7
+
+
+LD_LIBRARY_PATH += ${TD_SDK_LIB_PATH}
+LD_LIBRARY_PATH += ${TD_SDK_LIB_PATH}/sdk_plugins
+export $(LD_LIBRARY_PATH)
+
+#ln -s /opt/SDK/libssl.so.1.0.0  libssl.so.10
+#ln -s /opt/SDK/libcrypto.so.1.0.0  libcrypto.so.10
+
+ifeq ($(HAVE_MYSQL), TRUE)
+EXTRA_CFLAGS += -DHAVE_MYSQL
+LDFLAGS += -DHAVE_MYSQL
+LIBS += $(TOP_DIR)/lib/libmysqlclient.a
+LIBS += $(TOP_DIR)/lib/libz64.a
+endif
+
+ifeq ($(HAVE_ORACLE), TRUE)
+EXTRA_CFLAGS += -DHAVE_ORACLE
+LDFLAGS += -DHAVE_ORACLE -L/usr/lib -lclntsh -lons -lclntshcore -lnnz12
+endif
+
+LDFLAGS += -L$(TD_SDK_LIB_PATH)
+LDFLAGS += -L$(TD_SDK_LIB_PATH)/sdk_plugins
+
+#LDFLAGS += -Wall -g  $(TD_SDK_LIBS)
+
+EXTRA_CFLAGS += -DUSE_FFMPEG_CMD
+
+LDFLAGS += $(TD_SDK_LIBS)
+
+LDFLAGS += -Wno-error=deprecated-declarations
+
+#LDFLAGS += -lva -lX11 -lva-drm -lva-x11 -lm -lmp3lame
+
+export EXTRA_CFLAGS
+
+SRCS := mrs/main.cpp mrs/rec_main.cpp
+
+#COBJS=$(patsubst %.c,%.o)
+CPPOBJS=$(patsubst %.cpp,%.o,$(SRCS))
+
+$(EXE) : $(COBJS) $(CPPOBJS) $(LIBS)
+	$(GCC) $(INC_FLAG) $(LDFLAGS) $(CPPOBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+#	$(CC) $(INC_FLAG) $(LDFLAGS) $(COBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+
+ifeq ($(DODEBUG),)
+	$(STRIPTOOL) $(STRIP_FLAGS) $@
+endif
+
+clean-extra :
+	- $(RM) $(LIBNAME) $(EXE) $(EXE).map
+	- $(RM) *.o $(DS_LIB)
+
+include $(TOP_DIR)/Makerules

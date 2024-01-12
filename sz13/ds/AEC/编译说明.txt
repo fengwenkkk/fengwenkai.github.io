@@ -1,0 +1,3 @@
+1、编译AEC.vcxproj工程，将在..\lib目录下生成AEC.dll和AEC.lib
+2、在..\lib\目录下执行 AEC_lib_bcb.bat (implib -af AEC_bcb.lib ..\lib\AEC.dll) 生成AEC_bcb.lib
+3、将AEC.dll复制到..\bin目录下

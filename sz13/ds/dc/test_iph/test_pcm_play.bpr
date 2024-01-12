@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="test_pcm_play.exe"/>
+    <OBJFILES value="test_pcm_play.obj test_main.obj ..\..\gos\queue\gos_hash.obj 
+      ..\..\gos\queue\gos_hashlist.obj ..\..\gos\func\gos_api.obj 
+      ..\..\gos\func\gos_file.obj ..\..\gos\func\gos_func.obj ..\ThreadIPH.obj 
+      ..\..\audio\PcmPlay.obj"/>
+    <RESFILES value="test_pcm_play.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) test_main.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value="vcl.lib rtl.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
+      vcldbx.bpi ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi teeui.bpi 
+      teedb.bpi tee.bpi dss.bpi teeqr.bpi visualclx.bpi visualdbclx.bpi 
+      dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi inet.bpi 
+      inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
+      bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi"/>
+    <PATHCPP value=".;..\..\gos\queue;..\..\gos\queue;..\..\gos\func;..\..\gos\func;..\..\gos\func;..;..\..\audio"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG;_BCB_"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="test_pcm_play.cpp"/>
+    <INCLUDEPATH value="..\..\audio;..\;..;..\..\gos\func;..\..\gos\queue;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public;D:\code\ds_v1.0.0\dc\common;D:\code\ds_v1.0.0\gplat;D:\code\ds_v1.0.0\dc\plat"/>
+    <LIBPATH value="..\..\audio;..\;..;..\..\gos\func;..\..\gos\queue;&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;D:\code\ds_1203\dc\iph;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I..\..\audio -I..\. -I.. -I..\..\gos\func -I..\..\gos\queue 
+      -I&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot; 
+      -ID:\code\ds_1203\dc\iph -I$(BCB)\include -I$(BCB)\include\vcl 
+      -I..\..\gos\public -I..\..\ds_public -ID:\code\ds_v1.0.0\dc\common 
+      -ID:\code\ds_v1.0.0\gplat -ID:\code\ds_v1.0.0\dc\plat -src_suffix cpp 
+      -D_DEBUG -D_BCB_ -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tW -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="test_pcm_play.res" FORMNAME="" UNITNAME="test_pcm_play.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="test_pcm_play.cpp" FORMNAME="" UNITNAME="test_pcm_play" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="test_main.cpp" FORMNAME="Form1" UNITNAME="test_main" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\gos\queue\gos_hash.c" FORMNAME="" UNITNAME="gos_hash.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\gos\queue\gos_hashlist.c" FORMNAME="" UNITNAME="gos_hashlist.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\gos\func\gos_api.c" FORMNAME="" UNITNAME="gos_api.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\gos\func\gos_file.c" FORMNAME="" UNITNAME="gos_file.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\gos\func\gos_func.c" FORMNAME="" UNITNAME="gos_func.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\ThreadIPH.cpp" FORMNAME="" UNITNAME="ThreadIPH" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\audio\PcmPlay.cpp" FORMNAME="" UNITNAME="PcmPlay" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=2052
+CodePage=936
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[HistoryLists\hlIncludePath]
+Count=9
+Item0=..\;..;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public;D:\code\ds_v1.0.0\dc\common;D:\code\ds_v1.0.0\gplat;D:\code\ds_v1.0.0\dc\plat
+Item1=..\;..;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public;D:\code\ds_v1.0.0\dc\common;D:\code\ds_v1.0.0\gplat
+Item2=..\;..;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public;D:\code\ds_v1.0.0\dc\common
+Item3=..\;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public;D:\code\ds_v1.0.0\dc\common
+Item4=..\;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public
+Item5=..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public;..\..\ds_public
+Item6=..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public
+Item7=C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl;..\..\gos\public
+Item8=C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=4
+Item0=..\;..;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\;..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\lib\obj;$(BCB)\lib
+Item2=..\..\gos\func;..\..\gos\queue;C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\lib\obj;$(BCB)\lib
+Item3=C:\Program Files (x86)\Borland\CBuilder6\Projects;D:\code\ds_1203\dc\iph;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=2
+Item0=_DEBUG;_BCB_
+Item1=_DEBUG
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>

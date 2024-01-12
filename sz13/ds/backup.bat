@@ -1,0 +1,1 @@
+rar.exe a -r ds.rar -n*.c -n*.cpp -n*.h -n*.hpp -n*.dfm -n*.sql -n*.ini -n*makefile* -n*.sh -n*.groupproj -n*.cbproj -n*.vcxproj -n*.vcproj -n*.sln -n*.dsp -n*.suo -ta20200324000000
