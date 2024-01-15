@@ -71,6 +71,12 @@ extern UINT32  g_ulRTSPClientConnectTimeout;
 extern UINT32  g_ulConnectRTSPServerSuccTime;
 extern UINT32  g_ulRTSPClientTimeout;
 
+extern CHAR     g_acCurrRTSPCmd[32];
+extern UINT32   g_ulMaxConnectRTSPServerTime;
+
+
+
+
 VOID NewConnInfo(SOCKET stClientSocket, SOCKADDR_IN& stClientAddr);
 VOID DelConnInfo(CONN_INFO_T* pstConnInfo);
 BOOL ConnectToRTSPServer(CONN_INFO_T* pstConnInfo);
@@ -86,7 +92,7 @@ CONN_INFO_T* GetConnToRecvLocalRTCPSocket(FD_SET &fds); */
 
 BOOL GetSIPValue(CHAR* szSIPText, const CHAR* szKey, CHAR* szValue, UINT32 ulMaxLen);
 BOOL GetSIPValue(CHAR* szSIPText, const CHAR* szKey, UINT32* pulValue);
-GString ReplaceRTSPMsg(CHAR* szRTSPMsg, CHAR* szKey, CHAR* szNewValue);
+GString ReplaceRTSPMsg(CHAR* szRTSPMsg, const CHAR* szKey, CHAR* szNewValue);
 BOOL ParseRTSPPort(CHAR* szPort, UINT16& usRTPPort, UINT16& usRTCPPort);
 BOOL IsRTSPInterleavedMsg(CHAR* szMsg, UINT32 ulLen);
 BOOL IsRTSPMsg(CHAR* szMsg, UINT32 ulLen);

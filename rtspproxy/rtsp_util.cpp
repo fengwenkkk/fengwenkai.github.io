@@ -21,9 +21,10 @@ UINT32          g_ulConnectRTSPServerSuccTime = 0;
 static UINT32  g_ulLowerUDPPort = 36500;
 static UINT32  g_ulUpperUDPPort = 0xffff;
 
+CHAR        g_acCurrRTSPCmd[32] = { 0 };
+UINT32      g_ulMaxConnectRTSPServerTime = 30;      // 超过此时间未成功连接到RTSP Server，自动退出
 
-
-
+SOCKET      g_stLocalRTSPServerSock = INVALID_SOCKET;       // 提供给客户端的本地RTSP服务器
 
 
 
@@ -124,4 +125,60 @@ BOOL GetSIPValue(CHAR* szSIPText, const CHAR* szKey, UINT32* pulValue)
     szValue[ulLen] = '\0'; // 在缓冲区的末尾添加字符串结束符
 
     return gos_atou(acValue, pulValue); // 返回TRUE表示成功提取值
+}
+
+BOOL ParseRTSPPort(CHAR* szPort, UINT16& usRTPPort, UINT16& usRTCPPort)
+{
+    CHAR* szPort2 = strchr(szPort, '-');
+    if (!szPort2)
+    {
+        return FALSE;
+    }
+    *szPort2++ = '\0';
+    return gos_get_short(szPort, &usRTPPort) &&
+        gos_get_short(szPort2, &usRTCPPort);
+}
+
+GString ReplaceRTSPMsg(CHAR* szRTSPMsg, const CHAR* szKey, CHAR* szNewValue)
+{
+    GString strMsg;
+    CHAR* szMsg = strstr(szRTSPMsg, szKey);
+
+    if (!szMsg)
+    {
+        strMsg.Append(szRTSPMsg);
+        return strMsg;
+    }
+
+    szMsg += strlen(szKey);
+    szMsg = gos_left_trim_string(szMsg);
+    if (*szMsg != '=')
+    {
+        strMsg.Append(szRTSPMsg);
+        return strMsg;
+    }
+
+    szMsg = gos_left_trim_string(szMsg + 1);
+
+    CHAR* szEnd = strstr(szMsg, "\r\n");
+    if (!szEnd)
+    {
+        strMsg.Append(szRTSPMsg);
+        return strMsg;
+    }
+
+    CHAR* szEnd2 = strchr(szMsg, ';');
+
+    if (szEnd2 && szEnd2 < szEnd)
+    {
+        szEnd = szEnd2;
+    }
+
+    UINT32      ulLen = szMsg - szRTSPMsg;
+
+    strMsg.Append(szRTSPMsg, ulLen, FALSE);
+    strMsg.Append(szNewValue);
+    strMsg.Append(szEnd);
+
+    return strMsg;
 }

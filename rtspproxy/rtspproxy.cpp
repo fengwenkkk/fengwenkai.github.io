@@ -6,7 +6,7 @@
 #include "rtp.h"
 #include "rtsp_util.h"
 #include "rtsp_server.h"
-
+#include "rtsp_client.h"
 
 //启动日志打印
 BOOL SysInit(CHAR* szInst, UINT32 ulLogLevel)
@@ -103,6 +103,8 @@ INT32 RecvMsg()
 
     UINT32      ulRTSPClientCloseTime = gos_get_sys_uptime();
 
+    INT32   iError = 0;
+
     FD_ZERO(&g_fdsAll);
     FD_SET(g_stLocalRTSPServerSocket, &g_fdsAll);//本地服务器socket加入集合
 
@@ -182,27 +184,27 @@ again:
     if (g_stRTSPClientConnInfo.stLocalSocket != INVALID_SOCKET &&
         FD_ISSET(g_stRTSPClientConnInfo.stLocalSocket, &fds))
     {
-        iRet = RecvRTSPServerMsg(&g_stRTSPClientConnInfo, &iErrCode);
-        if (iRet != 0 && iErrCode != 0)
+        iRet = RecvRTSPServerMsg(&g_stRTSPClientConnInfo, &iError);
+        if (iRet != 0 && iError != 0)
         {
-            GosLog(LOG_INFO, "recv rtsp server msg %d, err code %d", iRet, iErrCode);
+            GosLog(LOG_INFO, "recv rtsp server msg %d, err code %d", iRet, iError);
         }
         else
         {
-            if (iErrCode == 0)
+            if (iError == 0)
             {
                 GosLog(LOG_DETAIL, "recv rtsp server msg %d", iRet);
             }
             else
             {
-                GosLog(LOG_DETAIL, "recv rtsp server msg %d, err code %d", iRet, iErrCode);
+                GosLog(LOG_DETAIL, "recv rtsp server msg %d, err code %d", iRet, iError);
             }
         }
-        if (iRet < 0 || iErrCode < 0)
+        if (iRet < 0 || iError < 0)
         {
             CloseApp();
         }
-        if (iRet == 0 && iErrCode == 0)
+        if (iRet == 0 && iError == 0)
         {
             gos_sleep_1ms(1000);
 

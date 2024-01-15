@@ -1,7 +1,7 @@
 #include "rtsp_client.h"
+#include "rtsp_util.h"
 
-
-
+static UINT32  g_ulRTSPServerDescribeFailTime = 0;
 /*******************************************************************************
 * 函数名称: ReplaceRTSPUrl
 * 功    能: 替换URL
@@ -18,6 +18,7 @@ GString ReplaceRTSPUrl(CHAR* szRTSPMsg, const CHAR* szKeyWord, CHAR* szNewText)
 	GString strMsg;
 	CHAR*   szMsg = szRTSPMsg;
 	CHAR*   szStart;//替换标志位
+	CHAR*   szEnd;
 
 	while (szMsg)
 	{
@@ -30,15 +31,80 @@ GString ReplaceRTSPUrl(CHAR* szRTSPMsg, const CHAR* szKeyWord, CHAR* szNewText)
 			goto end;
 		}
 		szMsg += strlen(szKeyWord);
-
-
-
-
+		szStart += strlen(szKeyWord);
+		szStart = gos_left_trim_string(szStart);
+		szEnd = strstr(szStart, "/");
+		if (!szEnd)
+		{
+			goto end;
+		}
+		strMsg.Append(szMsg, szStart - szMsg, FALSE);
+		strMsg.Append(szNewText);
+		szMsg = szEnd;
+	}
 end:
+	if (strMsg.Length() == 0)
+	{
+		strMsg.Append(szMsg);
+	}
+	return strMsg;
 
 }
 
 
+GString ReplaceRTSPStr(CHAR* szMsg, CHAR* szOld, CHAR* szNew)
+{
+	GString     str;
+	CHAR* szTmp;
+	while (1)
+	{
+		szTmp = strstr(szMsg, szOld);
+		if (!szTmp)
+		{
+			str.Append(szMsg);
+			break;
+		}
+		str.Append(szMsg, szTmp - szMsg, FALSE);
+		str.Append(szNew);
+		szMsg = szTmp + strlen(szOld);
+	}
+	return str;
+}
+
+static GString ReplaceRTSPNum(CHAR* szRTSPMsg, const CHAR* szKey, CHAR* szNewValue)
+{
+	GString strMsg;
+	CHAR* szMsg = strstr(szRTSPMsg, szKey);
+	if (!szMsg)
+	{
+		strMsg.Append(szRTSPMsg);
+		return strMsg;
+	}
+	szMsg += strlen(szKey);
+	szMsg = gos_left_trim_string(szMsg);
+	if (*szMsg != '=')
+	{
+		strMsg.Append(szRTSPMsg);
+		return strMsg;
+	}
+	szMsg = gos_left_trim_string(szMsg + 1);
+	CHAR* szEnd = strstr(szMsg, "\r\n");
+	if (!szEnd)
+	{
+		strMsg.Append(szRTSPMsg);
+		return strMsg;
+	}
+	CHAR* szEnd2 = strchr(szMsg, ';');
+	if (szEnd2 && szEnd2 < szEnd)
+	{
+		szEnd = szEnd2;
+	}
+	UINT32      ulLen = szMsg - szRTSPMsg;
+	strMsg.Append(szRTSPMsg, ulLen, FALSE);
+	strMsg.Append(szNewValue);
+	strMsg.Append(szEnd);
+	return strMsg;
+}
 
 /*******************************************************************************
 * 函数名称: RelayRTSPServerSDPMsg
@@ -84,10 +150,73 @@ static VOID RelayRTSPServerSDPMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 	}
 
 	strMsg = ReplaceRTSPUrl(szRTSPMsg, "rtsp://", acNewIP);
+	sprintf(acNewIP, IP_FMT, IP_ARG(g_aucLocalRTSPServerAddr));
+	strMsg = ReplaceRTSPStr(strMsg.GetString(), acIP, acNewIP);
+	szNewMsg = strMsg.GetString();
+	szMsgBody = strstr(szNewMsg, "\r\n\r\n");
+	if (!szMsgBody)
+	{
+		return;
+	}
+	szMsgBody += 4;
+	ulMsgBodyLen = strlen(szMsgBody);
 
+	//替换长度
+	sprintf(acNewContentLen, "Content-Length: %u", ulMsgBodyLen);
+	strMsg = ReplaceRTSPStr(szNewMsg, acContentLen, acNewContentLen);
+	szNewMsg = strMsg.GetString();
+	
+	//回发
+	gos_tcp_send(pstConnInfo->stClientSocket, szNewMsg, strlen(szNewMsg));
+	GosLog(LOG_INFO, "send SDP msg to RTSP client: \n%s", szNewMsg);
 }
 
+VOID RelayRTSPServerPortMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg,CHAR*  acNewText)
+{
+	GString strMsg;
+	CHAR    acPort[32];
+	CHAR*   szMsg = strstr(szRTSPMsg, "server_port=");//检索位
 
+	strMsg.Append(szRTSPMsg);
+	if (szMsg)
+	{
+		szMsg += strlen("server_port=");
+		CHAR* szEnd = strstr(szMsg, "\r\n");
+		if (!szEnd)
+		{
+			GosLog(LOG_ERROR, "invalid msg from %s", szMsg);
+			return;
+		}
+
+		CHAR* szEnd2 = strchr(szMsg, ';');
+		if (szEnd2 && szEnd2 < szEnd)
+		{
+			szEnd = szEnd2;
+		}
+
+		UINT32 ulLen = szEnd - szMsg;
+		if (ulLen >= sizeof(acPort))
+		{
+			GosLog(LOG_ERROR, "invalid server_port len of %s", szMsg);
+			return;
+		}
+		//记录原本端口号
+		memcpy(acPort, szMsg, ulLen);
+		acPort[ulLen] = '\0';
+		if (!ParseRTSPPort(acPort, pstConnInfo->usServerRTPPort, pstConnInfo->usServerRTCPPort))
+		{
+			GosLog(LOG_ERROR, "invalid rtsp server port %s", acPort);
+			return;
+		}
+		sprintf(acNewText, "%u-%u", pstConnInfo->usLocalRTPPort, pstConnInfo->usLocalRTCPPort);
+		strMsg = ReplaceRTSPMsg(strMsg.GetString(), "server_port", acNewText);
+	}
+	sprintf(acNewText, "%u-%u", pstConnInfo->usClientRTPPort, pstConnInfo->usClientRTCPPort);
+	strMsg = ReplaceRTSPMsg(strMsg.GetString(), "client_port", acNewText);
+	sprintf(acNewText, IP_FMT, IP_ARG(g_aucLocalRTSPServerAddr));
+	strMsg = ReplaceRTSPMsg(strMsg.GetString(), "source", acNewText);
+	RelayRTSPServerMsg(pstConnInfo, strMsg.GetString());
+}
 
 
 /*******************************************************************************
@@ -168,6 +297,11 @@ VOID OnRTSPServerRTPMsg(CONN_INFO_T* pstConnInfo)
     pstConnInfo->ulLocalRecvSize = 0;
 }
 
+static VOID RelayRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
+{
+	gos_tcp_send(pstConnInfo->stClientSocket, szRTSPMsg, strlen(szRTSPMsg));
+	GosLog(LOG_INFO, "send msg to RTSP client: \n%s", szRTSPMsg);
+}
 
 
 /*******************************************************************************
@@ -187,6 +321,28 @@ static VOID HandleRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 
 	GosLog(LOG_INFO, "Recv msg from RTSP server: \n%s", szRTSPMsg);
 
+	//无效报文处理
+	if (strcmp(g_acCurrRTSPCmd, "DESCRIBE") == 0)
+	{
+		if (strstr(szRTSPMsg, "404 NOT FOUND"))
+		{
+			if (g_ulRTSPServerDescribeFailTime == 0)
+			{
+				g_ulRTSPServerDescribeFailTime = gos_get_sys_uptime();
+			}
+
+			if ((gos_get_sys_uptime() - g_ulRTSPServerDescribeFailTime) >= g_ulMaxConnectRTSPServerTime)
+			{
+				GosLog(LOG_INFO, "describe RTSP url failed for %u seconds", g_ulMaxConnectRTSPServerTime);
+				CloseApp();
+			}
+		}
+		else
+		{
+			g_ulRTSPServerDescribeFailTime = 0;
+		}
+	}
+
 	//回复参数获取的命令直接转发
 	if (strstr(szRTSPMsg, "Public:"))
 	{
@@ -198,10 +354,31 @@ static VOID HandleRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 	{
 		RelayRTSPServerSDPMsg(pstConnInfo, szRTSPMsg);
 	}
+	//处理端口的
+	else if (strstr(szRTSPMsg, "client_port"))
+	{
+		RelayRTSPServerPortMsg(pstConnInfo, szRTSPMsg, acNewText);
+	}
+	//只处理URL的
+	else if (strstr(szRTSPMsg, "RTP-Info: url=rtsp://"))
+	{
+		if (g_usLocalRTSPServerPort == g_usDefaultRTSPServerPort)
+		{
+			sprintf(acNewText, IP_FMT, IP_ARG(g_aucLocalRTSPServerAddr));
+		}
+		else
+		{
+			sprintf(acNewText, IP_FMT":%u", IP_ARG(g_aucLocalRTSPServerAddr), g_usLocalRTSPServerPort);
+		}
 
-
-
-
+		strTmp = ReplaceRTSPUrl(szRTSPMsg, "rtsp://", acNewText);
+		//转发
+		RelayRTSPServerMsg(pstConnInfo, strTmp.GetString());
+	}
+	else
+	{
+		RelayRTSPServerMsg(pstConnInfo, szRTSPMsg);
+	}
 
 }
 
@@ -218,7 +395,7 @@ static VOID HandleRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 {
 	UINT32 ulByteRecv;
-	UINT32 ulMaxBufSize;
+	UINT32 ulMaxBufSize = 64 * 1024 - 1;
 	INT32  iRecvSize;
 	CHAR* szRTSPMsg;
 
@@ -297,7 +474,6 @@ INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 
 		free(szRTSPMsg);
 	}
-
-
-
+	*piError = 0;
+	return iRecvSize;
 }

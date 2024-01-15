@@ -51,9 +51,3 @@ SOCKET InitLocalRTSPServerSocket(UINT8* pucAddr, UINT16 usPort)
     return stSocket;
 }
 
-INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
-{
-
-
-
-}
