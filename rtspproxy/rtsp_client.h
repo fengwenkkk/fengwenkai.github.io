@@ -16,6 +16,7 @@ VOID OnRTSPServerRTPMsg(CONN_INFO_T* pstConnInfo);
 static VOID RelayRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg);
 static VOID HandleRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg);
 INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo, INT32* piError);
+SOCKET InitRTSPClientSocket(UINT8* pucAddr, UINT16 usPort);
 
 #endif // ! RTSP_CLIENT_H
 

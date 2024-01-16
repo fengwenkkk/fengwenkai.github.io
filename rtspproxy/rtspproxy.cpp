@@ -104,6 +104,9 @@ INT32 RecvMsg()
     UINT32      ulRTSPClientCloseTime = gos_get_sys_uptime();
 
     INT32   iError = 0;
+    BOOL    bNeedClose = FALSE;
+
+
 
     FD_ZERO(&g_fdsAll);
     FD_SET(g_stLocalRTSPServerSocket, &g_fdsAll);//本地服务器socket加入集合
@@ -221,11 +224,15 @@ again:
     }
     
 
+    //本地服务器接收客户端消息
+    iError = 0;
+    bNeedClose = FALSE;
+    iRecvLen = RecvRTSPClientMsg(stClientSocket, &iError);
 
-
+    goto again;
 }
 
-
+//rtsp://admin:gbcom.123@192.0.1.203:554/h264/ch1/main/av_stream
 
 
 

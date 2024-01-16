@@ -2,7 +2,7 @@
 #include "ds_public.h"
 #include "rtsp.h"
 #include "rtsp_util.h"
-//#include "rtsp_client.h"
+#include "rtsp_client.h"
 #include "rtsp_server.h"
 
 //全局变量设置
@@ -182,3 +182,123 @@ GString ReplaceRTSPMsg(CHAR* szRTSPMsg, const CHAR* szKey, CHAR* szNewValue)
 
     return strMsg;
 }
+
+BOOL IsRTSPInterleavedMsg(CHAR* szMsg, UINT32 ulLen)
+{
+    if (ulLen < RTSP_INTERLEAVED_MAG_HDR_LEN)
+    {
+        return FALSE;
+    }
+
+    if (RTSP_INTERLEAVED_MAGIC == ((UINT8)szMsg[0]))
+    {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+BOOL IsRTSPMsg(CHAR* szMsg, UINT32 ulLen)
+{
+    if (ulLen < RTSP_INTERLEAVED_MAG_HDR_LEN)
+    {
+        return FALSE;//RTP
+    }
+
+    if (IsRTSPInterleavedMsg(szMsg, ulLen))
+    {
+        // RTP消息
+        return FALSE;
+    }
+
+    for (UINT32 i = 0; i < RTSP_INTERLEAVED_MAG_HDR_LEN; i++)
+    {
+        if (!isascii(szMsg[i]))
+        {
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
+BOOL ConvertRTSPAddr(CONN_INFO_T* pstConnInfo, UINT8* pucRTSPServerAddr, UINT16 usRTSPServerPort)
+{
+
+    memcpy(pstConnInfo->aucRTSPServerAddr, g_aucRTSPServerAddr, sizeof(g_aucRTSPServerAddr));
+    pstConnInfo->usRTSPServerPort = g_usRTSPServerPort;
+    return TRUE;
+}
+
+BOOL ConnectToRTSPServer(CONN_INFO_T* pstConnInfo)
+{
+    if (pstConnInfo->stLocalSocket != INVALID_SOCKET)
+    {
+        return TRUE;
+    }
+    pstConnInfo->stLocalSocket = InitRTSPClientSocket(pstConnInfo->aucRTSPServerAddr, pstConnInfo->usRTSPServerPort);
+    if (pstConnInfo->stLocalSocket == INVALID_SOCKET)
+    {
+        GosLog(LOG_ERROR, "Init RTSP client socket failed");
+        return FALSE;
+    }
+    FD_SET(pstConnInfo->stLocalSocket, &g_fdsAll);
+    GosLog(LOG_INFO, "Create RTSP client socket [%u]", pstConnInfo->stLocalSocket);
+    return TRUE;
+}
+
+SOCKET CreateUDPServerSocket(UINT8* pucAddr, UINT16 usPort)
+{
+    SOCKET              stSocket;
+    SOCKADDR_IN         stLocalAddr = { 0 };
+    UINT32              ulFlag = 1;
+    gos_init_socket();
+    stSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    if (stSocket == INVALID_SOCKET)
+    {
+        return INVALID_SOCKET;
+    }
+    memset(&stLocalAddr, 0, sizeof(stLocalAddr));
+    stLocalAddr.sin_family = PF_INET;
+    stLocalAddr.sin_port = htons(usPort);
+    if (pucAddr)
+    {
+        memcpy(&stLocalAddr.sin_addr.s_addr, pucAddr, 4);
+    }
+
+    if (bind(stSocket, (SOCKADDR*)&stLocalAddr, sizeof(SOCKADDR)) == SOCKET_ERROR)
+    {
+        CLOSE_SOCKET(stSocket);
+        return INVALID_SOCKET;
+    }
+    return stSocket;
+}
+
+BOOL InitRTPSocket(CONN_INFO_T* pstConnInfo)
+{
+    UINT8 aucAddr[] = { 0,0,0,0 };
+
+    for (UINT32 ulPort = g_ulLowerUDPPort; ulPort < g_ulUpperUDPPort; ulPort += 2)
+    {
+        pstConnInfo->stLocalRTPSocket = CreateUDPServerSocket(aucAddr, ulPort);
+        if (pstConnInfo->stLocalRTPSocket == INVALID_SOCKET)
+        {
+            continue;
+        }
+        pstConnInfo->stLocalRTCPSocket = CreateUDPServerSocket(aucAddr, ulPort + 1);
+        if (pstConnInfo->stLocalRTCPSocket == INVALID_SOCKET)
+        {
+            CLOSE_SOCKET(pstConnInfo->stLocalRTPSocket);
+            continue;
+        }
+        pstConnInfo->usLocalRTPPort = ulPort;
+        pstConnInfo->usLocalRTCPPort = ulPort + 1;
+        GosLog(LOG_INFO, "create rtp socket succ on port %u and %u", pstConnInfo->usLocalRTPPort, pstConnInfo->usLocalRTCPPort);
+        FD_SET(pstConnInfo->stLocalRTPSocket, &g_fdsAll);
+        FD_SET(pstConnInfo->stLocalRTCPSocket, &g_fdsAll);
+        return TRUE;
+    }
+    GosLog(LOG_ERROR, "Create rtp socket failed");
+    return FALSE;
+}
+

@@ -2,6 +2,24 @@
 #include "rtsp_util.h"
 
 static UINT32  g_ulRTSPServerDescribeFailTime = 0;
+
+
+
+
+
+
+SOCKET InitRTSPClientSocket(UINT8* pucAddr, UINT16 usPort)
+{
+	SOCKET stSock = gos_connect_tcp_server(pucAddr, usPort);
+	if (stSock == INVALID_SOCKET)
+	{
+		GosLog(LOG_ERROR, "Connect to RTSP server " IP_FMT "(%u) failed", IP_ARG(pucAddr), usPort);
+		return INVALID_SOCKET;
+	}
+	GosLog(LOG_INFO, "Connect to RTSP server " IP_FMT "(%u) succ", IP_ARG(pucAddr), usPort);
+	return stSock;
+}
+
 /*******************************************************************************
 * 函数名称: ReplaceRTSPUrl
 * 功    能: 替换URL
@@ -397,7 +415,7 @@ INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 	UINT32 ulByteRecv;
 	UINT32 ulMaxBufSize = 64 * 1024 - 1;
 	INT32  iRecvSize;
-	CHAR* szRTSPMsg;
+	CHAR*  szRTSPMsg;
 
 	//if (!pstConnInfo)
 	//{

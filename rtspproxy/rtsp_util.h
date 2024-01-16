@@ -98,4 +98,8 @@ BOOL IsRTSPInterleavedMsg(CHAR* szMsg, UINT32 ulLen);
 BOOL IsRTSPMsg(CHAR* szMsg, UINT32 ulLen);
 VOID CloseApp();
 
+BOOL IsRTSPMsg(CHAR* szMsg, UINT32 ulLen);
+BOOL IsRTSPInterleavedMsg(CHAR* szMsg, UINT32 ulLen);
+BOOL InitRTPSocket(CONN_INFO_T* pstConnInfo);
+
 #endif
