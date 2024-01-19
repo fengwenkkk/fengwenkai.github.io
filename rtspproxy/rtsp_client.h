@@ -1,9 +1,10 @@
-
+#include "g_include.h"
+#include "rtsp_util.h"
 #ifndef  RTSP_CLIENT_H
 #define  RTSP_CLIENT_H
 
-#include "g_include.h"
-#include "rtsp_util.h"
+
+
 
 INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo);
 GString ReplaceRTSPUrl(CHAR* szRTSPMsg, const CHAR* szKeyWord, CHAR* szNewText);

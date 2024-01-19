@@ -1,6 +1,6 @@
 #include "g_include.h"
 #include "ds_public.h"
-#include "rtsp.h"
+
 #include "rtsp_util.h"
 #include "rtsp_client.h"
 #include "rtsp_server.h"
@@ -11,6 +11,7 @@ UINT32      g_ulRTSPClientConnectTimeout = 30;
 UINT8       g_aucRTSPServerAddr[4] = { 0,0,0,0 };//{192,0,1,203};
 UINT16      g_usRTSPServerPort = DEFAULT_RTP_PORT;//554
 UINT8       g_aucLocalRTSPServerAddr[4] = { 0,0,0,0 };//{192,0,1,203};
+
 UINT16      g_usLocalRTSPServerPort = 0;
 UINT16      g_usDefaultRTSPServerPort = DEFAULT_RTP_PORT;
 FD_SET      g_fdsAll;
@@ -24,7 +25,7 @@ static UINT32  g_ulUpperUDPPort = 0xffff;
 CHAR        g_acCurrRTSPCmd[32] = { 0 };
 UINT32      g_ulMaxConnectRTSPServerTime = 30;      // 超过此时间未成功连接到RTSP Server，自动退出
 
-SOCKET      g_stLocalRTSPServerSock = INVALID_SOCKET;       // 提供给客户端的本地RTSP服务器
+//SOCKET      g_stLocalRTSPServerSock = INVALID_SOCKET;       // 提供给客户端的本地RTSP服务器
 
 
 
@@ -73,10 +74,24 @@ VOID NewConnInfo(SOCKET stClientSocket, SOCKADDR_IN& stClientAddr)
     FD_SET(stClientSocket, &g_fdsAll);
 }
 
+VOID DelConnInfo(CONN_INFO_T* pstConnInfo)
+{
+    SOCKET      stClientSocket = pstConnInfo->stClientSocket;
+
+    GosLog(LOG_INFO, "close client socket %u", stClientSocket);
+
+    CLOSE_SOCKET(pstConnInfo->stClientSocket);
+    CLOSE_SOCKET(pstConnInfo->stLocalSocket);
+    CLOSE_SOCKET(pstConnInfo->stLocalRTPSocket);
+    CLOSE_SOCKET(pstConnInfo->stLocalRTCPSocket);
+
+    GOS_FREE(pstConnInfo->szRecvBuf);
+}
+
 VOID CloseApp()
 {
     gos_sleep_1ms(500);
-    CLOSE_SOCKET(g_stLocalRTSPServerSock);
+    CLOSE_SOCKET(g_stLocalRTSPServerSocket);
     exit(0);
 }
 
@@ -97,9 +112,9 @@ VOID CloseApp()
 BOOL GetSIPValue(CHAR* szSIPText, const CHAR* szKey, UINT32* pulValue)
 {
     CHAR    acValue[16];
-    CHAR*   szValue= acValue;
-    CHAR*   szStart = strstr(szSIPText, szKey); // 在SIP文本中查找键的起始位置
-    CHAR*   szEnd;
+    CHAR* szValue = acValue;
+    CHAR* szStart = strstr(szSIPText, szKey); // 在SIP文本中查找键的起始位置
+    CHAR* szEnd;
     UINT32  ulLen;
     UINT32  ulMaxLen = sizeof(acValue);
 
@@ -125,6 +140,36 @@ BOOL GetSIPValue(CHAR* szSIPText, const CHAR* szKey, UINT32* pulValue)
     szValue[ulLen] = '\0'; // 在缓冲区的末尾添加字符串结束符
 
     return gos_atou(acValue, pulValue); // 返回TRUE表示成功提取值
+}
+
+BOOL GetSIPValueAndLen(CHAR* szSIPText, const CHAR* szKey, CHAR* szValue, UINT32 ulMaxLen)
+{
+    CHAR* szStart = strstr(szSIPText, szKey);
+    CHAR* szEnd;
+    UINT32  ulLen;
+
+    if (!szStart)
+    {
+        return NULL;
+    }
+
+    szStart += strlen(szKey) + 1; // 1=strlen("=")
+    szEnd = strstr(szStart, "\r\n");
+    if (!szEnd)
+    {
+        return FALSE;
+    }
+
+    ulLen = (UINT32)(szEnd - szStart);
+    if (ulLen >= ulMaxLen)
+    {
+        return FALSE;
+    }
+
+    memcpy(szValue, szStart, ulLen);
+    szValue[ulLen] = '\0';
+
+    return TRUE;
 }
 
 BOOL ParseRTSPPort(CHAR* szPort, UINT16& usRTPPort, UINT16& usRTCPPort)

@@ -1,5 +1,5 @@
 #include "rtsp_client.h"
-#include "rtsp_util.h"
+//#include "rtsp_util.h"
 
 static UINT32  g_ulRTSPServerDescribeFailTime = 0;
 
@@ -16,7 +16,7 @@ SOCKET InitRTSPClientSocket(UINT8* pucAddr, UINT16 usPort)
 		GosLog(LOG_ERROR, "Connect to RTSP server " IP_FMT "(%u) failed", IP_ARG(pucAddr), usPort);
 		return INVALID_SOCKET;
 	}
-	GosLog(LOG_INFO, "Connect to RTSP server " IP_FMT "(%u) succ", IP_ARG(pucAddr), usPort);
+	GosLog(LOG_INFO, "Connect to RTSP server " IP_FMT "(%u) succ,socket [%d]", IP_ARG(pucAddr), usPort, stSock);
 	return stSock;
 }
 
@@ -254,7 +254,6 @@ static BOOL ParseRTSPServerMsg(CONN_INFO_T* pstConnInfo, CHAR** pszRTSPMsg)
 	CHAR* szLen = 0;//记录报文长度键值位置
 	CHAR* szEnd;//记录结束位置
 
-
 	UINT32  ulMsgHdrLen  = 0;
 	UINT32  ulMsgBodyLen = 0;
 	UINT32  ulMsgLen     = 0;
@@ -416,13 +415,6 @@ INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 	UINT32 ulMaxBufSize = 64 * 1024 - 1;
 	INT32  iRecvSize;
 	CHAR*  szRTSPMsg;
-
-	//if (!pstConnInfo)
-	//{
-	//	GosLog(LOG_INFO, "PstConnInfo is empty!");
-	//	*piError = 0;
-	//	return 0;
-	//}
 
 	//获取字节数， FIONREAD：获取套接字接收缓冲区中的字节数
 	if (ioctlsocket(pstConnInfo->stLocalSocket, FIONREAD, (unsigned long*)&ulByteRecv) == SOCKET_ERROR)

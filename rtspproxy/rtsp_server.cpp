@@ -1,7 +1,10 @@
 #include "g_include.h"
 #include "rtsp_util.h"
+#include "rtp.h"
+#include "rtsp_client.h"
+#include "rtsp_server.h"
 
-SOCKET  g_stLocalRTSPServerSocket = INVALID_SOCKET;       // 提供给客户端的本地RTSP服务器
+SOCKET  g_stLocalRTSPServerSocket = INVALID_SOCKET;       //提供给客户端的本地RTSP服务器
 
 /*******************************************************************************
 * 函数名称: InitLocalRTSPServerSocket
@@ -29,18 +32,21 @@ SOCKET InitLocalRTSPServerSocket(UINT8* pucAddr, UINT16 usPort)
         GosLog(LOG_ERROR, "Local rtsp server socket failed:error(%s)", gos_get_socket_err());
         return INVALID_SOCKET;
     }
+    
     if (setsockopt(stSocket, SOL_SOCKET, SO_REUSEADDR, (CHAR*)&ulOn, sizeof(ulOn)) == SOCKET_ERROR)//非阻塞
     {
         GosLog(LOG_ERROR, "Set local rtsp server failed on setsockopt,error(%s)", gos_get_socket_err());
         CLOSE_SOCKET(stSocket);
         return INVALID_SOCKET;
     }
+    
     if (bind(stSocket, (SOCKADDR*)&stLocalAddr, sizeof(SOCKADDR)) == SOCKET_ERROR)
     {
         GosLog(LOG_ERROR, "Bind local rtps server socket failed on " IP_FMT ":%u, %s", IP_ARG(pucAddr), usPort, gos_get_socket_err());
         CLOSE_SOCKET(stSocket);
         return INVALID_SOCKET;
     }
+   
     //监听
     if (listen(stSocket, 16) == SOCKET_ERROR)
     {
@@ -48,7 +54,9 @@ SOCKET InitLocalRTSPServerSocket(UINT8* pucAddr, UINT16 usPort)
         CLOSE_SOCKET(stSocket);
         return INVALID_SOCKET;
     }
+   
     g_stLocalRTSPServerSocket = stSocket;
+    
     return stSocket;
 }
 
@@ -63,7 +71,7 @@ BOOL ParseRTSPMsg(CONN_INFO_T* pstConnInfo, CHAR** pszRTSPMsg)
     CHAR* szMsgHdr = pstConnInfo->szRecvBuf;
     CHAR* szMsgBody = NULL;
     CHAR* szEnd;
-    CHAR* szLen = 0;  // Content-Length: 292
+    CHAR* szLen = 0;  
     UINT32  ulMsgHdrLen = 0;
     UINT32  ulMsgBodyLen = 0;
     UINT32  ulMsgLen = 0;
@@ -114,15 +122,76 @@ BOOL ParseRTSPMsg(CONN_INFO_T* pstConnInfo, CHAR** pszRTSPMsg)
     return TRUE;
 }
 
-static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* szRTSPMsg)//, UINT8 *pucRTSPServerAddr, UINT16 usRTSPServerPort)
+/*******************************************************************************
+* 函数名称: ReplaceRTSPClientPort
+* 功    能: 建立本地服务器监听消息
+* 参    数:
+* 参数名称              输入/输出   描述
+* pstConnInfo            IN         结构体
+* szRTSPMsg              IN         信息
+* 函数返回:BOOL
+* 说    明: 
+*******************************************************************************/
+static BOOL ReplaceRTSPClientPort(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 {
-    //替换地址、端口
+    GString strTmp;
+    CHAR*   szMsg = strstr(szRTSPMsg, "client_port=");
+    CHAR    acPort[32];
+
+    if (!szMsg)
+    {
+        return TRUE;
+    }
+
+    szMsg += strlen("client_port=");
+    CHAR* szEnd = strstr(szMsg, "\r\n");
+    if (!szEnd)
+    {
+        GosLog(LOG_ERROR, "invalid msg from %s", szMsg);
+        return FALSE;
+    }
+
+    CHAR* szEnd2 = strchr(szMsg, ';');
+    if (szEnd2 && szEnd2 < szEnd)
+    {
+        szEnd = szEnd2;
+    }
+
+    UINT32 ulLen = szEnd - szMsg;
+    if (ulLen >= sizeof(acPort))
+    {
+        GosLog(LOG_ERROR, "invalid client_port len of %s", szMsg);
+        return FALSE;
+    }
+    memcpy(acPort, szMsg, ulLen);
+    acPort[ulLen] = '\0';
+    
+    if (!ParseRTSPPort(acPort, pstConnInfo->usClientRTPPort, pstConnInfo->usClientRTCPPort))
+    {
+        GosLog(LOG_ERROR, "parse rtp port %s failed", acPort);
+        return FALSE;
+    }
+
+    ulLen = szMsg - szRTSPMsg;
+    strTmp.Append(szRTSPMsg, ulLen, FALSE);
+    strTmp.cat_sprintf("%u-%u", pstConnInfo->usLocalRTPPort, pstConnInfo->usLocalRTCPPort);
+    strTmp.Append(szEnd);
+    //替换原报文
+    strcpy(szRTSPMsg, strTmp.GetString());
+    return TRUE;
+}
+
+static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* szRTSPMsg)
+{
+
+    GString strMsg;
+
     CHAR    acMsg[4096];
     CHAR*   szMsg;
     CHAR*   szEnd;
     UINT32  ulLen = 0;
-    GString strMsg;
-
+    
+    //替换地址
     if ((strlen(szRTSPMsg) + 16) >= sizeof(acMsg))
     {
         return;
@@ -145,7 +214,8 @@ static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* s
         return;
     }
 
-    if (strcmp(szCmd, "OPTIONS") == 0)
+    //根据类型替换
+    if (strcmp(szCmd, "OPTIONS") == 0)//解析，连接
     {
         GString     strAddr;
         UINT8       aucRTSPServerAddr[4];
@@ -189,13 +259,14 @@ static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* s
 
     strcpy(acMsg, strMsg);
 
+
     if (strcmp(szCmd, "SETUP") == 0)
     {
-        if (!InitRTPSocket(pstConnInfo))
-        {
-            DelConnInfo(pstConnInfo);
-            return;
-        }
+        //if (!InitRTPSocket(pstConnInfo))
+        //{
+        //    DelConnInfo(pstConnInfo);
+        //    return;
+        //}
 
         if (!ReplaceRTSPClientPort(pstConnInfo, acMsg))
         {
@@ -205,15 +276,12 @@ static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* s
 
     if (strcmp(szCmd, "PLAY") == 0)
     {
-        /*"PLAY rtsp://192.0.1.133/av_stream RTSP/1.0
-        CSeq: 5
-        User-Agent: LibVLC/3.0.16 (LIVE555 Streaming Media v2016.11.28)
-        Session: 1210734934526142475  */
+        /*"PLAY rtsp://192.0.1.133/av_stream RTSP/1.0 */
 
         if (!GetSIPValue(szRTSPMsg, "CSeq", &pstConnInfo->ulCSeq) ||
-            !GetSIPValue(szRTSPMsg, "PLAY", pstConnInfo->acPlayParam, sizeof(pstConnInfo->acPlayParam)) ||
-            !GetSIPValue(szRTSPMsg, "User-Agent", pstConnInfo->acUserAgent, sizeof(pstConnInfo->acUserAgent)) ||
-            !GetSIPValue(szRTSPMsg, "Session", pstConnInfo->acSession, sizeof(pstConnInfo->acSession)))
+            !GetSIPValueAndLen(szRTSPMsg, "PLAY", pstConnInfo->acPlayParam, sizeof(pstConnInfo->acPlayParam)) ||
+            !GetSIPValueAndLen(szRTSPMsg, "User-Agent", pstConnInfo->acUserAgent, sizeof(pstConnInfo->acUserAgent)) ||
+            !GetSIPValueAndLen(szRTSPMsg, "Session", pstConnInfo->acSession, sizeof(pstConnInfo->acSession)))
         {
             GosLog(LOG_ERROR, "get parameter from PLAY msg failed");
         }
@@ -224,20 +292,21 @@ static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* s
         }
     }
 
+    //发往本地客户端
     gos_tcp_send(pstConnInfo->stLocalSocket, acMsg, strlen(acMsg));
 
-    GosLog(LOG_INFO, "send msg to RTSP server: \n%s", acMsg);
+    GosLog(LOG_INFO, "Socket[%d] end msg to RTSP Local server: \n%s", pstConnInfo->stLocalSocket, acMsg);
 
     if (strcmp(szCmd, "TEARDOWN") == 0)
     {
-        GosLog(LOG_INFO, "auto exit when tear down");
+        GosLog(LOG_INFO, "Exit");
         CloseApp();
     }
 }
 
 /*******************************************************************************
 * 函数名称: OnRTSPClientMsg
-* 功    能: 建立本地服务器监听消息
+* 功    能: 转换请求并转换
 * 参    数:
 * 参数名称              输入/输出   描述
 * pstConnInfo            IN         
@@ -245,7 +314,7 @@ static VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, const CHAR* szCmd, CHAR* s
 * 函数返回:VOID
 * 说    明:
 *******************************************************************************/
-VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
+VOID HandleClientRTSPMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 {
     // OPTIONS rtsp://192.0.1.133:554/h264/ch1/sub/av_stream 
     // DESCRIBE rtsp://192.0.1.133:554/h264/ch1/sub/av_stream 
@@ -261,14 +330,16 @@ VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
     for (UINT32 i = 0; i < ARRAY_SIZE(aszCmds); i++)
     {
         //匹配字符串
+
+
         if (gos_str_like(szRTSPMsg, aszCmds[i]))
         {
             OnRTSPClientMsg(pstConnInfo, aszCmds[i], szRTSPMsg);
-            return;
+            return ;
         }
     }
 
-    GosLog(LOG_ERROR, "unknown client msg: %s", szRTSPMsg);
+    GosLog(LOG_ERROR, "unknown client msg:\n %s", szRTSPMsg);
 }
 
 /*******************************************************************************
@@ -279,15 +350,15 @@ VOID OnRTSPClientMsg(CONN_INFO_T* pstConnInfo, CHAR* szRTSPMsg)
 * stSocket              IN          客户端套接字
 * piErrCode             IN          错误码
 * 函数返回:INT32
-* 说    明:0：没有消息，重置socket
+* 说    明:0：没有消息，重置socket.-1:发生错误，返回-1
 *******************************************************************************/
 INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
 {
     INT32           iRecvSize;
-    UINT32          ulTotalLen;
+    UINT32          ulTotalLen;//记录长度
     UINT32          ulByteRecv = 0;
     CHAR*           szRTSPMsg;
-    CONN_INFO_T*    pstConnInfo = &g_stRTSPClientConnInfo;//(stSocket);
+    CONN_INFO_T*    pstConnInfo = &g_stRTSPClientConnInfo;
 
     if (!pstConnInfo)
     {
@@ -295,44 +366,44 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
         return 0;
     }
 
-    /* 看看有多少字节可读 */
     if (ioctlsocket(stSocket, FIONREAD, (unsigned long*)&ulByteRecv) == SOCKET_ERROR)
     {
-        GosLog(LOG_ERROR, "server_recv_msg: ioctl socket(%u) failed!", stSocket);
+        GosLog(LOG_ERROR, "Local socket(%u) recv client msg failed!", stSocket);
         *piErrCode = gos_get_socket_err_code();
         return -1;
     }
 
-    /* 如果没有字节可读, 则对端已经关闭连接, 返回错误 */
     if (ulByteRecv == 0)
     {
-        *piErrCode = 0;// SECONNRESET;
+
+
+
+        *piErrCode = 0;
         return 0;
     }
 
-
-    /* 开始处理该连接上的数据 */
     ulTotalLen = 0;
 
-    /* 处理上次RecvMsg的剩余数据 */
     iRecvSize = recv(stSocket, (CHAR*)(pstConnInfo->szRecvBuf + pstConnInfo->ulRecvSize), pstConnInfo->ulMaxRecvBufSize - pstConnInfo->ulRecvSize, 0);
     if (iRecvSize < 0)
     {
         *piErrCode = -1;
-        GosLog(LOG_ERROR, "recv client(%u) failed: %s!", stSocket, gos_get_socket_err());
+        GosLog(LOG_ERROR, "Recv client (%u) failed: %s!", stSocket, gos_get_socket_err());
 
         return -1;
     }
     else if (iRecvSize == 0)
     {
-        GosLog(LOG_ERROR, "recv client(%u) failed by connect closed", stSocket);
+        GosLog(LOG_ERROR, "Recv client(%u) failed by connect closed", stSocket);
 
         return 0;
     }
 
+    //更新长度
     pstConnInfo->ulRecvSize += iRecvSize;
     ulTotalLen = pstConnInfo->ulRecvSize;
 
+    //循环处理
     while (1)
     {
         pstConnInfo->szRecvBuf[pstConnInfo->ulRecvSize] = '\0';
@@ -341,12 +412,7 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
             break;
         }
 
-        if (!IsRTSPMsg(pstConnInfo->szRecvBuf, pstConnInfo->ulRecvSize))
-        {
-            OnRTSPClientRTPMsg(pstConnInfo);//转发到本地端口
-            continue;
-        }
-
+        //分割单个消息
         if (!ParseRTSPMsg(pstConnInfo, &szRTSPMsg))
         {
             return -1;
@@ -357,7 +423,9 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
             break;
         }
 
-        OnRTSPClientMsg(pstConnInfo, szRTSPMsg);
+        HandleClientRTSPMsg(pstConnInfo, szRTSPMsg);
+
+
         free(szRTSPMsg);
     }
 
