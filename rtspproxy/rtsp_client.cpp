@@ -445,7 +445,7 @@ INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 	}
 	if (iRecvSize == 0)
 	{
-		GosLog(LOG_ERROR, "RecvRTSPServerMsg: recv msg len %u from socket(%u) failed", iRecvSize, pstConnInfo->stLocalSocket);
+		GosLog(LOG_ERROR, "RecvRTSPServerMsg: recv msg len %u from socket(%u) ", iRecvSize, pstConnInfo->stLocalSocket);
 		return -1;
 	}
 
@@ -460,7 +460,6 @@ INT32 RecvRTSPServerMsg(CONN_INFO_T* pstConnInfo,INT32 *piError)
 			break;
 		}
 		pstConnInfo->szLocalRecvBuf[pstConnInfo->ulLocalRecvSize] = '\0';
-
 
 		//非RTSP消息直接转发送给客户端
 		if (pstConnInfo->ulLocalRecvSize < 4 ||

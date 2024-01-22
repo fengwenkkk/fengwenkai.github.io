@@ -115,9 +115,9 @@ INT32 RecvMsg()
     INT32   iRet;//select返回值
     INT32   iNoBlockingFlag = 1;
     INT32   iRecvLen;
-    SOCKET  stClientSocket;
-    SOCKET  stMaxSock;
     
+    SOCKET      stClientSocket;
+    SOCKET      stMaxSock;
     SOCKADDR_IN stAddr;
     INT32       iAddrLen = sizeof(SOCKADDR);
 
@@ -180,30 +180,89 @@ INT32 RecvMsg()
         
         //设置为不阻塞
         //在网络编程中，TCP_NODELAY 是一个套接字选项常量，用于控制 TCP 连接的延迟和性能。通常情况下，TCP 协议使用 Nagle 算法将小的数据块合并成更大的数据块，以提高网络效率。但在某些特定场景下，例如实时通信或传输实时数据流等，需要尽快发送数据而不考虑合并的效果。
-        setsockopt(stClientSocket, IPPROTO_TCP, TCP_NODELAY, (CHAR*)&iNoBlockingFlag, sizeof(iNoBlockingFlag));
+        if(setsockopt(stClientSocket, IPPROTO_TCP, TCP_NODELAY, (CHAR*)&iNoBlockingFlag, sizeof(iNoBlockingFlag))==-1);
+        {
+            GosLog(LOG_ERROR, "Select failed!");
+            goto again;
+        }
         GosLog(LOG_INFO, "Accept client socket(%u) of " IP_FMT ":%u ok", stClientSocket, IP_ARG(&stAddr.sin_addr.s_addr), (UINT32)stAddr.sin_port);
         NewConnInfo(stClientSocket, stAddr);
         ulRTSPClientCloseTime = 0;
 
-        //FD_SET(stClientSocket, &fds);
     }
     
+
+    //stLocalRTPSocket接收RTP数据,发给客户端
+    if (g_stRTSPClientConnInfo.stLocalRTPSocket != INVALID_SOCKET &&
+        FD_ISSET(g_stRTSPClientConnInfo.stLocalRTPSocket, &fds))
+    {
+        iRet = RecvRTPMsg(&g_stRTSPClientConnInfo);
+        //goto again;
+    }
+
+    //接收RTCP数据,发给客户端
+    if (FD_ISSET(g_stRTSPClientConnInfo.stLocalRTCPSocket, &fds))
+    {
+        iRet = RecvRTCPMsg(&g_stRTSPClientConnInfo);
+
+
+        //goto again;
+    }
+
+    //接收RTSP服务端数据发给客户端
+    if (g_stRTSPClientConnInfo.stLocalSocket != INVALID_SOCKET &&
+        FD_ISSET(g_stRTSPClientConnInfo.stLocalSocket, &fds))
+    {
+        iRet = RecvRTSPServerMsg(&g_stRTSPClientConnInfo, &iError);
+        if (iRet != 0 && iError != 0)
+        {
+            GosLog(LOG_INFO, "recv rtsp server msg %d, err code %d", iRet, iError);
+        }
+        if (iError == 0&& iRet != 0)
+        {
+            GosLog(LOG_DETAIL, "recv rtsp server msg %d, err code %d", iRet, iError);
+        }  
+
+        if (iRet < 0 || iError < 0)
+        {
+            CloseApp();
+        }
+        if (iRet == 0 && iError == 0)
+        {
+            GosLog(LOG_DETAIL, "recv rtsp server msg %d", iRet);
+           
+            gos_sleep_1ms(1000);
+            
+            GosLog(LOG_INFO, "close local rtsp client socket %u", g_stRTSPClientConnInfo.stLocalSocket);
+            FD_CLR(g_stRTSPClientConnInfo.stLocalSocket, &g_fdsAll);
+            CLOSE_SOCKET(g_stRTSPClientConnInfo.stLocalSocket);
+            g_ulConnectRTSPServerSuccTime = 0;
+
+            FD_CLR(g_stRTSPClientConnInfo.stClientSocket, &g_fdsAll);
+            CLOSE_SOCKET(g_stRTSPClientConnInfo.stClientSocket);
+            ulRTSPClientCloseTime = gos_get_sys_uptime();
+        }
+
+    }
+
+
     //本地服务器接收客户端消息
    
-    ulTotalFdCount = dtp_get_fd_num(&fds);
+    ulTotalFdCount = 1;
 
     for (INT i = 0; i < ulTotalFdCount; i++)
     {
-        printf("ssssss\n");
+        //printf("ssssss\n");
         iError = 0;
         bNeedClose = FALSE;
 
-         stClientSocket = gos_get_socket_by_fds(&fds, i);
+        stClientSocket = gos_get_socket_by_fds(&fds, i);
         if (stClientSocket == INVALID_SOCKET|| stClientSocket == 0)
         {
             break;
         }
        // ulFdCount++;
+        
         iRecvLen = RecvRTSPClientMsg(stClientSocket, &iError);
         if (iRecvLen != 0 || iError != 0)
         {
@@ -243,64 +302,8 @@ INT32 RecvMsg()
             CLOSE_SOCKET(stClientSocket);
         }
     }
-        
-    //stLocalRTPSocket接收RTP数据,发给客户端
-    if (g_stRTSPClientConnInfo.stLocalRTPSocket != INVALID_SOCKET &&
-        FD_ISSET(g_stRTSPClientConnInfo.stLocalRTPSocket, &fds))
-    {
-        iRet = RecvRTPMsg(&g_stRTSPClientConnInfo);
-        //goto again;
-    }
-
-     //接收RTCP数据,发给客户端
-    if (FD_ISSET(g_stRTSPClientConnInfo.stLocalRTCPSocket, &fds))
-    {
-        iRet = RecvRTCPMsg(&g_stRTSPClientConnInfo);
-       
-
-        //goto again;
-    }
-     
-     //接收RTSP服务端数据发给客户端
-    if (g_stRTSPClientConnInfo.stLocalSocket != INVALID_SOCKET &&
-        FD_ISSET(g_stRTSPClientConnInfo.stLocalSocket, &fds))
-    {
-        iRet = RecvRTSPServerMsg(&g_stRTSPClientConnInfo, &iError);
-        if (iRet != 0 && iError != 0)
-        {
-            GosLog(LOG_INFO, "recv rtsp server msg %d, err code %d", iRet, iError);
-        }
-        else
-        {
-            if (iError == 0)
-            {
-                GosLog(LOG_DETAIL, "recv rtsp server msg %d", iRet);
-            }
-            else
-            {
-                GosLog(LOG_DETAIL, "recv rtsp server msg %d, err code %d", iRet, iError);
-            }
-        }
-        if (iRet < 0 || iError < 0)
-        {
-            CloseApp();
-        }
-        if (iRet == 0 && iError == 0)
-        {
-            gos_sleep_1ms(1000);
-
-            GosLog(LOG_INFO, "close local rtsp client socket %u", g_stRTSPClientConnInfo.stLocalSocket);
-            FD_CLR(g_stRTSPClientConnInfo.stLocalSocket, &g_fdsAll);
-            CLOSE_SOCKET(g_stRTSPClientConnInfo.stLocalSocket);
-            g_ulConnectRTSPServerSuccTime = 0;
-
-            FD_CLR(g_stRTSPClientConnInfo.stClientSocket, &g_fdsAll);
-            CLOSE_SOCKET(g_stRTSPClientConnInfo.stClientSocket);
-            ulRTSPClientCloseTime = gos_get_sys_uptime();
-        }
     goto again;
-    }
-    goto again;
+
 }
 
 //rtsp://admin:gbcom.123@192.0.1.203:554/h264/ch1/main/av_stream

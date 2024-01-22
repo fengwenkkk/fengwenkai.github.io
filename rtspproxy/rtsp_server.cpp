@@ -362,7 +362,7 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
 
     if (!pstConnInfo)
     {
-        *piErrCode = 0;// SECONNRESET;
+        *piErrCode = 0;
         return 0;
     }
 
@@ -375,9 +375,6 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
 
     if (ulByteRecv == 0)
     {
-
-
-
         *piErrCode = 0;
         return 0;
     }
@@ -394,7 +391,7 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
     }
     else if (iRecvSize == 0)
     {
-        GosLog(LOG_ERROR, "Recv client(%u) failed by connect closed", stSocket);
+        GosLog(LOG_ERROR, "Recv client (%u) failed by connect closed", stSocket);
 
         return 0;
     }
@@ -424,7 +421,6 @@ INT32 RecvRTSPClientMsg(SOCKET stSocket, INT32* piErrCode)
         }
 
         HandleClientRTSPMsg(pstConnInfo, szRTSPMsg);
-
 
         free(szRTSPMsg);
     }
