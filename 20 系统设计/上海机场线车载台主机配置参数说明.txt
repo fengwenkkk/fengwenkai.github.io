@@ -1,0 +1,35 @@
+cfg_cir_train_type : 车载台类型，可以是1位或2位整数
+cfg_user_id : 车载台集群号码
+cfg_tc_id : 车头TC为1，车尾为2
+cfg_train_unit_id : 车载台车体号
+network.lan.ipaddr  : 车载台主机地址
+#network.lan.gateway : 车载台主机网关
+cfg_dms_addr ： EOAS/DMS TCP服务端地址（缺省端口10010）
+cfg_dms_file_addr ：EOAS接收文件TCP服务端地址（缺省端口10020）
+cfg_dma_port : DMA TCP客户端端口，缺省10011
+cfg_dma_file_port: DMA传输文件的TCP客户端端口，缺省10011
+cfg_app_ip : APP地址
+cfg_dis_ip : DIS地址，端口缺省51000
+cfg_sa_recv_dis_port：接收DIS数据端口，端口缺省40002
+cfg_omc_ip : OMC地址
+cfg_pis_ip : PIS地址
+cfg_pa_ip  : PA地址
+cfg_lis_addr1 : 应用接口服务器地址1
+cfg_lis_addr2 : 应用接口服务器地址2
+
+cfg_connect_sig_addr1 : 车载台连接车载信号ATO/ATP设备地址1的本地地址
+cfg_connect_sig_addr2 : 车载台连接车载信号ATO/ATP设备地址2的本地地址
+cfg_connect_sig_mask  : 以上本地地址掩码
+
+cfg_app_listen_port : APP监听DBA的UDP消息端口，缺省64001
+cfg_dba_listen_port : DBA监听APP的UDP消息端口，缺省64002
+cfg_app_heartbeat_time : DBA与APP的心跳时间间隔，缺省30秒
+cfg_dba_recv_lis_port : DBA接收LIS（LTE应用接口服务器）UDP端口，缺省40000
+cfg_lis_recv_dba_port : LIS接收DBA的UDP端口，缺省40001
+cfg_check_sig_timeout : DBA检测信号ATO/ATP设备是否正常的最大时长，缺省15秒，超时未收到消息判断设备异常，用于APP界面显示ATO/ATP设备状态
+cfg_ping_ctc_time : DBA ping检测LIS是否在线的最大失败次数，缺省10次，用于APP界面显示LIS状态
+
+
+cfg_sa_recv_dis_port : SA 接收DIS消息的UDP端口，缺省40002
+cfg_dis_heartbeat_time ：与DIS心跳检测时间间隔数，缺省5秒
+cfg_pis_heartbeat_time ：与PIS心跳检测时间间隔，缺省3秒
