@@ -1,0 +1,45 @@
+# Makefile
+
+TOP_DIR=$(PWD)
+
+export TOP_DIR
+
+include $(TOP_DIR)/Rules.mak
+
+EXE=$(TOP_DIR)/bin/dms
+
+all: subdirs $(EXE)
+
+INC_FLAG = $(CC_PUB_INC) \
+		-I./ds_public 
+#-I ./tool/DMSSium/DMSSium
+
+EXTRA_CFLAGS := $(INC_FLAG)
+EXTRA_LDFLAGS :=
+
+DIRS = gos gplat dtp tool/DMSSium
+
+DS_LIBS = $(TOP_DIR)/lib/gplat.a \
+		$(TOP_DIR)/lib/dtp.a \
+		$(TOP_DIR)/lib/gos.a \
+		$(TOP_DIR)/lib/dms.a \
+		$(TOP_DIR)/tool/DMSSium/DMSSium.cpp
+
+LIBS += $(DS_LIBS)
+
+SRCS := tool/DMSSium/DMSSium.cpp
+
+CPPOBJS=$(patsubst %.cpp,%.o,$(SRCS))
+
+$(EXE) : $(COBJS) $(CPPOBJS) $(LIBS)
+	$(GCC) $(INC_FLAG) $(LDFLAGS) $(CPPOBJS) -Xlinker "-(" $(LIBS) -Xlinker "-)" -o $@
+
+ifeq ($(DODEBUG),)
+	$(STRIPTOOL) $(STRIP_FLAGS) $@
+endif
+
+clean-extra :
+	- $(RM) $(LIBNAME) $(EXE) $(EXE).map
+	- $(RM) *.o $(DS_LIBS)
+
+include $(TOP_DIR)/Makerules
